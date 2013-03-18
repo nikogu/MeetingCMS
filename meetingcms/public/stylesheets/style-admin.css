@@ -1,0 +1,365 @@
+@import "./bootstrap.min.css";
+
+@import "./bootstrap-responsive.min.css";
+
+@import "./font-awesome.min.css";
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clear:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoom: 1;
+}
+::-moz-selection {
+  background-color: #e95e3f;
+  color: #ffffff;
+}
+::-webkit-selection {
+  background-color: #e95e3f;
+  color: #ffffff;
+}
+::selection {
+  background-color: #e95e3f;
+  color: #ffffff;
+}
+/** 0 - variable **/
+/* default */
+.upcase {
+  text-transform: uppercase;
+}
+/* color */
+/* background */
+/* border */
+/* animate */
+@-webkit-keyframes markBlink {
+  0% {
+    color: #e95e3f;
+  }
+  100% {
+    color: #e32332;
+  }
+}
+@keyframes markBlink {
+  0% {
+    color: #e95e3f;
+  }
+  100% {
+    color: #e32332;
+  }
+}
+@-webkit-keyframes funRotate {
+  0% {
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  100% {
+    -webkit-transform: rotate(10deg);
+    -moz-transform: rotate(10deg);
+    -o-transform: rotate(10deg);
+    -ms-transform: rotate(10deg);
+    transform: rotate(10deg);
+  }
+}
+@keyframes funRotate {
+  0% {
+    -webkit-transform: rotate(-10deg);
+    -moz-transform: rotate(-10deg);
+    -o-transform: rotate(-10deg);
+    -ms-transform: rotate(-10deg);
+    transform: rotate(-10deg);
+  }
+  100% {
+    -webkit-transform: rotate(10deg);
+    -moz-transform: rotate(10deg);
+    -o-transform: rotate(10deg);
+    -ms-transform: rotate(10deg);
+    transform: rotate(10deg);
+  }
+}
+@-webkit-keyframes requestBlink {
+  0% {
+    color: #4488dd;
+  }
+  50% {
+    color: #e32332;
+  }
+  100% {
+    color: #e95e3f;
+  }
+}
+@keyframes requestBlink {
+  0% {
+    color: #4488dd;
+  }
+  50% {
+    color: #e32332;
+  }
+  100% {
+    color: #e95e3f;
+  }
+}
+/* color */
+.green-color {
+  color: #8dc03d;
+}
+.red-color {
+  color: #E32332;
+}
+/*
+* admin page style
+*/
+#wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+/* 侧边�?*/
+#sidebar {
+  background-color: #f8f8f8;
+  border-right: 1px solid #cccccc;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 180px;
+}
+#logo {
+  color: #1e1e1e;
+  display: block;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+#logo span {
+  padding-right: 10px;
+}
+#logo:hover {
+  text-decoration: none;
+}
+/* 菜单 */
+#menu .top-nav {
+  border-top: 1px solid #cccccc;
+  margin: 0;
+}
+#menu .top-nav .item {
+  display: block;
+}
+#menu .top-nav .item a {
+  border: none;
+  border-bottom: 1px solid #cccccc;
+  border-radius: 0;
+  display: block;
+  font-size: 13px;
+  padding: 10px;
+  text-align: center;
+}
+#menu .top-nav .item a:hover {
+  text-align: none;
+}
+#menu .children {
+  margin: 0;
+}
+#menu .children a {
+  background: #fffff0;
+}
+#menu .children a:hover {
+  background: #fffff5;
+}
+/* 内容样式 */
+#content {
+  overflow: scroll;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 180px;
+  right: 0;
+}
+/* 顶部选项 */
+#options {
+  margin-bottom: 20px;
+}
+#options .modal form .input-prepend {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+#options .modal .disabled {
+  background: #999999;
+  cursor: normal;
+}
+#options .modal .wrap-calendar {
+  margin: 10px auto;
+}
+#data-content .caption-title {
+  margin-top: 200px;
+  font-size: 50px;
+  text-align: center;
+}
+/* 修改密码�?*/
+#change-ps-form .input-prepend {
+  display: block;
+  text-align: center;
+}
+#change-ps-title span {
+  color: #e32332;
+  padding: 0 5px;
+}
+/* 数据列表 */
+#data-list tbody .btn {
+  font-size: 12px;
+  float: right;
+}
+#data-list tbody tr:hover td {
+  background-color: #fffff0;
+}
+#data-list tbody .active td {
+  background-color: #fffff0;
+}
+#data-list tbody td {
+  vertical-align: middle;
+}
+#data-list tbody td p {
+  display: inline;
+}
+#data-list tbody td span,
+#data-list tbody td a {
+  color: #333333;
+  cursor: pointer;
+  float: right;
+}
+#data-list tbody td span:hover,
+#data-list tbody td a:hover {
+  text-decoration: none;
+}
+#data-list td:first-child {
+  text-align: center;
+}
+#data-list .item-choose,
+#data-list .option-chooseAll {
+  display: inline-block;
+  margin: 0;
+  margin-left: 10px;
+}
+/* 数据分页 */
+.data-pagenav {
+  text-align: center;
+}
+/* 信息提示�?*/
+#box-alert {
+  background-color: #fffff0;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: none;
+  padding: 10px 0;
+  margin-left: -100px;
+  font-weight: bold;
+  position: fixed;
+  left: 50%;
+  top: 200px;
+  width: 200px;
+  text-align: center;
+  z-index: 9999;
+}
+/* 会议模板-添加用户列表 */
+#edit-meeting-users:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#edit-meeting-users .left {
+  float: left;
+  width: 240px;
+}
+#edit-meeting-users .right {
+  float: right;
+  width: 260px;
+}
+#edit-meeting-users .users-list,
+#edit-meeting-users .search-list {
+  margin: 0;
+}
+#edit-meeting-users .users-list .item,
+#edit-meeting-users .search-list .item {
+  display: block;
+  position: relative;
+  width: 230px;
+}
+#edit-meeting-users .users-list .item .value,
+#edit-meeting-users .search-list .item .value {
+  display: inline-block;
+  font-size: 12px;
+  padding: 0 20px 0 0;
+  margin: 0;
+  line-height: 20px;
+}
+#edit-meeting-users .users-list .item span,
+#edit-meeting-users .search-list .item span {
+  color: #e32332;
+  cursor: pointer;
+  display: block;
+  position: absolute;
+  right: 0px;
+  top: 5px;
+}
+#edit-meeting-users .users-list {
+  background-color: #fffff0;
+  border: 1px dashed #eeeeee;
+  padding: 4px;
+}
+#edit-meeting-users .search-list {
+  padding-left: 5px;
+}
+#edit-meeting-users .search-list .item span {
+  color: #8dc03d;
+}

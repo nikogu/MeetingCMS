@@ -1,0 +1,177 @@
+<!-- Meeting Tpl -->
+
+	<!-- Meeting template data single -->
+	<script id="meeting-one-template" type="text/template">
+		<tr>
+			<td><input class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></td>
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
+
+			<td>
+				<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="leader" data-updateValue="">{{leader}}</p>
+				<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="leaders" data-flag="{{_id}}" class="icon-cog update-users" title="修改信息"></a>
+			</td>
+			<td>
+				<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="users" data-updateValue="">{{users}}</p>
+				<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="users" data-flag="{{_id}}" class="icon-cog update-users" title="修改信息"></a>
+			</td>
+
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p><span class="icon-pencil option-update"></span></td>
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p><span class="icon-pencil option-update"></span></td>
+			<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdelete" class="btn btn-danger option-delete value" data-flag="{{_id}}">删除</a></td>
+		</tr>
+	</script>
+
+	<!-- Meeting template data list -->
+	<script id="meeting-data-template" type="text/template">
+		<link rel="stylesheet" href="/stylesheets/module/calendar.css" />
+		<!-- 选项栏 -->
+		<nav id="options">
+  			<a href="#addMeetingBox" class="btn btn-success" role="button" data-toggle="modal">添加会议</a>
+  			<a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdeleteall" class="btn btn-danger option-deleteAll" data-deleteItem="item-choose">删除会议</a>
+
+  			<!-- 添加会议弹出框 -->
+  			<div id="addMeetingBox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  				<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    				<h3 id="box-title">添加会议</h3>
+  				</div>
+  				<div class="modal-body">
+    				<form id="addMeetingForm" action="/meetingadd" type="post">
+    					<div class="input-prepend">
+							<span class="add-on"><b class="icon-suitcase"></b></span>
+  							<input class="span3" type="text" name="name" placeholder="会议名称">
+						</div>
+    					<div class="input-prepend">
+							<span class="add-on"><b class="icon-map-marker"></b></span>
+  							<input class="span3" type="text" name="address" placeholder="会议地点">
+						</div>
+    					<div class="input-prepend">
+							<span class="add-on"><b class="icon-time"></b></span>
+  							<input id="input-date-begin" class="span3" type="text" name="date_b" placeholder="开始时间（下方选择）" disabled="true">
+  							<div id="wrap-date-begin" class="wrap-calendar"></div>
+						</div>
+    					<div class="input-prepend">
+							<span class="add-on"><b class="icon-time"></b></span>
+  							<input id="input-date-end" class="span3" type="text" name="date_e" placeholder="结束日期（下方选择）" disabled="true">
+  							<div id="wrap-date-end" class="wrap-calendar"></div>
+						</div>
+    					<div class="input-prepend">
+							<span class="add-on"><b class="icon-info-sign"></b></span>
+  							<input class="span3" type="text" name="info" placeholder="会议信息">
+						</div>
+    				</form>
+  				</div>
+  				<div class="modal-footer">
+    				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    				<button class="btn btn-primary option-add" data-form="addMeetingForm" data-tpl="meeting-one-template">添加</button>
+  				</div>
+  			</div>
+		</nav>
+
+		<!--分页导航-->
+		<section class="data-pagenav pagination">
+			<ul>
+				<li data-index="0"><a class="item" href="/meetinglist" data-tpl="meeting-one-template" data-begin="0" data-index="0" data-num="15">&lt;&lt;</a></li>
+			{{#each data.sum}}
+				<li data-index="{{index}}"><a class="item" href="/meetinglist" data-tpl="meeting-one-template" data-begin="{{begin}}" data-index="{{index}}" data-num="{{num}}">{{index+1}}</a></li>
+			{{/each}}
+				<li data-index="{{data.max}}"><a class="item" href="/meetinglist" data-tpl="meeting-one-template" data-begin="{{data.last}}" data-index="{{data.max}}" data-num="15">&gt;&gt;</a></li>
+			</ul>
+		</section>
+
+		<!--数据列表-->
+		<table id="data-list" class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>全选<input class="option-chooseAll" type="checkbox" name="all" data-chooseItem="item-choose"></td>
+					<td>会议名称</td>
+					<td>信息</td>
+					<td>会议申办人</td>
+					<td>会议成员</td>
+					<td>会议地点</td>
+					<td>起始日期</td>
+					<td>结束日期</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each data.list}}
+				<tr>
+					<td><input class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
+
+					<td>
+						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="leader" data-updateValue="">{{leader}}</p>
+						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="leaders" data-flag="{{_id}}" class="icon-cog update-users" title="修改信息"></a>
+					</td>
+					<td>
+						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="users" data-updateValue="">{{users}}</p>
+						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="users" data-flag="{{_id}}" class="icon-cog update-users" title="修改信息"></a>
+					</td>
+
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p><span class="icon-pencil option-update"></span></td>
+					<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdelete" class="btn btn-danger option-delete value" data-flag="{{_id}}">删除</a></td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+
+		<!--底部分页-->
+		<section class="data-pagenav pagination">
+			<ul>
+				<li data-index="0"><a class="item" href="/meetinglist" data-tpl="meeting-one-template" data-begin="0" data-index="0" data-num="15">&lt;&lt;</a></li>
+			{{#each data.sum}}
+				<li data-index="{{index}}"><a class="item" href="/meetinglist" data-tpl="meeting-one-template" data-begin="{{begin}}" data-index="{{index}}" data-num="{{num}}">{{index+1}}</a></li>
+			{{/each}}
+				<li data-index="{{data.max}}"><a class="item" href="/meetinglist" data-tpl="meeting-one-template" data-begin="{{data.last}}" data-index="{{data.max}}" data-num="15">&gt;&gt;</a></li>
+			</ul>
+		</section>
+
+		<!-- 添加用户弹出框 -->
+  		<div id="edit-meeting-users" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="editMeetingUsers" aria-hidden="true">
+  			<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    			<h3 id="box-title">添加会议</h3>
+  			</div>
+  			<div class="modal-body">
+  				<div class="left">
+  					<ul class="users-list"></ul>
+  				</div>
+  				<div class="right">
+					<form id="search-user-form" class="form-search">
+	 					<div class="input-append">
+    						<input id="search-user" name="s" type="text" class="span2 search-query" placeholder="通过搜索来添加人员">
+    						<button id="search-user-btn" type="submit" class="btn">Search</button>
+	  					</div>
+   					</form>
+					<ul class="search-list">
+					</ul>
+   				</div>
+  			</div>
+  			<div class="modal-footer">
+    			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+  			</div>
+  		</div>
+	</script>
+	<script id="user-list-tpl" type="text/template">
+		<li class="item">
+  			<p class="value">{{name}}-{{email}}</p>
+  			<span data-flag="{{email}}" data-userName="{{name}}" class="icon-minus-sign operate-del-user"></span>
+  		</li>
+	</script>
+	<script id="search-user-list-tpl" type="text/template">
+		{{#each data}}	
+		<li class="item">
+  			<p class="value">{{name}} - {{email}}</p>
+  			<span data-flag="{{email}}" data-userName="{{name}}" class="icon-plus-sign-alt operate-add-user"></span>
+  		</li>
+		{{/each}}	
+	</script>
+
+
+

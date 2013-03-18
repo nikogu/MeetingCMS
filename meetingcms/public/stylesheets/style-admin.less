@@ -1,0 +1,460 @@
+@import "./bootstrap.min.css";
+@import "./bootstrap-responsive.min.css";
+@import "./font-awesome.min.css";
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.clear:after {
+    clear: both;
+    content: '.';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    *zoom: 1;
+}
+.clear(){
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        visibility: hidden;
+        height: 0;
+        width: 0;
+        *zoon: 1;
+    }
+}
+::-moz-selection { 
+    background-color: @orange; 
+    color:#ffffff; 
+} 
+::-webkit-selection { 
+    background-color: @orange; 
+    color:#ffffff; 
+}
+::selection { 
+    background-color: @orange; 
+    color:#ffffff; 
+}
+
+/** 0 - variable **/
+/* default */
+.under(){
+    text-decoration: underline;
+}
+.transition(@arg){
+    -webkit-transition: @arg .5s ease;
+    -moz-transition: @arg .5s ease;
+    -o-transition: @arg .5s ease;
+    -ms-transition: @arg .5s ease;
+    transition: @arg .5s ease;
+}
+.no-transition(){
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
+.rotate(@degree){
+    -webkit-transform: rotate(@degree);
+    -moz-transform: rotate(@degree);
+    -o-transform: rotate(@degree);
+    -ms-transform: rotate(@degree);
+    transform: rotate(@degree);
+}
+.skew(@x, @y) {
+    -webkit-transform: skew(@x, @y);
+    -moz-transform: skew(@x, @y);
+    -o-transform: skew(@x, @y);
+    -ms-transform: skew(@x, @y);
+    transform: skew(@x, @y);    
+}
+.line-gradual(@form, @end){
+    background-image: -moz-linear-gradient(bottom, @end, @form);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(@form),to(@end));
+    background-image: -ms-linear-gradient(to bottom, @form, @end);
+    background-image: linear-gradient(to bottom, @form, @end);
+}
+.upcase {
+    text-transform: uppercase;
+}
+.min-height(@height) {
+    min-height: @height;
+    *height: @height;
+    *overflow: visible;
+    *zoom: 1;
+}
+
+/* color */
+@blue: #4488DD;
+@red: #E32332;
+@yellow: #FFD62C;
+@pink: #CE0058;
+@green: #8dc03d;
+@orange: #E95E3F;
+
+/* background */
+.bg(@bg-color) {
+    background-color: @bg-color;
+}
+.filter(@num){
+    filter:alpha(opacity=@num);
+}
+
+/* border */
+.border(@pixel, @color) {
+     border: @pixel solid @color;
+}
+.border-top(@pixel, @color) {
+    border-top: @pixel solid @color;
+}
+.border-bottom(@pixel, @color) {
+    border-bottom: @pixel solid @color;
+}
+.border-left(@pixel, @color) {
+    border-left: @pixel solid @color;
+}
+.border-right(@pixel, @color) {
+    border-right: @pixel solid @color;
+}
+
+/* animate */
+@-webkit-keyframes markBlink {
+    0% {
+        color: @orange;
+    } 
+    100% {
+        color: @red;
+    }
+}
+@keyframes markBlink {
+    0% {
+        color: @orange;
+    } 
+    100% {
+        color: @red;
+    }
+}
+
+@-webkit-keyframes funRotate {
+    0% {
+        .rotate(-10deg);
+    } 
+    100% {
+        .rotate(10deg);
+    }
+}
+@keyframes funRotate {
+    0% {
+        .rotate(-10deg);
+    } 
+    100% {
+        .rotate(10deg);
+    }
+}
+
+@-webkit-keyframes requestBlink {
+    0% {
+        color: @blue;
+    } 
+    50% {
+        color: @red;
+    }
+    100% {
+        color: @orange;
+    }
+}
+@keyframes requestBlink {
+    0% {
+        color: @blue;
+    } 
+    50% {
+        color: @red;
+    }
+    100% {
+        color: @orange;
+    }
+}
+
+
+/* color */
+.green-color {
+	color: #8dc03d;
+}
+.red-color {
+	color: #E32332;
+}
+
+
+/*
+* admin page style
+*/
+#wrapper {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	left: 0;
+}
+
+/* 侧边栏 */
+#sidebar {
+	background-color: #f8f8f8;
+	border-right: 1px solid #cccccc;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	width: 180px;
+}
+#logo {
+	color: #1e1e1e;
+	display: block;	
+	padding-top: 20px;
+	padding-bottom: 20px;
+	text-align: center;
+	span {
+		padding-right: 10px;
+	}
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+/* 菜单 */
+#menu {
+	.top-nav {
+		border-top: 1px solid #cccccc;
+		margin: 0;
+		.item {
+			display: block;
+
+			a {
+				border: none;
+				border-bottom: 1px solid #cccccc;
+				border-radius: 0;
+				display: block;
+				font-size: 13px;
+				padding: 10px;
+				text-align: center;
+				&:hover {
+					text-align: none;
+				}
+			}
+		}
+	}
+	.children {
+		margin: 0;
+		a {
+			background: #fffff0;
+			&:hover {
+				background: #fffff5;
+			}
+		}
+	}
+}
+
+/* 内容样式 */
+#content {
+    overflow: scroll;
+	padding: 20px;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 180px;
+	right: 0;
+}
+
+/* 顶部选项 */
+#options {
+	margin-bottom: 20px;
+
+	.modal {
+		form {
+			.input-prepend {
+				display: block;
+				margin-bottom: 10px;
+				text-align: center;
+			}
+		}
+		.disabled {
+			background: #999999;
+			cursor: normal;
+		}
+        .wrap-calendar {
+            margin: 10px auto;
+        }
+	}
+}
+
+#data-content {
+    .caption-title {
+        margin-top: 200px;
+        font-size: 50px;
+        text-align: center;   
+    }
+}
+
+/* 修改密码框 */
+#change-ps-form {
+    .input-prepend {
+        display: block;
+        text-align: center;
+    }
+}
+#change-ps-title {
+    span {
+        color: @red;
+        padding: 0 5px;
+    }
+}
+
+/* 数据列表 */
+#data-list {
+	tbody {
+		.btn {
+			font-size: 12px;
+			float: right;
+		}	
+        tr {
+            &:hover td {
+                background-color: #fffff0;
+            }
+        }
+        .active td {
+            background-color: #fffff0; 
+        }
+        td {
+            vertical-align: middle;
+            p {
+                display: inline;
+            }
+            span, a {
+                color: #333333;
+                cursor: pointer;
+                float: right;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+	}
+    td:first-child {
+        text-align: center;
+    }
+    .item-choose, .option-chooseAll {
+        display: inline-block;
+        margin: 0;
+        margin-left: 10px;
+    }
+    .update-input {
+         
+    }
+}
+
+/* 数据分页 */
+.data-pagenav {
+    text-align: center;
+    ul {
+        li {
+            a {
+
+            }
+        }
+    }
+}
+
+/* 信息提示框 */
+#box-alert {
+	background-color: #fffff0;
+	border: 1px solid #eeeeee;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+	display: none;
+	padding: 10px 0;
+    margin-left: -100px;
+    font-weight: bold;
+	position: fixed;
+	left: 50%;
+	top: 200px;
+	width: 200px;
+	text-align: center;
+	z-index: 9999;
+}
+
+/* 会议模板-添加用户列表 */
+#edit-meeting-users {
+    .clear();
+
+    .left {
+        float: left;
+        width: 240px;
+    }
+    .right {
+        float: right;
+        width: 260px;
+    }
+    .users-list, .search-list {
+        margin: 0;
+
+        .item {
+            display: block;
+            position: relative;
+            width: 230px;
+
+            .value {
+                display: inline-block;
+                font-size: 12px;
+                padding: 0 20px 0 0;
+                margin: 0;
+                line-height: 20px;
+            }
+            span {
+                color: @red;
+                cursor: pointer;
+                display: block;
+                position: absolute;
+                right: 0px;
+                top: 5px;
+            }
+        }
+    }
+    .users-list {
+        background-color: #fffff0;
+        border: 1px dashed #eeeeee;
+        padding: 4px;
+    }
+    .search-list {
+        padding-left: 5px;
+        
+        .item {
+            span {
+                color: @green;
+            } 
+        }
+    }
+}

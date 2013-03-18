@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+<script src="/kissy/build/seed.js"></script>
+<!--
+core
+-->
+
+<script src="../../../src/editor/core/base.js"></script>
+<script src="../../../src/editor/core/dom.js"></script>
+<script src="../../../src/editor/core/domIterator.js"></script>
+<script src="../../../src/editor/core/elementPath.js"></script>
+<script src="../../../src/editor/core/focusManager.js"></script>
+<script src="../../../src/editor/core/range.js"></script>
+<script src="../../../src/editor/core/selection.js"></script>
+<script src="../../../src/editor/core/styles.js"></script>
+<script src="../../../src/editor/core/utils.js"></script>
+<script src="../../../src/editor/core/walker.js"></script>
+<script src="../../../src/editor/core/zIndexManager.js"></script>
+<script src="../../../src/editor/core/editor.js"></script>
+<!--
+core plugins
+-->
+<script src="../../../src/editor/core/clipboard.js"></script>
+<script src="../../../src/editor/core/enterKey.js"></script>
+<script src="../../../src/editor/core/htmlDataProcessor.js"></script>
+<script src="../../../src/editor/core/selectionFix.js"></script>
+<!--
+other plugins
+-->
+</head>
+<body>
+<span style="font-size:24px;">
+    24px
+</span>
+<script>
+    KISSY.use('editor',function (S,Editor) {
+        var fontSize_style = {
+            element:'span',
+            styles:{ 'font-size':'#(size)' },
+            overrides:[
+                { element:'font', attributes:{ 'size':null } }
+            ]
+        };
+
+        var removeSize = new Editor.Style(fontSize_style, {
+            size:"24px"
+        });
+
+        var re = removeSize.checkElementRemovable(S.one("span"), true);
+        alert(re);
+    });
+</script>
+</body>
+</html>

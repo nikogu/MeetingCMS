@@ -1,0 +1,11 @@
+<project name="cookie.build" default="build" basedir=".">
+    <description>Cookie Build File</description>
+
+    <property name="component.name" value="cookie"/>
+
+    <import file="../../tools/build-xml/common.xml"/>
+
+    <target name="build" depends="common-build.build">
+    </target>
+</project>
+

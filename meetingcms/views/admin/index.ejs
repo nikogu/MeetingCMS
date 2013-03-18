@@ -1,0 +1,39 @@
+
+<!-- admin page -->
+
+<section id="wrapper" class="container-fluid">
+
+	<aside id="sidebar">
+		<a id="logo" href="#"><span class="icon-cogs"></span>会议后台管理系统</a>
+
+		<nav id="menu">
+			<ul class="top-nav">
+				<li class="item">
+					<a class="btn" href="./userlist" data-tpl="user-data-template">用户管理</a>
+					<ul class="children">
+						<li><a class="btn" href="#">测试1</a></li>
+						<li><a class="btn" href="#">测试2</a></li>
+					</ul>
+				</li>
+				<li class="item"><a class="btn" href="./meetinglist" data-tpl="meeting-data-template">会议管理</a></li>
+				<li class="item"><a class="btn" href="#">稿件管理</a></li>
+				<li class="item"><a class="btn" href="#">网站设置</a></li>
+			</ul>
+		</nav>
+
+	</aside> <!--Sidebar content-->
+
+	<section id="content">
+		<section id="data-content"> 
+			<h1 class="caption-title">学术会议管理系统</h1>
+		</section>
+		<section id="hidden-content">
+			<%- partial('adminGlobal', items) %>
+		</section>
+		<div id="box-alert"> </div>
+	</section> <!--Body content-->
+
+</section> <!-- wrapper -->
+
+<%- partial('adminUser', items) %>
+<%- partial('adminMeeting', items) %>

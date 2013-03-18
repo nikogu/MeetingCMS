@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<script src="/kissy/build/seed.js"></script>
+<!--
+core
+-->
+
+<script src="../../../src/editor/core/base.js"></script>
+<script src="../../../src/editor/core/dom.js"></script>
+<script src="../../../src/editor/core/domIterator.js"></script>
+<script src="../../../src/editor/core/elementPath.js"></script>
+<script src="../../../src/editor/core/focusManager.js"></script>
+<script src="../../../src/editor/core/range.js"></script>
+<script src="../../../src/editor/core/selection.js"></script>
+<script src="../../../src/editor/core/styles.js"></script>
+<script src="../../../src/editor/core/utils.js"></script>
+<script src="../../../src/editor/core/walker.js"></script>
+<script src="../../../src/editor/core/zIndexManager.js"></script>
+<script src="../../../src/editor/core/editor.js"></script>
+<!--
+core plugins
+-->
+<script src="../../../src/editor/core/clipboard.js"></script>
+<script src="../../../src/editor/core/enterKey.js"></script>
+<script src="../../../src/editor/core/htmlDataProcessor.js"></script>
+<script src="../../../src/editor/core/selectionFix.js"></script>
+<!--
+other plugins
+-->
+</head>
+<body>
+<div id="d1">
+    <div id="d2">
+
+        <div id="d3">
+            <span id="s2">s2</span>
+            <span id="s3">s3</span>
+        </div>
+
+        <span id="s1">s1</span>
+    </div>
+    <span id="s0">s0</span>
+</div>
+<script>
+
+        S.use("editor", function () {
+            var DOM = S.DOM;
+            var s2 = DOM.get("#s2");
+            var d2 = DOM.get("#d2");
+            DOM._4e_breakParent(s2, d2);
+        });
+
+</script>
+</body>
+</html>

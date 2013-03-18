@@ -1,0 +1,125 @@
+	<!-- template data single -->
+	<script id="user-one-template" type="text/template">
+		<tr>
+			<td><input class="item-choose value" type="checkbox" name="users[]" data-flag="{{email}}"></td>
+			<td><p class="value" data-isFlag="true" data-flag="{{email}}" data-url="/userupdate" data-updateKey="email" data-updateValue="">{{email}}</p><span class="icon-pencil option-update"></span></td>
+			<td><p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
+			<td><p class="value" data-flag="{{email}}">{{password}}</p><span data-toggle="modal" data-target="#change-ps" class="icon-pencil option-changeps"></span></td>
+			<td><p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="meetinginfo" data-updateValue="">{{meetinginfo}}</p><span class="icon-pencil option-update"></span></td>
+			<td>{{toDate date}}</td>
+			<td><a href="/userdelete" class="btn btn-danger option-delete value" data-flag="{{email}}">删除</a></td>
+		</tr>
+	</script>
+
+	<!-- template data list -->
+	<script id="user-data-template" type="text/template">
+		<!-- 选项栏 -->
+		<nav id="options">
+  			<a href="#addUserBox" class="btn btn-success" role="button" data-toggle="modal">添加用户</a>
+  			<a class="btn btn-danger option-deleteAll" data-deleteUrl="/userdeleteall" data-deleteItem="item-choose">删除用户</a>
+
+  			<!-- 添加用户弹出框 -->
+  			<div id="addUserBox" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  				<div class="modal-header">
+    				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    				<h3 id="box-title">添加用户</h3>
+  				</div>
+  				<div class="modal-body">
+    				<form id="addUserForm" action="/useradd" type="post">
+    					<div class="input-prepend">
+							<span class="add-on"><b class="icon-envelope-alt"></b></span>
+  							<input class="span3" type="text" name="email" placeholder="邮箱">
+						</div>
+						<div class="input-prepend">
+  							<span class="add-on"><b class="icon-user"></b></span>
+  							<input class="span3" type="text" name="username" placeholder="名字">
+						</div>
+						<div class="input-prepend">
+							<span class="add-on"><b class="icon-lock"></b></span>
+  							<input class="span3" type="password" name="password" placeholder="密码">
+						</div>
+    				</form>
+  				</div>
+  				<div class="modal-footer">
+    				<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    				<button class="btn btn-primary option-add" data-form="addUserForm">添加</button>
+  				</div>
+  			</div>
+		</nav>
+
+		<!--密码修改弹窗-->
+		<div id="change-ps" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="change-ps" aria-hidden="true">
+  			<div class="modal-header">
+    			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    			<h3 id="change-ps-title">修改用户<span></span>密码</h3>
+  			</div>
+  			<div class="modal-body">
+  				<form id="change-ps-form" action="/userupdateps" type="post">
+					<div class="input-prepend">
+						<span class="add-on"><b class="icon-unlock"></b></span>
+  						<input id="change-old-ps" class="span3" type="password" name="oldpassword" placeholder="老密码">
+					</div>
+					<div class="input-prepend">
+						<span class="add-on"><b class="icon-lock"></b></span>
+  						<input id="change-old-new" class="span3" type="password" name="newpassword" placeholder="新密码">
+					</div>
+					<input id="change-ps-flag" type="hidden" name="email" value="">
+    			</form>
+  			</div>
+  			<div class="modal-footer">
+    			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+    			<button id="change-ps-sure" class="btn btn-primary">确认</button>
+  			</div>
+		</div>
+
+		<!--分页导航-->
+		<section class="data-pagenav pagination">
+			<ul>
+				<li data-index="0"><a class="item" href="/userlist" data-begin="0" data-index="0" data-num="15">&lt;&lt;</a></li>
+			{{#each data.sum}}
+				<li data-index="{{index}}"><a class="item" href="/userlist" data-begin="{{begin}}" data-index="{{index}}" data-num="{{num}}">{{index+1}}</a></li>
+			{{/each}}
+				<li data-index="{{data.max}}"><a class="item" href="/userlist" data-begin="{{data.last}}" data-index="{{data.max}}" data-num="15">&gt;&gt;</a></li>
+			</ul>
+		</section>
+
+		<!--数据列表-->
+		<table id="data-list" class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td>全选<input class="option-chooseAll" type="checkbox" name="all" data-chooseItem="item-choose"></td>
+					<td>邮箱</td>
+					<td>姓名</td>
+					<td>密码</td>
+					<td>会议信息</td>
+					<td>注册日期</td>
+					<td>删除记录</td>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each data.list}}
+				<tr>
+					<td><input class="item-choose value" type="checkbox" name="users[]" data-flag="{{email}}"></td>
+					<td><p class="value" data-isFlag="true" data-flag="{{email}}" data-url="/userupdate" data-updateKey="email" data-updateValue="">{{email}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{email}}">{{password}}</p><span data-toggle="modal" data-target="#change-ps" class="icon-pencil option-changeps"></span></td>
+					<td><p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="meetinginfo" data-updateValue="">{{meetinginfo}}</p><span class="icon-pencil option-update"></span></td>
+					<td>{{toDate date}}</td>
+					<td><a href="/userdelete" class="btn btn-danger option-delete value" data-flag="{{email}}">删除</a></td>
+				</tr>
+				{{/each}}
+			</tbody>
+		</table>
+
+		<!--底部分页-->
+		<section class="data-pagenav pagination">
+			<ul>
+				<li data-index="0"><a class="item" href="/userlist" data-begin="0" data-index="0" data-num="15">&lt;&lt;</a></li>
+			{{#each data.sum}}
+				<li data-index="{{index}}"><a class="item" href="/userlist" data-begin="{{begin}}" data-index="{{index}}" data-num="{{num}}">{{index+1}}</a></li>
+			{{/each}}
+				<li data-index="{{data.max}}"><a class="item" href="/userlist" data-begin="{{data.last}}" data-index="{{data.max}}" data-num="15">&gt;&gt;</a></li>
+			</ul>
+		</section>
+
+	</script>
