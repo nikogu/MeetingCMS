@@ -331,8 +331,10 @@ table {
 }
 #edit-meeting-users .users-list .item,
 #edit-meeting-users .search-list .item {
+  background-color: #fffff0;
   display: block;
   position: relative;
+  line-height: 30px;
   width: 230px;
 }
 #edit-meeting-users .users-list .item .value,
@@ -353,9 +355,10 @@ table {
   top: 5px;
 }
 #edit-meeting-users .users-list {
-  background-color: #fffff0;
+  background: #fffff0 url(../images/icon-loading.gif) no-repeat center center;
   border: 1px dashed #eeeeee;
   padding: 4px;
+  min-height: 20px;
 }
 #edit-meeting-users .search-list {
   padding-left: 5px;

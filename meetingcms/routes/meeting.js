@@ -101,8 +101,8 @@ exports.updateMeeting = function(req, res) {
 
 }
 
-/* post update meeting's users */
-exports.updateMeetingUsers = function(req, res) {
+/* post add meeting's users */
+exports.addMeetingUsers = function(req, res) {
 	var Meeting = require('../models/meeting');
 
 	var id = req.body.id,
@@ -115,7 +115,7 @@ exports.updateMeetingUsers = function(req, res) {
 	data.email = email;
 	data.role = role;
 
-	Meeting.updateUsers(data, function(err) {
+	Meeting.addUsers(data, function(err) {
 		var result = {
 			'success': false,
 			'info': '',
@@ -128,8 +128,43 @@ exports.updateMeetingUsers = function(req, res) {
 		}
 
 		result.success = true;
-		result.info = '更新会议成功';
-		result.data = {"name" : name, "email": email, "id": id, "role", role};
+		result.info = '添加会议成功';
+		result.data = {"name" : name, "email": email, "id": id, "role": role};
+
+		res.send(result);
+	});
+
+}
+
+/* post delete meeting's users */
+exports.delMeetingUsers = function(req, res) {
+	var Meeting = require('../models/meeting');
+
+	var id = req.body.id,
+		email = req.body.email,
+		role = req.body.role,
+		name = req.body.name;
+
+	var data = {};
+	data.id = id;
+	data.email = email;
+	data.role = role;
+
+	Meeting.delUsers(data, function(err) {
+		var result = {
+			'success': false,
+			'info': '',
+			'data': {}
+		};	
+			
+		if ( err ) {
+			result.success = false;
+			result.info = err;
+		}
+
+		result.success = true;
+		result.info = '删除会议成功';
+		result.data = {"name" : name, "email": email, "id": id, "role": role};
 
 		res.send(result);
 	});

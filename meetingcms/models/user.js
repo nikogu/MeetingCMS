@@ -114,8 +114,32 @@ User.getBy = function(condition, callback) {
 				return callback(err);
 			}
 
-			//查找 name	
+			//查找 用户	
 			collection.find(condition).toArray(function(err, users) {
+				mongodb.close();
+				callback(err, users);
+			});
+		});
+	});
+}
+
+//获取用户通过参数
+User.getUsersBy = function(emails, callback) {
+
+	mongodb.open(function(err, db) {
+		if ( err ) {
+			return callback(err);
+		}
+
+		//读取 users 集合	
+		db.collection('users', function(err, collection) {
+			if ( err ) {
+				mongodb.close();
+				return callback(err);
+			}
+
+			//查找 用户	
+			collection.find( {"email": {"$in":emails} } ).toArray(function(err, users) {
 				mongodb.close();
 				callback(err, users);
 			});

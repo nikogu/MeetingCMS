@@ -80,8 +80,8 @@ Meeting.update = function( id, updateObj, callback ) {
 	});	
 }
 
-//更新会议用户
-Meeting.updateUsers = function( data, callback ) {
+//添加会议用户
+Meeting.addUsers = function( data, callback ) {
 
 	var id = data.id,
 		role = data.role,
@@ -101,6 +101,38 @@ Meeting.updateUsers = function( data, callback ) {
 			var o = JSON.parse('{"'+role+'":"'+email+'"}');
 
 			collection.update({ _id: new ObjectID(id)}, {"$addToSet": o}, function(err) {
+
+				mongodb.close();
+				callback(err);
+
+			});
+
+		});
+
+	});	
+}
+
+//删除会议用户
+Meeting.delUsers = function( data, callback ) {
+
+	var id = data.id,
+		role = data.role,
+		email = data.email;
+
+	mongodb.open(function(err, db) {
+		if ( err ) {
+			return callback(err);
+		}
+
+		db.collection('meetings', function(err, collection) {
+			if ( err ) {
+				mongodb.close();
+				return callback(err);
+			}
+
+			var o = JSON.parse('{"'+role+'":"'+email+'"}');
+
+			collection.update({ _id: new ObjectID(id)}, {"$pull": o}, function(err) {
 
 				mongodb.close();
 				callback(err);

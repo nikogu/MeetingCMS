@@ -89,6 +89,23 @@ exports.getUserBy = function(req, res) {
 
 }
 
+/* get users */
+exports.getUsersBy = function(req, res) {
+	var User = require('../models/user');
+
+	var emails = req.body.emails;
+
+	if ( !emails ) {
+		return;
+	}
+	emails = emails.split(',');
+
+	User.getUsersBy(emails, function(err, users) {
+		res.send(users);
+	});
+
+}
+
 
 /* add user */
 exports.addUser = function(req, res) {
