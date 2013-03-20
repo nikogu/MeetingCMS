@@ -17,8 +17,10 @@
 			</td>
 
 			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p><span class="icon-pencil option-update"></span></td>
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p><span class="icon-pencil option-update"></span></td>
+
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p><span class="icon-pencil update-date"></span></td>
+			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p><span class="icon-pencil update-date"></span></td>
+
 			<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdelete" class="btn btn-danger option-delete value" data-flag="{{_id}}">删除</a></td>
 		</tr>
 	</script>
@@ -113,8 +115,16 @@
 					</td>
 
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>
-					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p><span class="icon-pencil option-update"></span></td>
-					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p><span class="icon-pencil option-update"></span></td>
+
+					<td>
+						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p>
+						<span data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="" class="icon-pencil update-date"></span>
+					</td>
+					<td>
+						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p>
+						<span data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="" class="icon-pencil update-date"></span>
+					</td>
+
 					<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdelete" class="btn btn-danger option-delete value" data-flag="{{_id}}">删除</a></td>
 				</tr>
 				{{/each}}
@@ -157,6 +167,12 @@
   			<div class="modal-footer">
     			<button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
   			</div>
+  		</div>
+
+  		<!-- 更新日期calendar容器 -->
+  		<div id="update-date-calendar-wrap">
+  			<div class="title"><p>选择日期</p><span data-target="#update-date-calendar-wrap" class="operate-close icon-remove"></span></div>
+	  		<div id="update-date-calendar"></div>
   		</div>
 	</script>
 	<script id="user-list-tpl" type="text/template">

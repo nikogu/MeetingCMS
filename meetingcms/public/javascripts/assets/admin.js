@@ -18,8 +18,6 @@ KISSY.config({
 /* 入口 */
 KISSY.ready(function(S) {
 
-	//bootstrap tool tips
-	$('document').tooltip();
 
 	/*
 	* 删除数据命令
@@ -779,7 +777,126 @@ KISSY.ready(function(S) {
 
 		});
 
+	});
 
+	/*
+	* 会议管理-更新日期
+	*/
+	KISSY.use('dom,event,node,ajax,xtemplate,json,calendar,modules/module-itool,sizzle',function(S,DOM,Event,Node,IO,XTemplate,JSON,Calendar,iTool) {
+
+		var iCalendar;
+
+		(function(){
+
+			var single;
+
+			iCalendar = function iCalendar( select ) {
+
+				if ( single ) {
+					return single;
+				}
+				
+				this.wrap = '';
+				this.select = select;
+				this.calendar = '';
+				this.parentOffset = '';
+				this.changeTo = '';
+
+				this.buildCalendar = function( callback ) {
+					this.calendar = new Calendar(this.select);
+					this.selectCalendar();
+					callback(this);
+				};
+
+				this.selectCalendar = function() {
+					var that = this;
+					this.calendar.on('select', function(e){
+
+						that.updateo.updatevalue = iTool.showDate(e.date);
+
+						//ajax 修改
+						updateDate(that.updateo, function(){
+							(new Node(that.changeTo)).html(iTool.showDate(e.date));
+						});
+					});
+					this.selectCalendar = function(){};
+				};
+
+				this.render = function( callback ) {
+					if (this.calendar) {
+						callback(this);
+					} else {
+						this.buildCalendar(callback);
+					}
+				};
+
+				single = this;
+
+			}
+
+		})();
+
+		function updateDate ( o, callback ) {
+
+			var url = '/meetingupdate';
+
+			console.log(o);
+
+			new IO({
+				url: url,
+				type: 'post',
+				data: o,
+				success: function( data ){
+					callback(data);
+				}
+			})
+		}
+
+		Event.delegate(document, 'click', '.update-date', function(e) {
+
+			var icalendar = new iCalendar("#update-date-calendar");
+
+			if ( !icalendar.wrap ) {
+				icalendar.wrap = Node.one('#update-date-calendar-wrap');
+				icalendar.parentOffset = DOM.offset('#content');
+			}
+
+			var target = e.target,
+				parent = DOM.parent(target,'td'),
+				changeNode = (new Node(parent)).one('.value'),
+				offset = DOM.offset(target),
+				top = offset.top - icalendar.parentOffset.top,
+				left = offset.left - icalendar.parentOffset.left-100,
+				flag = DOM.attr(target, 'data-flag'),
+				key = DOM.attr(target, 'data-updateKey'),
+				o = {
+					updatekey: key,
+					updatevalue: '',
+					updateflag: flag
+				};
+
+
+			icalendar.changeTo = changeNode;		
+			icalendar.updateo = o;
+
+			icalendar.render(function(that){
+				DOM.css(that.wrap, {'top': top, 'left': left});
+				DOM.show(that.wrap);
+			});
+
+		});
+
+		Event.delegate(document, 'click', '.operate-close', function(e) {
+			var target = e.target;
+
+			//cache
+			if ( !target._closeTg ) {
+				target._closeTg = Node.all(DOM.attr(target, 'data-target'));
+			}
+
+			DOM.hide(target._closeTg);
+
+		});
 
 	});
 

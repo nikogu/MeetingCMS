@@ -355,7 +355,6 @@ table {
                 display: inline;
             }
             span, a {
-                color: #333333;
                 cursor: pointer;
                 float: right;
                 &:hover {
@@ -460,4 +459,29 @@ table {
             } 
         }
     }
+}
+
+/* 更新日历 */
+#update-date-calendar-wrap {
+    border: 1px solid #dddddd;
+    background-color: #ffffff;
+    display: none;
+    padding: 5px;
+    position: absolute;
+    .title {
+        .clear();
+        padding: 5px;
+        line-height: 20px;
+        p {
+            display: inline;
+            font-size: 12px;
+        }
+        span {
+            cursor: pointer;
+            float: right;
+            font-size: 20px;
+        }
+    }
+}
+#update-date-calendar {
 }

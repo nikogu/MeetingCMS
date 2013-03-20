@@ -270,7 +270,6 @@ table {
 }
 #data-list tbody td span,
 #data-list tbody td a {
-  color: #333333;
   cursor: pointer;
   float: right;
 }
@@ -365,4 +364,34 @@ table {
 }
 #edit-meeting-users .search-list .item span {
   color: #8dc03d;
+}
+/* 更新日历 */
+#update-date-calendar-wrap {
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
+  display: none;
+  padding: 5px;
+  position: absolute;
+}
+#update-date-calendar-wrap .title {
+  padding: 5px;
+  line-height: 20px;
+}
+#update-date-calendar-wrap .title:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#update-date-calendar-wrap .title p {
+  display: inline;
+  font-size: 12px;
+}
+#update-date-calendar-wrap .title span {
+  cursor: pointer;
+  float: right;
+  font-size: 20px;
 }
