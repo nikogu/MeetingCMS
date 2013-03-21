@@ -20,6 +20,53 @@ KISSY.ready(function(S) {
 
 
 	/*
+	* 后台登陆
+	*/
+	KISSY.use('dom,event,node,ajax,xtemplate,modules/module-formatForm,modules/module-imessage',function(S,DOM,Event,Node,IO,XTemplate,xForm,imessage){
+
+		var loginForm = Node.one('#admin-login-form');												
+
+		if ( loginForm ) {
+
+
+			function login( url, data, callback ) {
+				new IO({
+					url: url,
+					type: 'post',
+					data: data,
+					success: function(data) {
+						callback(data);
+					}
+				})	
+			}
+
+			loginForm.on('submit', function(e) {
+
+				var data = (new xForm()).format(this),
+					url = DOM.attr(e.target, 'action');
+
+				login(url, data, function(data) {
+
+					//提示信息
+					(new imessage()).ms(data);
+
+					if ( data.success ) {
+						window.location.pathname = '/admin';
+					}
+
+				});
+
+				return false;
+
+			});	
+		}
+
+
+	});
+
+
+
+	/*
 	* 删除数据命令
 	*/
 	var CommandDel = (function() {

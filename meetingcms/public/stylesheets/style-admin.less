@@ -214,6 +214,18 @@ table {
 /*
 * admin page style
 */
+
+/* admin login */
+#admin-login-form {
+    border: 1px solid #dddddd;
+    padding: 19px;
+    position: fixed;
+    top: 300px;
+    left: 50%;
+    margin-left: -210px;
+    width: 400px;
+}
+
 #wrapper {
 	position: absolute;
 	top: 0;
@@ -222,12 +234,39 @@ table {
 	left: 0;
 }
 
+/* header */
+#header {
+    .clear();
+    background-color: #454545;
+    border-bottom: 1px solid #1e1e1e;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 25px;
+    line-height: 25px;
+    z-index: 500;
+}
+#admin-bar {
+    cursor: pointer;
+    float: right;
+    margin-right: 10px;
+    span {
+        color: #dddddd;
+        margin-right: 5px;
+    }
+    a {
+
+    }
+}
+
 /* 侧边栏 */
 #sidebar {
 	background-color: #f8f8f8;
 	border-right: 1px solid #cccccc;
 	position: absolute;
-	top: 0;
+	top: 25px;
 	bottom: 0;
 	left: 0;
 	width: 180px;

@@ -76,6 +76,17 @@ app.configure('development', function(){
 * 路由状态转换 后台
 */
 app.get('/admin', admin.index);
+app.get('/adminlogin', admin.login);
+app.post('/adminlogin', admin.doLogin);
+app.get('/adminloginout', admin.loginout);
+
+app.all(/^\/user.*|^\/meeting.*/i, function(req, res, next) {
+    if ( !req.session.user ) {
+        res.redirect('/adminlogin');
+    } else {
+        next();
+    }
+});
 
 //用户
 app.get('/userlist', user.list);
