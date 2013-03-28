@@ -72,6 +72,63 @@ User.update = function( email, updateObj, callback ) {
 	});	
 }
 
+//添加会议
+User.addMeeting = function( email, meeting, callback) {
+
+	mongodb.open(function(err, db) {
+		if ( err ) {
+			return callback(err);
+		}
+
+		//读取 users 集合
+		db.collection('users', function(err, collection) {
+
+			if ( err ) {
+				mongodb.close();
+				return callback(err);
+			}
+
+			collection.update({ email: email }, { "$addToSet": {meetings: meeting} }, function(err) {
+
+				mongodb.close();
+				callback(err);
+
+			});
+
+		});
+	});	
+
+}
+
+//删除会议
+User.delMeeting = function( email, meeting, callback) {
+
+	mongodb.open(function(err, db) {
+		if ( err ) {
+			return callback(err);
+		}
+
+		//读取 users 集合
+		db.collection('users', function(err, collection) {
+
+			if ( err ) {
+				mongodb.close();
+				return callback(err);
+			}
+
+			collection.update({ email: email }, { "$pull": {"meetings": {"id": meeting['id'], "role": meeting['role']} }}, function(err) {
+
+				mongodb.close();
+				callback(err);
+
+			});
+
+		});
+	});	
+
+}
+
+
 //获取用户
 User.get = function(email, callback) {
 	mongodb.open(function(err, db) {

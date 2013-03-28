@@ -157,6 +157,102 @@ exports.addUser = function(req, res) {
 	});
 };
 
+/* add meeting */
+exports.addMeeting = function(req, res) {
+	var User = require('../models/user');
+	var Meeting = require('../models/meeting');
+
+	var email = req.body.email,
+		id = req.body.meetingid,
+		name = req.body.meetingname,
+		role = req.body.meetingrole;
+
+	var meeting = {};
+	meeting['role'] = role;
+	meeting['id'] = id;
+	meeting['name'] = name;
+	meeting['email'] = email;
+
+	User.addMeeting(email, meeting, function(err) {
+
+		var data = {};
+		data.id = id;
+		data.email = email;
+		data.role = role;
+
+		Meeting.addUsers(data, function(err) {
+
+			var result = {
+				'success': true,
+				'info': '',
+				'data': {}
+			};		
+
+			if ( err ) {
+				result.success = false;
+				result.info = err;
+			} else {
+				result.info = '添加会议成功';
+				meeting.email = email;
+				result.data = meeting;
+			}
+
+			res.send(result);
+			
+		});
+
+	}); 
+
+
+
+}
+
+/* post del meeting */
+exports.delMeeting = function(req, res) {
+	var User = require('../models/user');
+	var Meeting = require('../models/meeting');
+
+	var email = req.body.email,
+		id = req.body.id,
+		role = req.body.role;
+
+	var meeting = {};
+	meeting['role'] = role;
+	meeting['id'] = id;
+	meeting['email'] = email;
+
+	User.delMeeting(email, meeting, function(err) {
+
+		var data = {};
+		data.id = id;
+		data.email = email;
+		data.role = role;
+
+		Meeting.delUsers(data, function(err) {
+
+			var result = {
+				'success': true,
+				'info': '',
+				'data': {}
+			};		
+
+			if ( err ) {
+				result.success = false;
+				result.info = err;
+			} else {
+				result.info = '删除会议成功';
+				meeting.email = email;
+				result.data = meeting;
+			}
+
+			res.send(result);
+
+		});
+
+	}); 
+
+}
+
 /* post update user */
 exports.updateUser = function(req, res) {
 	var User = require('../models/user');

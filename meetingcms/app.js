@@ -97,6 +97,8 @@ app.post('/userupdate', user.updateUser);
 app.post('/userupdateps', user.updatePS);
 app.post('/usergetby', user.getUserBy);
 app.post('/usersgetby', user.getUsersBy);
+app.post('/useraddmeeting', user.addMeeting);
+app.post('/userdelmeeting', user.delMeeting);
 
 //会议
 app.get('/meetinglist', meeting.list);
@@ -106,6 +108,8 @@ app.post('/meetingdeleteall', meeting.deleteAllMeetings);
 app.post('/meetingupdate', meeting.updateMeeting);
 app.post('/meetingaddusers', meeting.addMeetingUsers);
 app.post('/meetingdelusers', meeting.delMeetingUsers);
+app.post('/meetinggetbyuser', meeting.getByUser);
+app.post('/meetinggetbyname', meeting.getByName);
 
 
 /* 

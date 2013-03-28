@@ -255,7 +255,7 @@ table {
 /* 内容样式 */
 #content {
   overflow: scroll;
-  padding: 20px;
+  padding: 60px 20px 20px 20px;
   position: absolute;
   top: 0;
   bottom: 0;
@@ -318,6 +318,15 @@ table {
 #data-list tbody td a:hover {
   text-decoration: none;
 }
+#data-list tbody td .update-users,
+#data-list tbody td .show-meetings {
+  float: none;
+}
+#data-list tbody td .update-users .mark,
+#data-list tbody td .show-meetings .mark {
+  float: none;
+  margin-left: 10px;
+}
 #data-list td:first-child {
   text-align: center;
 }
@@ -348,7 +357,8 @@ table {
   z-index: 9999;
 }
 /* 会议模板-添加用户列表 */
-#edit-meeting-users:after {
+#edit-meeting-users:after,
+#edit-user-meetings:after {
   clear: both;
   content: '.';
   display: block;
@@ -357,20 +367,31 @@ table {
   width: 0;
   *zoon: 1;
 }
-#edit-meeting-users .left {
+#edit-meeting-users .left,
+#edit-user-meetings .left {
   float: left;
   width: 240px;
 }
-#edit-meeting-users .right {
+#edit-meeting-users .right,
+#edit-user-meetings .right {
   float: right;
   width: 260px;
 }
 #edit-meeting-users .users-list,
-#edit-meeting-users .search-list {
+#edit-user-meetings .users-list,
+#edit-meeting-users .meeting-list,
+#edit-user-meetings .meeting-list,
+#edit-meeting-users .search-list,
+#edit-user-meetings .search-list {
+  background-color: #fffff0;
   margin: 0;
 }
 #edit-meeting-users .users-list .item,
-#edit-meeting-users .search-list .item {
+#edit-user-meetings .users-list .item,
+#edit-meeting-users .meeting-list .item,
+#edit-user-meetings .meeting-list .item,
+#edit-meeting-users .search-list .item,
+#edit-user-meetings .search-list .item {
   background-color: #fffff0;
   display: block;
   position: relative;
@@ -378,7 +399,11 @@ table {
   width: 230px;
 }
 #edit-meeting-users .users-list .item .value,
-#edit-meeting-users .search-list .item .value {
+#edit-user-meetings .users-list .item .value,
+#edit-meeting-users .meeting-list .item .value,
+#edit-user-meetings .meeting-list .item .value,
+#edit-meeting-users .search-list .item .value,
+#edit-user-meetings .search-list .item .value {
   display: inline-block;
   font-size: 12px;
   padding: 0 20px 0 0;
@@ -386,7 +411,11 @@ table {
   line-height: 20px;
 }
 #edit-meeting-users .users-list .item span,
-#edit-meeting-users .search-list .item span {
+#edit-user-meetings .users-list .item span,
+#edit-meeting-users .meeting-list .item span,
+#edit-user-meetings .meeting-list .item span,
+#edit-meeting-users .search-list .item span,
+#edit-user-meetings .search-list .item span {
   color: #e32332;
   cursor: pointer;
   display: block;
@@ -394,16 +423,21 @@ table {
   right: 0px;
   top: 5px;
 }
-#edit-meeting-users .users-list {
+#edit-meeting-users .users-list,
+#edit-user-meetings .users-list,
+#edit-meeting-users .meeting-list,
+#edit-user-meetings .meeting-list {
   background: #fffff0 url(../images/icon-loading.gif) no-repeat center center;
   border: 1px dashed #eeeeee;
   padding: 4px;
   min-height: 20px;
 }
-#edit-meeting-users .search-list {
+#edit-meeting-users .search-list,
+#edit-user-meetings .search-list {
   padding-left: 5px;
 }
-#edit-meeting-users .search-list .item span {
+#edit-meeting-users .search-list .item span,
+#edit-user-meetings .search-list .item span {
   color: #8dc03d;
 }
 /* 更新日历 */

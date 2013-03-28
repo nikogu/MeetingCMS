@@ -172,6 +172,22 @@ Meeting.get = function(id, callback) {
 	});
 }
 
+//获取指定会议
+Meeting.getBy = function(condition, callback) {
+	mongodb.open(function(err, db) {
+		if ( err ) {
+			return callback(err);
+		}
+		db.collection('meetings', function(err, collection) {
+			collection.find(condition).toArray(function(err, meetings) {
+				mongodb.close();
+				callback(err, meetings);
+			});
+		});
+
+	});
+}
+
 //会议列表
 Meeting.list = function( begin, num, callback ) {
 

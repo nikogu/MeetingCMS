@@ -546,6 +546,198 @@ KISSY.ready(function(S) {
 	});
 
 	/*
+	* 用户会议操作：添加，显示，删除
+	*/
+	KISSY.use('dom,event,node,ajax,xtemplate,json,modules/module-imessage,modules/module-data',function(S,DOM,Event,Node,IO,XTemplate,JSON,imessage,xData){
+
+		var _flag = '';
+
+		//显示会议
+		function showMeeting(callback) {
+			var url = '/usergetby';
+
+			new IO({
+				url: url,
+				type: 'post',
+				data: {key: 'email', value: _flag},
+				success: function(data) {
+					callback(data);
+				}
+			});
+		}
+
+		Event.delegate(document, 'click', '.show-meetings', function(e) {
+			var target = e.target,
+				email = DOM.attr(target, 'data-flag'),
+				role = DOM.attr(target, 'data-role');
+			_flag = email;
+
+			Node.all('#search-meeting').attr({'data-role':role, 'data-flag': email});
+
+			showMeeting(function(data) {
+
+				var meetings = data[0].meetings;
+
+				//显示已有会议
+				if ( meetings ) {
+
+					var tplTo = Node.one('#edit-user-meetings').one('.meeting-list'),
+						tpl = Node.one('#meeting-list-tpl').html(),
+						render = '';
+
+					if ( !meetings ) {
+						tplTo.html('<li class="item no-meetings"><p>没有会议</p></li>');
+						return;
+					}
+
+					for ( var i=0,len=meetings.length; i<len; i++ ) {
+						if ( meetings[i].role == Node.all('#search-meeting').attr('data-role') ) {
+							render += (new XTemplate(tpl)).render( meetings[i] );
+						}
+					}
+					tplTo.html(render);
+
+				} else {
+
+					var tplTo = Node.one('#edit-user-meetings').one('.meeting-list');
+					tplTo.html('<li><p class="item no-meetings">没有会议</p></li>');
+
+				}
+
+			});
+
+		});
+
+
+		function searchMeetings(callback) {
+
+			var url = '/meetinggetbyname',
+				searchBtn = Node.all('#search-meeting'),
+				value = searchBtn.val(),
+				role = searchBtn.attr('data-role'),
+				email = searchBtn.attr('data-flag');
+
+			new IO({
+				url: url,
+				type: 'post',
+				data: {name: value},
+				success: function(data) {
+					callback(data);
+				}
+			});					
+		}
+
+		//搜索会议
+		Event.delegate(document, 'submit', '#search-meeting-form', function(e) {
+
+
+			searchMeetings(function(data) {
+
+				var _data = {};
+
+				_data.data = data.data;
+				
+				var tplTo = Node.one('#edit-user-meetings').one('.search-list');
+
+				if ( _data.data ) {
+
+					var tpl = Node.one('#search-meeting-list-tpl').html(),
+						render = (new XTemplate(tpl)).render( _data );
+
+					tplTo.html(render);	
+
+				} else {
+
+					tplTo.html('<li><p>没有找到你需要的结果</p></li>');
+
+				}
+
+			});
+
+			return false
+		});
+
+
+		//添加会议
+		function addMeetingToUser(data, callback) {
+			var url = '/useraddmeeting';
+
+			new IO({
+				url: url,
+				type: 'post',
+				data: data,
+				success: function(data) {
+					callback(data);
+				}
+			})
+		}
+
+		Event.delegate(document, 'click', '.operate-add-meeting', function(e) {
+
+			var target = e.target,
+				meetingid = DOM.attr(target, 'data-meeting'),
+				meetingname = DOM.attr(target, 'data-name'),
+				meetingrole = Node.all('#search-meeting').attr('data-role');
+
+
+			var send = {email: _flag, meetingid: meetingid, meetingname: meetingname, meetingrole: meetingrole};
+
+			addMeetingToUser(send, function(data) {
+
+				if ( data.data ) {
+
+					data.data.email = _flag;
+
+					Node.all('.no-meetings').remove();
+
+					//渲染模板
+					var tplTo = Node.one('#edit-user-meetings').one('.meeting-list'),
+						tpl = Node.one('#meeting-list-tpl').html(),
+						render = (new XTemplate(tpl)).render( data.data );
+
+					tplTo.prepend(render);
+
+				}
+
+			});
+
+		});		
+
+		//删除会议
+		Event.delegate(document, 'click', '.operate-del-meeting', function(e) {
+
+			var target = e.target,
+				email = DOM.attr(target, 'data-flag'),
+				id = DOM.attr(target, 'data-meeting'),
+				role = DOM.attr(target, 'data-role');
+
+			var url = '/userdelmeeting';
+			var send = {};
+
+			send['id'] = id;
+			send['email'] = email;
+			send['role'] = role;
+
+			new IO({
+				url: url,
+				type: 'post',
+				data: send,
+				success: function(data) {
+					new Node(DOM.parent(target, '.item')).remove();
+				}
+			});
+
+
+			
+		});
+		
+
+
+
+	});
+
+
+	/*
 	* 分页
 	*/
 	KISSY.use('dom,event,node,ajax,xtemplate,json,modules/module-imessage,modules/module-data,sizzle',function(S,DOM,Event,Node,IO,XTemplate,JSON,imessage,xData) {
@@ -618,13 +810,14 @@ KISSY.ready(function(S) {
 			var target = e.target,
 				role = DOM.attr(target, 'data-role') || '',
 				flag = DOM.attr(target, 'data-flag') || '',
-				users = DOM.attr(target, 'data-users') || undefined;
+				users = DOM.attr(target, 'data-users') || undefined,
+				meeting = DOM.attr(target, 'data-meeting');
 
 			//保存相关节点
 			Node.one('#edit-meeting-users')[0]._usernode = target;
 
 			//设置标示属性
-			DOM.attr( Node.one('#edit-meeting-users'), {'data-edit-role': role, 'data-edit-flag': flag} );
+			DOM.attr( Node.one('#edit-meeting-users'), {'data-edit-role': role, 'data-edit-flag': flag, 'data-meeting': meeting} );
 
 			//显示已有用户
 			if ( users ) {
@@ -738,10 +931,11 @@ KISSY.ready(function(S) {
 
 			var target = e.target,
 				email = DOM.attr(target, 'data-flag'),
-				name = DOM.attr(target, 'data-userName'),
+				name = wrap.attr('data-meeting'),
+				username = DOM.attr(target, 'data-username'),
 				id = DOM.attr(wrap, 'data-edit-flag'),
 				role = DOM.attr(wrap, 'data-edit-role'),
-				data = {'id': id, 'email': email, 'role': role, 'name': name};
+				data = {'id': id, 'email': email, 'role': role, 'name': name, 'username': username};
 
 			addUserToMeeting( data, function(data) {
 
@@ -799,7 +993,6 @@ KISSY.ready(function(S) {
 
 			delUserForMeeting(data, function(data){
 
-
 				if ( data.data ) {
 
 					//删除该节点
@@ -850,7 +1043,9 @@ KISSY.ready(function(S) {
 				this.changeTo = '';
 
 				this.buildCalendar = function( callback ) {
-					this.calendar = new Calendar(this.select);
+					this.calendar = new Calendar(this.select,{
+						'showTime': true
+					});
 					this.selectCalendar();
 					callback(this);
 				};

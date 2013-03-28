@@ -2,27 +2,31 @@
 
 	<!-- Meeting template data single -->
 	<script id="meeting-one-template" type="text/template">
-		<tr>
-			<td><input class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></td>
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
+<tr>
+					<td><input class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
 
-			<td>
-				<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="leader" data-updateValue="">点击右侧查看</p>
-				<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="leaders" data-flag="{{_id}}" data-users="{{leaders}}" class="icon-cog update-users" title="修改信息"></a>
-			</td>
-			<td>
-				<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="users" data-updateValue="">点击右侧查看</p>
-				<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="users" data-flag="{{_id}}" data-users="{{users}}" class="icon-cog update-users" title="修改信息"></a>
-			</td>
+					<td>
+						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-meeting="{{name}}" data-role="leaders" data-flag="{{_id}}" data-users="{{leaders}}" class="icon-cog update-users" title="修改信息"> 查看</a>
+					</td>
+					<td>
+						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-meeting="{{name}}" data-role="users" data-flag="{{_id}}" data-users="{{users}}" class="icon-cog update-users" title="修改信息"> 查看</a>
+					</td>
 
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>
+					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>
 
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p><span class="icon-pencil update-date"></span></td>
-			<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p><span class="icon-pencil update-date"></span></td>
+					<td>
+						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="">{{date_b}}</p>
+						<span data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_b" data-updateValue="" class="icon-pencil update-date"></span>
+					</td>
+					<td>
+						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="">{{date_e}}</p>
+						<span data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="date_e" data-updateValue="" class="icon-pencil update-date"></span>
+					</td>
 
-			<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdelete" class="btn btn-danger option-delete value" data-flag="{{_id}}">删除</a></td>
-		</tr>
+					<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/meetingdelete" class="btn btn-danger option-delete value" data-flag="{{_id}}">删除</a></td>
+				</tr>
 	</script>
 
 	<!-- Meeting template data list -->
@@ -106,12 +110,10 @@
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
 
 					<td>
-						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="leader" data-updateValue="">点击右侧查看</p>
-						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="leaders" data-flag="{{_id}}" data-users="{{leaders}}" class="icon-cog update-users" title="修改信息"></a>
+						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-meeting="{{name}}" data-role="leaders" data-flag="{{_id}}" data-users="{{leaders}}" class="icon-cog update-users" title="修改信息"> 查看</a>
 					</td>
 					<td>
-						<p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="users" data-updateValue="">点击右侧查看</p>
-						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-role="users" data-flag="{{_id}}" data-users="{{users}}" class="icon-cog update-users" title="修改信息"></a>
+						<a href="#edit-meeting-users" role="button" data-toggle="modal" data-meeting="{{name}}" data-role="users" data-flag="{{_id}}" data-users="{{users}}" class="icon-cog update-users" title="修改信息"> 查看</a>
 					</td>
 
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="address" data-updateValue="">{{address}}</p><span class="icon-pencil option-update"></span></td>

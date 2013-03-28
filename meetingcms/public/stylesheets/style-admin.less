@@ -321,7 +321,7 @@ table {
 /* 内容样式 */
 #content {
     overflow: scroll;
-	padding: 20px;
+	padding: 60px 20px 20px 20px;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -400,6 +400,13 @@ table {
                     text-decoration: none;
                 }
             }
+            .update-users, .show-meetings {
+                float: none;
+                .mark {
+                    float: none;
+                    margin-left: 10px;
+                }
+            }
         }
 	}
     td:first-child {
@@ -445,7 +452,7 @@ table {
 }
 
 /* 会议模板-添加用户列表 */
-#edit-meeting-users {
+#edit-meeting-users, #edit-user-meetings {
     .clear();
 
     .left {
@@ -456,7 +463,8 @@ table {
         float: right;
         width: 260px;
     }
-    .users-list, .search-list {
+    .users-list, .meeting-list, .search-list {
+        background-color: #fffff0;
         margin: 0;
 
         .item {
@@ -483,7 +491,7 @@ table {
             }
         }
     }
-    .users-list {
+    .users-list, .meeting-list {
         background: #fffff0 url(../images/icon-loading.gif) no-repeat center center;
         border: 1px dashed #eeeeee;
         padding: 4px;
