@@ -165,6 +165,8 @@ KISSY.ready(function(S) {
 				});
 			}
 
+			$('.i-tips').tooltip();
+
 		}
 
 		function dataListRender( href, tpl, callback ) {
@@ -1052,8 +1054,8 @@ KISSY.ready(function(S) {
 
 				this.selectCalendar = function() {
 					var that = this;
-					this.calendar.on('select', function(e){
 
+					this.calendar.on('timeSelect', function(e) {
 						that.updateo.updatevalue = iTool.showDate(e.date);
 
 						//ajax 修改

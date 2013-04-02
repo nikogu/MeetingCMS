@@ -26,7 +26,7 @@ KISSY.add("modules/module-itool",function(S,DOM,Event,Node){
 
 			}
 
-			return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate();
+			return date.getFullYear() + '-' + (date.getMonth()+1) + '-' + date.getDate() + ' ' + date.getHours() + ':' +date.getMinutes();
 
 		}
 

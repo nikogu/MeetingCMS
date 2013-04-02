@@ -1,0 +1,55 @@
+<section id="login-page" class="wrapper">
+	<header id="login-header">
+		<a href="#"><img id="logo" src="/images/logo.png" alt="会议通"></a>
+		<p class="info">——带给您方便快捷的会议管理解决方案<span class="icon-checkmark"></span></p>
+	</header><!-- end of header -->
+
+	<section id="login-content">
+		<aside class="sidebar">
+			<h3 class="title">登陆会议通<span class="icon-quill"></span></h3>
+			<form id="login-form" class="i-form" method="post" action="/login">
+				<p class="filed-input">
+					<label for="filed-email" class="icon-user"></label>
+					<input data-verify="email" id="filed-email" type="email" name="email" placeholder="你的邮箱">
+				</p>
+				<p class="filed-input">
+					<label for="filed-password" class="icon-key-2"></label>
+					<input data-verify="length" id="filed-password" type="password" name="password" placeholder="你的密码">
+				</p>
+				<div class="group">
+					<p class="filed-button"> <a class="btn-blue btn-login" href="#login">登陆</a> </p>
+					<p class="filed-button"> <a class="btn-minor btn-reg" href="#reg">注册</a> </p>
+				</div>
+			</form>
+		</aside><!-- end of aside -->
+
+		<section class="login-about">
+			
+		</section><!-- end of about -->
+	</section><!-- end of login-content -->
+
+	<section id="reg-content">
+		<a class="close icon-close" href="#close"></a>
+		<h3 class="title">注册会议通<span class="icon-quill"></span></h3>
+		<form id="reg-form" class="i-form" method="post" action="/reg">
+			<p class="filed-input">
+				<label for="filed-name" class="icon-user"></label>
+				<input data-verify="null" id="filed-name" type="text" name="username" placeholder="你的姓名">
+			</p>
+			<p class="filed-input">
+				<label for="filed-email" class="icon-mail-3"></label>
+				<input data-verify="email" id="filed-email" type="email" name="email" placeholder="你的邮箱">
+			</p>
+			<p class="filed-input">
+				<label for="filed-password" class="icon-key-2"></label>
+				<input data-verify="null length" id="filed-password" type="password" name="password" placeholder="你的密码">
+			</p>
+			<p class="filed-input">
+				<label for="filed-password-twice" class="icon-lock"></label>
+				<input data-verfiy="twice" id="filed-password-twice" type="password" name="password-twice" placeholder="重复一下密码">
+			</p>
+			<p class="filed-button"> <a class="btn-reg btn-orange" href="#reg" >注册</a> </p>
+		</form>
+	</section><!-- end of reg-content -->
+
+</section>

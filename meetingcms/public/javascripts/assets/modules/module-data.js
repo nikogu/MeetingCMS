@@ -105,7 +105,7 @@ KISSY.add("modules/module-data", function(S,DOM,Event,Node,IO,xForm){
 					url = DOM.attr(updateWrap, 'data-url');
 
 				//获取最新值
-				var updateValue = target.value || originalVal;
+				var updateValue = target.value || originalVal || '';
 
 				//恢复文本
 				updateWrap.html(updateValue);

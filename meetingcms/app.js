@@ -116,11 +116,8 @@ app.post('/meetinggetbyname', meeting.getByName);
 * 路由状态转换 前台 
 */
 app.get('/', routes.index);
-app.get('/list', require('./routes/list').index);
-app.post('/userlogin', user.doLogin);
-app.get('/userlogout', user.logout);
-app.get('/userreg', user.reg);
-app.post('/userreg', user.doReg);
+app.post('/reg', user.addUser);
+app.post('/login', user.doLogin);
 
 //启动服务
 http.createServer(app).listen(app.get('port'), function(){

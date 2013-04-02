@@ -1,0 +1,420 @@
+@import "./font-frontpage.css";
+/*
+*    Meeting App Style
+*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: '微软雅黑', serif;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.clear:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoom: 1;
+}
+::-moz-selection {
+  background-color: #e95e3f;
+  color: #ffffff;
+}
+::-webkit-selection {
+  background-color: #e95e3f;
+  color: #ffffff;
+}
+::selection {
+  background-color: #e95e3f;
+  color: #ffffff;
+}
+/** 0 - variable **/
+/* default */
+.upcase {
+  text-transform: uppercase;
+}
+/* color */
+/* background */
+/* border */
+/* animate */
+@-webkit-keyframes markBlink {
+  0% {
+    color: #e95e3f;
+  }
+  100% {
+    color: #e32332;
+  }
+}
+@keyframes markBlink {
+  0% {
+    color: #e95e3f;
+  }
+  100% {
+    color: #e32332;
+  }
+}
+/* font */
+/* custom */
+.btn-blue {
+  background-color: #4488dd;
+  border: 1px solid #6fa3e5;
+  color: #ffffff;
+  display: inline-block;
+  padding: 4px 9px;
+  font-size: 12px;
+  text-decoration: none;
+}
+.btn-blue:hover {
+  background-color: #5a96e1;
+}
+.btn-red {
+  background-color: #e32332;
+  border: 1px solid #e9505c;
+  color: #ffffff;
+  display: inline-block;
+  padding: 4px 9px;
+  font-size: 12px;
+  text-decoration: none;
+}
+.btn-red:hover {
+  background-color: #e63a47;
+}
+.btn-orange {
+  background-color: #e95e3f;
+  border: 1px solid #ee846d;
+  color: #ffffff;
+  display: inline-block;
+  padding: 4px 9px;
+  font-size: 12px;
+  text-decoration: none;
+}
+.btn-orange:hover {
+  background-color: #ec7156;
+}
+.btn-minor {
+  background-color: #e95e3f;
+  border: 1px solid #ee846d;
+  color: #ffffff;
+  display: inline-block;
+  padding: 4px 9px;
+  font-size: 12px;
+  text-decoration: none;
+  background: none;
+  border: 1px solid transparent;
+  color: #e95e3f;
+  text-decoration: underline;
+}
+.btn-minor:hover {
+  background-color: #ec7156;
+}
+.btn-minor:hover {
+  background-color: transparent;
+  color: #ec7156;
+}
+/* global */
+body {
+  color: #454545;
+}
+.wrapper {
+  margin: 0 auto;
+  position: relative;
+  width: 1080px;
+}
+#dialog-wrap {
+  background: rgba(0, 0, 0, 0.4);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 900;
+}
+/* login */
+#login-page {
+  padding: 20px 0;
+}
+#login-header {
+  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  height: 50px;
+}
+#login-header:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#login-header .info {
+  position: absolute;
+  right: 0;
+  bottom: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  text-align: right;
+}
+#login-header .info span {
+  color: #8dc03d;
+  margin-left: 5px;
+}
+#logo {
+  display: block;
+  float: left;
+}
+#login-content {
+  /* end of sidebar */
+
+}
+#login-content:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#login-content .sidebar {
+  border-right: 1px dashed #eeeeee;
+  display: block;
+  padding: 20px 0 0 0;
+  float: left;
+  width: 278px;
+  min-height: 500px;
+}
+#login-content .sidebar .title {
+  line-height: 40px;
+}
+#login-content .sidebar .title span {
+  margin-left: 5px;
+}
+#login-content .login-about {
+  padding: 20px;
+  float: left;
+  width: 760px;
+}
+#login-form {
+  padding: 20px 0;
+}
+.i-form .group {
+  text-align: center;
+}
+.i-form .filed-input {
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+}
+.i-form .filed-input label {
+  color: #454545;
+  display: inline-block;
+  padding: 8px 5px;
+  font-size: 12px;
+}
+.i-form .filed-input input {
+  background: #ffffff;
+  border: 1px solid #eeeeee;
+  color: #999999;
+  display: inline-block;
+  padding: 7px 4px;
+  font-size: 12px;
+  width: 200px;
+}
+.i-form .filed-input input:hover {
+  background: #fffff0;
+  border: 1px solid #dddddd;
+  color: #454545;
+}
+.i-form .filed-input .verify-error {
+  color: #e32332;
+  cursor: pointer;
+  display: block;
+  margin-top: -10px;
+  position: absolute;
+  top: 40%;
+  right: 10px;
+  font-size: 16px;
+  line-height: 20px;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+}
+.i-form .filed-button {
+  display: inline-block;
+}
+.i-form .filed-button a {
+  margin: 0 2px;
+}
+/* reg form */
+#reg-content {
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  display: none;
+  padding: 20px 10px;
+  position: fixed;
+  top: 120px;
+  left: 50%;
+  margin-left: -200px;
+  width: 380px;
+  text-align: center;
+}
+#reg-content .icon-close {
+  color: #e32332;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  z-index: 99;
+}
+#reg-content .title {
+  line-height: 30px;
+  margin-bottom: 10px;
+}
+#reg-form .filed-input {
+  text-align: center;
+}
+/* footer */
+#footer {
+  margin: 40px auto;
+}
+#footer .copyright {
+  color: #999999;
+  font-size: 12px;
+  text-align: center;
+}
+#footer .copyright span {
+  color: #e95e3f;
+  margin-left: 5px;
+}
+#footer .copyright span:last-child {
+  color: #4488dd;
+}

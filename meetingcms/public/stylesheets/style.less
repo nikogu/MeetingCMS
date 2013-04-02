@@ -1,0 +1,402 @@
+/*
+*    Meeting App Style
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+    font-family: '微软雅黑', serif;
+	vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+.clear:after {
+    clear: both;
+    content: '.';
+    display: block;
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    *zoom: 1;
+}
+.clear(){
+    &:after {
+        clear: both;
+        content: '.';
+        display: block;
+        visibility: hidden;
+        height: 0;
+        width: 0;
+        *zoon: 1;
+    }
+}
+::-moz-selection { 
+    background-color: @orange; 
+    color:#ffffff; 
+} 
+::-webkit-selection { 
+    background-color: @orange; 
+    color:#ffffff; 
+}
+::selection { 
+    background-color: @orange; 
+    color:#ffffff; 
+}
+
+/** 0 - variable **/
+/* default */
+.under(){
+    text-decoration: underline;
+}
+.transition(@arg){
+    -webkit-transition: @arg .5s ease;
+    -moz-transition: @arg .5s ease;
+    -o-transition: @arg .5s ease;
+    -ms-transition: @arg .5s ease;
+    transition: @arg .5s ease;
+}
+.no-transition(){
+    -webkit-transition: none;
+    -moz-transition: none;
+    -o-transition: none;
+    -ms-transition: none;
+    transition: none;
+}
+.rotate(@degree){
+    -webkit-transform: rotate(@degree);
+    -moz-transform: rotate(@degree);
+    -o-transform: rotate(@degree);
+    -ms-transform: rotate(@degree);
+    transform: rotate(@degree);
+}
+.skew(@x, @y) {
+    -webkit-transform: skew(@x, @y);
+    -moz-transform: skew(@x, @y);
+    -o-transform: skew(@x, @y);
+    -ms-transform: skew(@x, @y);
+    transform: skew(@x, @y);    
+}
+.line-gradual(@form, @end){
+    background-image: -moz-linear-gradient(bottom, @end, @form);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(@form),to(@end));
+    background-image: -ms-linear-gradient(to bottom, @form, @end);
+    background-image: linear-gradient(to bottom, @form, @end);
+}
+.upcase {
+    text-transform: uppercase;
+}
+.min-height(@height) {
+    min-height: @height;
+    *height: @height;
+    *overflow: visible;
+    *zoom: 1;
+}
+
+/* color */
+@blue: #4488DD;
+@red: #E32332;
+@yellow: #FFD62C;
+@pink: #CE0058;
+@green: #8dc03d;
+@orange: #E95E3F;
+
+/* background */
+.bg(@bg-color) {
+    background-color: @bg-color;
+}
+.filter(@num){
+    filter:alpha(opacity=@num);
+}
+
+/* border */
+.border(@pixel, @color) {
+     border: @pixel solid @color;
+}
+.border-top(@pixel, @color) {
+    border-top: @pixel solid @color;
+}
+.border-bottom(@pixel, @color) {
+    border-bottom: @pixel solid @color;
+}
+.border-left(@pixel, @color) {
+    border-left: @pixel solid @color;
+}
+.border-right(@pixel, @color) {
+    border-right: @pixel solid @color;
+}
+
+/* animate */
+@-webkit-keyframes markBlink {
+    0% {
+        color: @orange;
+    } 
+    100% {
+        color: @red;
+    }
+}
+@keyframes markBlink {
+    0% {
+        color: @orange;
+    } 
+    100% {
+        color: @red;
+    }
+}
+
+/* font */
+@import "./font-frontpage.css";
+
+/* custom */
+.btn(@color) {
+    background-color: @color;
+    border: 1px solid lighten(@color, 10%);
+    color: #ffffff;
+    display: inline-block;
+    padding: 4px 9px;
+    font-size: 12px;
+    text-decoration: none;
+    &:hover {
+        background-color: lighten(@color, 5%);
+    }
+}
+.btn-blue {
+    .btn(@blue);
+}
+.btn-red {
+    .btn(@red);
+}
+.btn-orange {
+    .btn(@orange);
+}
+.btn-minor {
+    .btn(@orange);
+    background: none;
+    border: 1px solid transparent;
+    color: @orange;
+    text-decoration: underline;
+    &:hover {
+        background-color: transparent;
+        color: lighten(@orange, 5%);
+    }
+}
+
+/* global */
+body {
+    color: #454545;
+}
+.wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 1080px;
+}
+#dialog-wrap {
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 900;
+}
+
+/* login */
+#login-page {
+    padding: 20px 0;
+}
+#login-header {
+    .clear();
+
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    position: relative;
+    height: 50px;
+    .info {
+        position: absolute;
+        right: 0;
+        bottom: 20px;
+        line-height: 20px;
+        font-size: 12px;
+        text-align: right;
+        span {
+            color: @green;
+            margin-left: 5px;
+        }
+    }
+}
+#logo {
+    display: block;
+    float: left;
+}
+#login-content {
+    .clear();
+
+    .sidebar {
+        border-right: 1px dashed #eeeeee;
+        display: block;
+        padding: 20px 0 0 0;
+        float: left;
+        width: 278px;
+        min-height: 500px;
+        .title {
+            line-height: 40px;
+            span {
+                margin-left: 5px;
+            }
+        }
+    }/* end of sidebar */
+    .login-about {
+        padding: 20px;
+        float: left;
+        width: 760px;
+
+    }
+}
+#login-form {
+    padding: 20px 0;
+}
+.i-form {
+    .group {
+        text-align: center;
+    }
+    .filed-input {
+        display: block;
+        position: relative;
+        margin-bottom: 10px;
+
+        label {
+            color: #454545;
+            display: inline-block;
+            padding: 8px 5px; 
+            font-size: 12px;
+        }
+        input {
+            background: #ffffff;
+            border: 1px solid #eeeeee;
+            color: #999999;
+            display: inline-block;
+            padding: 7px 4px;
+            font-size: 12px;
+            width: 200px;
+            &:hover {
+                background: #fffff0;
+                border: 1px solid #dddddd;
+                color: #454545;
+            }
+        }
+        .verify-error {
+            color: @red;
+            cursor: pointer;
+            display: block;
+            margin-top: -10px;
+            position: absolute;
+            top: 40%;
+            right: 10px;
+            font-size: 16px;
+            line-height: 20px;
+            height: 20px;
+            width: 20px;
+            text-align: center;
+        }
+    }
+    .filed-button {
+        display: inline-block;
+        a {
+            margin: 0 2px;
+        }
+    }
+}
+
+/* reg form */
+#reg-content {
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    display: none;
+    padding: 20px 10px;
+    position: fixed;
+    top: 120px;
+    left: 50%;
+    margin-left: -200px;
+    width: 380px;
+    text-align: center;
+    .icon-close {
+        color: @red;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 12px;
+        text-decoration: none;
+        z-index: 99;
+    }
+    .title {
+        line-height: 30px;
+        margin-bottom: 10px;
+    }
+}
+#reg-form {
+    .filed-input {
+        text-align: center;
+    }
+}
+
+
+/* footer */
+#footer {
+    margin: 40px auto;
+    .copyright {
+
+        color: #999999;
+        font-size: 12px;
+        text-align: center;
+
+        span {
+            color: @orange;
+            margin-left: 5px; 
+        }
+        span:last-child {
+            color: @blue;
+        }
+    }
+}

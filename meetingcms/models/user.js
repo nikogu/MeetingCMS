@@ -8,7 +8,8 @@ function User( user ) {
 	this.name = user.name;
 	this.password = user.password;
 	this.email = user.email,
-	this.date = user.date
+	this.date = user.date,
+	this.power = user.power || 10
 }
 
 //保存用户
@@ -18,7 +19,8 @@ User.prototype.save = function( callback ) {
 		name: this.name,
 		password: this.password,
 		email: this.email,
-		date: (new Date())
+		date: (new Date()),
+		power: this.power || 10
 	}
 
 	mongodb.open(function(err, db) {

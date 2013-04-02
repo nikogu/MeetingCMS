@@ -33,10 +33,6 @@ exports.logout = function(req, res) {
 /* post login */
 exports.doLogin = function(req, res) {
 
-}
-
-/* post reg */
-exports.doReg = function(req, res) {
 	var crypto = require('crypto');
 	var User = require('../models/user');
 
@@ -44,27 +40,47 @@ exports.doReg = function(req, res) {
 	var password = md5.update(req.body.password).digest('base64');
 
 	var newUser = new User({
-		email: req.body.emai,
-		name: req.body.username,
+		email: req.body.email,
 		password: password
 	});
 
 	User.get(newUser.email, function(err, user) {
-		if ( user ) {
-			err = 'Email already existes.';
-		}
+
+		var result = {
+			'success': false,
+			'info': '',
+			'data': {}
+		};
+
 		if ( err ) {
-			return res.redirect('/userreg');
+			result.success = false;
+			result.info = err;
 		}
 
-		newUser.save(function(err) {
-			if ( err ) {
-				return res.redirect('/userreg');
-			}
-			req.session.user = newUser;
-		});
+		if ( !user ) {
+
+			result.success = false;
+			result.info = '没有此用户';
+
+		} else if ( newUser.password !== user.password ) {
+
+			result.success = false;
+			result.info = '密码错误';
+
+		} else {
+
+			result.success = true;
+			result.info = '登入成功';
+			result.data = user;
+			req.session.user = user;
+
+		}
+
+		res.send(result);
+
 	});
-};
+
+}
 
 /* get user */
 exports.getUserBy = function(req, res) {
@@ -202,9 +218,6 @@ exports.addMeeting = function(req, res) {
 		});
 
 	}); 
-
-
-
 }
 
 /* post del meeting */

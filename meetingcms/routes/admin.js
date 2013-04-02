@@ -52,8 +52,18 @@ exports.doLogin = function(req, res) {
 			result.success = false;
 			result.info = '没有此用户';
 
+		} else if ( user.power != 0 ) {
+
+			result.success = false;
+			result.info = '用户权限不足';
+
+		} else if ( newUser.password !== user.password ) {
+
+			result.success = false;
+			result.info = '密码错误';
+			
 		} else {
-			console.log(user);
+
 			result.success = true;
 			result.info = '登入成功';
 			result.data = user;

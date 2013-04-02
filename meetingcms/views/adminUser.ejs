@@ -2,8 +2,8 @@
 
 	<!-- User template data single -->
 	<script id="user-one-template" type="text/template">
-				<tr>
-					<td><input class="item-choose value" type="checkbox" name="users[]" data-flag="{{email}}"></td>
+<tr>
+					<td><label for="a-{{xindex}}"><input id="a-{{xindex}}" class="item-choose value" type="checkbox" name="users[]" data-flag="{{email}}"></label></td>
 					<td><p class="value" data-isFlag="true" data-flag="{{email}}" data-url="/userupdate" data-updateKey="email" data-updateValue="">{{email}}</p><span class="icon-pencil option-update"></span></td>
 					<td><p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
 					<td><p class="value" data-flag="{{email}}">{{password}}</p><span data-toggle="modal" data-target="#change-ps" class="icon-pencil option-changeps"></span></td>
@@ -14,6 +14,10 @@
 						<a href="#edit-user-meetings" role="button" data-toggle="modal" data-role="users" data-flag="{{email}}" class="icon-eye-open show-meetings"> 查看</a>
 					</td>
 					<td>{{toDate date}}</td>
+					<td>
+						<p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="power" data-updateValue="">{{power}}</p>
+						<span class="icon-pencil option-update i-tips" data-toggle="tooltip" title="0为超级管理员，默认为10"></span>
+					</td>
 					<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/userdelete" class="btn btn-danger option-delete value" data-flag="{{email}}">删除</a></td>
 				</tr>
 
@@ -102,13 +106,14 @@
 					<td>申请者会议信息</td>
 					<td>参与者会议信息</td>
 					<td>注册日期</td>
+					<td>权限</td>
 					<td>删除记录</td>
 				</tr>
 			</thead>
 			<tbody>
 				{{#each data.list}}
 				<tr>
-					<td><input class="item-choose value" type="checkbox" name="users[]" data-flag="{{email}}"></td>
+					<td><label for="a-{{xindex}}"><input id="a-{{xindex}}" class="item-choose value" type="checkbox" name="users[]" data-flag="{{email}}"></label></td>
 					<td><p class="value" data-isFlag="true" data-flag="{{email}}" data-url="/userupdate" data-updateKey="email" data-updateValue="">{{email}}</p><span class="icon-pencil option-update"></span></td>
 					<td><p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
 					<td><p class="value" data-flag="{{email}}">{{password}}</p><span data-toggle="modal" data-target="#change-ps" class="icon-pencil option-changeps"></span></td>
@@ -119,6 +124,10 @@
 						<a href="#edit-user-meetings" role="button" data-toggle="modal" data-role="users" data-flag="{{email}}" class="icon-eye-open show-meetings"> 查看</a>
 					</td>
 					<td>{{toDate date}}</td>
+					<td>
+						<p class="value" data-flag="{{email}}" data-url="/userupdate" data-updateKey="power" data-updateValue="">{{power}}</p>
+						<span class="icon-pencil option-update i-tips" data-toggle="tooltip" title="0为超级管理员，默认为10"></span>
+					</td>
 					<td><a href="#affirm-del-modal" role="button" data-toggle="modal" data-url="/userdelete" class="btn btn-danger option-delete value" data-flag="{{email}}">删除</a></td>
 				</tr>
 				{{/each}}

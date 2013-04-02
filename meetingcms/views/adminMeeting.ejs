@@ -3,7 +3,7 @@
 	<!-- Meeting template data single -->
 	<script id="meeting-one-template" type="text/template">
 <tr>
-					<td><input class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></td>
+					<td><label for="a-{{xindex}}"><input id="a-{{xindex}}" class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></label></td>
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
 
@@ -105,7 +105,7 @@
 			<tbody>
 				{{#each data.list}}
 				<tr>
-					<td><input class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></td>
+					<td><label for="a-{{xindex}}"><input id="a-{{xindex}}" class="item-choose value" type="checkbox" name="meetings[]" data-flag="{{_id}}"></label></td>
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="name" data-updateValue="">{{name}}</p><span class="icon-pencil option-update"></span></td>
 					<td><p class="value" data-flag="{{_id}}" data-url="/meetingupdate" data-updateKey="info" data-updateValue="">{{info}}</p><span class="icon-pencil option-update"></span></td>
 
