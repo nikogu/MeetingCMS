@@ -7,9 +7,10 @@ var mongodb = require('./db');
 function User( user ) {
 	this.name = user.name;
 	this.password = user.password;
-	this.email = user.email,
-	this.date = user.date,
-	this.power = user.power || 10
+	this.email = user.email;
+	this.date = user.date;
+	this.power = user.power || 10;
+	this.meetings = user.meetings;
 }
 
 //保存用户

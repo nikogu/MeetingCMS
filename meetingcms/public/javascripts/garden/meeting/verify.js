@@ -14,14 +14,14 @@ define(function(require, exports, module) {
         switch ( type ) {
             case 'email':
                 return {
-                    ok: !!/[\w\d_\-\.]+@[\w\d_\-\.]+\.[\w]+/ig.test(value),
+                    ok: !!(/[\w\d_\-\.]+@[\w\d_\-\.]+\.[\w]+/ig.test(value)),
                     msg: '邮箱貌似不对' 
                 };
             break;
 
             case 'null':
                 return {
-                    ok: !!value.replace(/\s*/ig, '').length > 0,
+                    ok: !!(value.replace(/\s*/ig, '').length > 0),
                     msg: '不能为空'
                 }
 
@@ -29,14 +29,14 @@ define(function(require, exports, module) {
 
             case 'twice':
                 return {
-                    ok: !!value == value2,
+                    ok: !!(value == value2),
                     msg: '两次输入不相等'
                 }
             break;
 
             case 'length':
                 return {
-                    ok: value.length >= 6,
+                    ok: !!(value.length >= 6),
                     msg: '长度需要大于6'
                 }      
             break;

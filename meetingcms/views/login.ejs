@@ -1,20 +1,14 @@
 <section id="login-page" class="wrapper">
-	<header id="login-header">
-		<a href="#"><img id="logo" src="/images/logo.png" alt="会议通"></a>
-		<p class="info">——带给您方便快捷的会议管理解决方案<span class="icon-checkmark"></span></p>
-	</header><!-- end of header -->
-
 	<section id="login-content">
 		<aside class="sidebar">
-			<h3 class="title">登陆会议通<span class="icon-quill"></span></h3>
 			<form id="login-form" class="i-form" method="post" action="/login">
 				<p class="filed-input">
 					<label for="filed-email" class="icon-user"></label>
 					<input data-verify="email" id="filed-email" type="email" name="email" placeholder="你的邮箱">
 				</p>
 				<p class="filed-input">
-					<label for="filed-password" class="icon-key-2"></label>
-					<input data-verify="length" id="filed-password" type="password" name="password" placeholder="你的密码">
+					<label for="filed-password-1" class="icon-key-2"></label>
+					<input data-verify="length" id="filed-password-1" type="password" name="password" placeholder="你的密码">
 				</p>
 				<div class="group">
 					<p class="filed-button"> <a class="btn-blue btn-login" href="#login">登陆</a> </p>
@@ -24,13 +18,34 @@
 		</aside><!-- end of aside -->
 
 		<section class="login-about">
-			
+			<!--
+				<canvas id="login-about-canvas" width="760" height="500">弱爆了，连canvas都不支持！</canvas>
+			-->
+			<a id="about-img" href="">
+				<img src="/images/login-info.png" alt="meeting anywhere">
+			</a>
+
+			<section class="meta">
+				<div class="meta-item">
+					<h3 class="title"><span class="icon-lightning"></span>即时</h3>
+					<p class="info">会议通采用最新的WebSocket通信技术，使信息通知更即时，只要有最新的消息你将在第一时间收到.</p>
+				</div>
+				<div class="meta-item">
+					<h3 class="title"><span class="icon-wrench"></span>可靠</h3>
+					<p class="info">通过过多层测试，会议通十分可靠，不会漏掉任何一个微小的信息，值得你的信赖.</p>
+				</div>
+				<div class="meta-item">
+					<h3 class="title"><span class="icon-tree"></span>方便</h3>
+					<p class="info">打造一款方便易用的工具是我们的终极目标，依靠着优秀的交互设计带给你的是前所未有的卓越用户体验</p>
+				</div>
+			</section>
+
 		</section><!-- end of about -->
 	</section><!-- end of login-content -->
 
 	<section id="reg-content">
 		<a class="close icon-close" href="#close"></a>
-		<h3 class="title">注册会议通<span class="icon-quill"></span></h3>
+		<h3 class="title">注册会议通</h3>
 		<form id="reg-form" class="i-form" method="post" action="/reg">
 			<p class="filed-input">
 				<label for="filed-name" class="icon-user"></label>
@@ -41,12 +56,12 @@
 				<input data-verify="email" id="filed-email" type="email" name="email" placeholder="你的邮箱">
 			</p>
 			<p class="filed-input">
-				<label for="filed-password" class="icon-key-2"></label>
-				<input data-verify="null length" id="filed-password" type="password" name="password" placeholder="你的密码">
+				<label for="filed-password-2" class="icon-key-2"></label>
+				<input data-verify="null length" id="filed-password-2" type="password" name="password" placeholder="你的密码">
 			</p>
 			<p class="filed-input">
 				<label for="filed-password-twice" class="icon-lock"></label>
-				<input data-verfiy="twice" id="filed-password-twice" type="password" name="password-twice" placeholder="重复一下密码">
+				<input data-verify="twice" data-twice="#filed-password-2" id="filed-password-twice" type="password" name="password-twice" placeholder="重复一下密码">
 			</p>
 			<p class="filed-button"> <a class="btn-reg btn-orange" href="#reg" >注册</a> </p>
 		</form>

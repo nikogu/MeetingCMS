@@ -182,7 +182,7 @@ table {
   border: 1px solid #6fa3e5;
   color: #ffffff;
   display: inline-block;
-  padding: 4px 9px;
+  padding: 4px 14px;
   font-size: 12px;
   text-decoration: none;
 }
@@ -194,7 +194,7 @@ table {
   border: 1px solid #e9505c;
   color: #ffffff;
   display: inline-block;
-  padding: 4px 9px;
+  padding: 4px 14px;
   font-size: 12px;
   text-decoration: none;
 }
@@ -206,7 +206,7 @@ table {
   border: 1px solid #ee846d;
   color: #ffffff;
   display: inline-block;
-  padding: 4px 9px;
+  padding: 4px 14px;
   font-size: 12px;
   text-decoration: none;
 }
@@ -218,7 +218,7 @@ table {
   border: 1px solid #ee846d;
   color: #ffffff;
   display: inline-block;
-  padding: 4px 9px;
+  padding: 4px 14px;
   font-size: 12px;
   text-decoration: none;
   background: none;
@@ -243,7 +243,7 @@ body {
   width: 1080px;
 }
 #dialog-wrap {
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.8);
   display: none;
   position: fixed;
   top: 0;
@@ -252,18 +252,15 @@ body {
   height: 100%;
   z-index: 900;
 }
-/* login */
-#login-page {
-  padding: 20px 0;
-}
-#login-header {
+/* hearder */
+#header {
   border-bottom: 1px solid #eeeeee;
-  margin-bottom: 20px;
+  padding-top: 20px;
   padding-bottom: 20px;
   position: relative;
   height: 50px;
 }
-#login-header:after {
+#header:after {
   clear: both;
   content: '.';
   display: block;
@@ -272,7 +269,7 @@ body {
   width: 0;
   *zoon: 1;
 }
-#login-header .info {
+#header .info {
   position: absolute;
   right: 0;
   bottom: 20px;
@@ -280,9 +277,13 @@ body {
   font-size: 12px;
   text-align: right;
 }
-#login-header .info span {
+#header .info span {
   color: #8dc03d;
   margin-left: 5px;
+}
+/* login */
+#login-page {
+  padding: 20px 0;
 }
 #logo {
   display: block;
@@ -290,6 +291,8 @@ body {
 }
 #login-content {
   /* end of sidebar */
+
+  /* end of login-about */
 
 }
 #login-content:after {
@@ -320,8 +323,60 @@ body {
   float: left;
   width: 760px;
 }
+#login-content .login-about .meta {
+  margin: 20px 0;
+}
+#login-content .login-about .meta:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#login-content .login-about .meta .meta-item {
+  border-right: 1px dashed #eeeeee;
+  float: left;
+  padding: 0 16px;
+  width: 220px;
+  min-height: 100px;
+}
+#login-content .login-about .meta .meta-item .title {
+  color: #454545;
+  font-size: 14px;
+  line-height: 30px;
+}
+#login-content .login-about .meta .meta-item .title span {
+  padding-right: 10px;
+}
+#login-content .login-about .meta .meta-item .title .icon-lightning {
+  color: #ffd62c;
+}
+#login-content .login-about .meta .meta-item .title .icon-wrench {
+  color: #4488dd;
+}
+#login-content .login-about .meta .meta-item .title .icon-tree {
+  color: #e95e3f;
+}
+#login-content .login-about .meta .meta-item .info {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  color: #999999;
+  font-size: 12px;
+  line-height: 20px;
+}
+#login-content .login-about .meta .meta-item .info:hover {
+  color: #454545;
+}
+#login-content .login-about .meta .meta-item:last-child {
+  border-right: none;
+}
 #login-form {
-  padding: 20px 0;
+  padding: 10px 0;
 }
 .i-form .group {
   text-align: center;
@@ -329,7 +384,7 @@ body {
 .i-form .filed-input {
   display: block;
   position: relative;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 .i-form .filed-input label {
   color: #454545;
@@ -339,7 +394,8 @@ body {
 }
 .i-form .filed-input input {
   background: #ffffff;
-  border: 1px solid #eeeeee;
+  border: 1px solid #dddddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) inset;
   color: #999999;
   display: inline-block;
   padding: 7px 4px;
@@ -347,7 +403,7 @@ body {
   width: 200px;
 }
 .i-form .filed-input input:hover {
-  background: #fffff0;
+  background: #ffffe0;
   border: 1px solid #dddddd;
   color: #454545;
 }
@@ -374,34 +430,215 @@ body {
 /* reg form */
 #reg-content {
   background-color: #ffffff;
-  border: 1px solid #eeeeee;
+  border: 4px solid #eeeeee;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   display: none;
-  padding: 20px 10px;
+  padding: 40px 10px 20px 10px;
   position: fixed;
   top: 120px;
   left: 50%;
   margin-left: -200px;
-  width: 380px;
+  width: 370px;
   text-align: center;
 }
-#reg-content .icon-close {
+#reg-content .close {
   color: #e32332;
   cursor: pointer;
   position: absolute;
-  right: 10px;
-  top: 10px;
-  font-size: 12px;
+  right: 5px;
+  top: 5px;
+  font-size: 14px;
   text-decoration: none;
   z-index: 99;
 }
 #reg-content .title {
+  background-color: #4488dd;
+  color: #ffffff;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  font-size: 13px;
+  padding: 0 10px;
+  height: 30px;
   line-height: 30px;
-  margin-bottom: 10px;
 }
 #reg-form .filed-input {
   text-align: center;
 }
+/*
+* 个人页面 person
+*/
+#person-page:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#user-info {
+  border: 1px dashed #eeeeee;
+  padding: 40px 10px 10px 10px;
+  position: relative;
+  margin: 10px 0;
+  float: left;
+  width: 240px;
+  /* end of user-logo */
+
+}
+#user-info .title {
+  background-color: #4488dd;
+  color: #ffffff;
+  display: block;
+  font-size: 14px;
+  padding: 5px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#user-info .user-logo {
+  position: relative;
+}
+#user-info .user-logo .img {
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  padding: 4px;
+  width: 60px;
+}
+#user-info .user-logo .name {
+  position: absolute;
+  top: 5px;
+  left: 80px;
+}
+#user-info .user-logo .logout {
+  color: #999999;
+  font-size: 12px;
+  position: absolute;
+  bottom: 5px;
+  left: 80px;
+}
+#user-info .user-logo .logout:hover {
+  color: #e32332;
+}
+#user-info .info-list .item {
+  border-bottom: 1px dashed #eeeeee;
+  display: block;
+  padding: 5px 0;
+  margin: 5px 0;
+  /* end of value-wrap */
+
+}
+#user-info .info-list .item:after {
+  clear: both;
+  content: '.';
+  display: block;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+  *zoon: 1;
+}
+#user-info .info-list .item .key {
+  border-right: 1px solid #eeeeee;
+  display: block;
+  float: left;
+  font-size: 12px;
+  padding: 10px 10px 10px 0;
+  height: 60px;
+  width: 45px;
+  text-align: right;
+}
+#user-info .info-list .item .key span {
+  color: #999999;
+  padding-right: 5px;
+  font-size: 12px;
+}
+#user-info .info-list .item .value-wrap {
+  float: left;
+  padding: 10px;
+  position: relative;
+  width: 160px;
+  min-height: 60px;
+  overflow: hidden;
+}
+#user-info .info-list .item .value-wrap .value {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  color: #999999;
+  font-size: 12px;
+  word-break: break-all;
+}
+#user-info .info-list .item .value-wrap .value .update-wrap label {
+  display: block;
+  margin-bottom: 5px;
+}
+#user-info .info-list .item .value-wrap .value .update-wrap input {
+  border: 1px solid #eeeeee;
+  padding: 2px;
+  font-size: 12px;
+  width: 145px;
+}
+#user-info .info-list .item .value-wrap .value .update-wrap a {
+  background-color: #8dc03d;
+  border: 1px solid #719931;
+  border-radius: 5px;
+  color: #ffffff;
+  display: block;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 20px;
+  height: 20px;
+  width: 40px;
+  text-align: center;
+  text-decoration: none;
+}
+#user-info .info-list .item .value-wrap .value .update-wrap a:hover {
+  opacity: 0.9;
+}
+#user-info .info-list .item .value-wrap .value .error {
+  color: #e32332;
+  padding: 2px 0;
+}
+#user-info .info-list .item .value-wrap .update {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  color: #999999;
+  display: block;
+  position: absolute;
+  right: -30px;
+  bottom: 10px;
+  font-size: 12px;
+  z-index: 100;
+}
+#user-info .info-list .item .value-wrap:hover {
+  background-color: #fffff0;
+}
+#user-info .info-list .item .value-wrap:hover .value {
+  color: #454545;
+}
+#user-info .info-list .item .value-wrap:hover .update {
+  right: 10px;
+}
+#user-info .info-list .item .value-wrap:hover .update:hover {
+  color: #e32332;
+}
+#user-info .info-list .item-name {
+  display: none;
+}
+#user-info .info-list .item-array {
+  display: none;
+}
+/* end of user-info */
+#meeting-info {
+  float: right;
+}
+/* end of meeting-info */
 /* footer */
 #footer {
   margin: 40px auto;

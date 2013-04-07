@@ -1,0 +1,90 @@
+<section id="person-page" class="wrapper">
+	<section id="user-info">
+		<h3 class="title">用户信息</h3>
+		<section class="user-logo">
+			<img class="img" alt="用户头像" src="./images/user-logo.png">
+			<span class="name"><%= user.name %></span>
+			<a href="/logout" class="logout">退出登录</a>
+		</section>
+		<ul class="info-list">
+			<%
+			function transition( eng ) {
+				switch(eng) {
+					case 'name':
+						return '姓名';	
+					break;
+					case 'password':
+						return '密码';	
+					break;
+					case 'email':
+						return '邮箱';	
+					break;
+					case 'date':
+						return '注册时间';	
+					break;
+					case 'power':
+						return '权限';
+					break;
+					default:
+					break;
+				}
+			}	
+			%>	
+			<% 
+			function print( o ) {
+				var html = '';
+				for ( var prop in o ) {
+					if ( o.hasOwnProperty(prop) ) {
+						if ( Object.prototype.toString.call(o[prop]) === '[object Object]') {
+							html += print(o[prop]);
+
+						} else if ( Object.prototype.toString.call(o[prop]) === '[object Array]') {
+							html += '<li class="item-array item '+prop+'"><ul class="children">';
+							for ( var i=0; i<o[prop].length; i++ ) {
+								html += print(o[prop]);
+							}
+							html += '</ul></li>';
+						} else {
+							html += '<li class="item item-'+prop+'"><span class="key">'+transition(prop)+'</span><div class="value-wrap"><p class="value">' + o[prop] + '</p><a class="update" href="#update-user-info">修改</a></div></li>';
+						}
+					}
+				}
+				return html;
+			} 
+			%>
+			<li class="item item-email">
+				<span class="key"><span class="icon-mail-3"></span>邮箱</span>
+				<div class="value-wrap">
+					<p class="value"><%= user.email %></p>
+				</div>
+			</li>
+			<li class="item item-password">
+				<span class="key"><span class="icon-key-2"></span>密码</span>
+				<div class="value-wrap">
+					<p class="value">(不可见，可修改)</p>
+					<a class="update" href="#update-user-info">修改</a>
+				</div>
+			</li>
+			<li class="item item-date">
+				<span class="key"><span class="icon-calendar"></span>注册时间</span>
+				<div class="value-wrap">
+					<p class="value"><%= user.date %></p>
+				</div>
+			</li>
+			<li class="item item-power">
+				<span class="key"><span class="icon-power-cord"></span>权限</span>
+				<div class="value-wrap">
+					<p class="value"><%= user.power %></p>
+				</div>
+			</li>
+
+
+		</ul>
+	</section>
+	<section id="meeting-info">
+
+
+
+
+	</section>
+</section>

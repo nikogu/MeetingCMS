@@ -191,7 +191,7 @@ table {
     border: 1px solid lighten(@color, 10%);
     color: #ffffff;
     display: inline-block;
-    padding: 4px 9px;
+    padding: 4px 14px;
     font-size: 12px;
     text-decoration: none;
     &:hover {
@@ -229,7 +229,7 @@ body {
     width: 1080px;
 }
 #dialog-wrap {
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.8);
     display: none;
     position: fixed;
     top: 0;
@@ -239,15 +239,12 @@ body {
     z-index: 900;
 }
 
-/* login */
-#login-page {
-    padding: 20px 0;
-}
-#login-header {
+/* hearder */
+#header {
     .clear();
 
     border-bottom: 1px solid #eeeeee;
-    margin-bottom: 20px;
+    padding-top: 20px;
     padding-bottom: 20px;
     position: relative;
     height: 50px;
@@ -263,6 +260,11 @@ body {
             margin-left: 5px;
         }
     }
+}
+
+/* login */
+#login-page {
+    padding: 20px 0;
 }
 #logo {
     display: block;
@@ -290,10 +292,53 @@ body {
         float: left;
         width: 760px;
 
-    }
+        .meta {
+            margin: 20px 0;
+            .clear();
+
+            .meta-item {
+                border-right: 1px dashed #eeeeee;
+                float: left;
+                padding: 0 16px;
+                width: 220px;
+                min-height: 100px;
+
+                .title {
+                    color: #454545;
+                    font-size: 14px;
+                    line-height: 30px;
+                    span {
+                        padding-right: 10px;
+                    }
+                    .icon-lightning {
+                        color: @yellow;
+                    }
+                    .icon-wrench {
+                        color: @blue;
+                    }
+                    .icon-tree {
+                        color: @orange;
+                    }
+                }
+                .info {
+                    .transition(all);
+                    color: #999999;
+                    font-size: 12px;
+                    line-height: 20px;
+                    &:hover {
+                        color: #454545;
+                    }
+                }
+            } 
+            .meta-item:last-child {
+                border-right: none;
+            }
+        }
+
+    }/* end of login-about */
 }
 #login-form {
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .i-form {
     .group {
@@ -302,7 +347,7 @@ body {
     .filed-input {
         display: block;
         position: relative;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
 
         label {
             color: #454545;
@@ -312,14 +357,15 @@ body {
         }
         input {
             background: #ffffff;
-            border: 1px solid #eeeeee;
+            border: 1px solid #dddddd;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1) inset;
             color: #999999;
             display: inline-block;
             padding: 7px 4px;
             font-size: 12px;
             width: 200px;
             &:hover {
-                background: #fffff0;
+                background: #ffffe0;
                 border: 1px solid #dddddd;
                 color: #454545;
             }
@@ -350,29 +396,36 @@ body {
 /* reg form */
 #reg-content {
     background-color: #ffffff;
-    border: 1px solid #eeeeee;
+    border: 4px solid #eeeeee;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
     display: none;
-    padding: 20px 10px;
+    padding: 40px 10px 20px 10px;
     position: fixed;
     top: 120px;
     left: 50%;
     margin-left: -200px;
-    width: 380px;
+    width: 370px;
     text-align: center;
-    .icon-close {
+    .close {
         color: @red;
         cursor: pointer;
         position: absolute;
-        right: 10px;
-        top: 10px;
-        font-size: 12px;
+        right: 5px;
+        top: 5px;
+        font-size: 14px;
         text-decoration: none;
         z-index: 99;
     }
     .title {
+        background-color: @blue;
+        color: #ffffff;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        font-size: 13px;
+        padding: 0 10px;
+        height: 30px;
         line-height: 30px;
-        margin-bottom: 10px;
     }
 }
 #reg-form {
@@ -380,6 +433,164 @@ body {
         text-align: center;
     }
 }
+
+/*
+* 个人页面 person
+*/
+#person-page {
+    .clear();
+}
+#user-info {
+    border: 1px dashed #eeeeee;
+    padding: 40px 10px 10px 10px;
+    position: relative;
+    margin: 10px 0;
+    float: left;
+    width: 240px;
+
+    .title {
+        background-color: @blue;
+        color: #ffffff;
+        display: block;
+        font-size: 14px;
+        padding: 5px 15px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .user-logo {
+        position: relative;
+        .img {
+            background-color: #ffffff;
+            border: 1px solid #eeeeee;
+            padding: 4px;
+            width: 60px;
+        }
+        .name {
+            position: absolute;
+            top: 5px;
+            left: 80px;
+        }
+        .logout {
+            color: #999999;
+            font-size: 12px;
+            position: absolute; 
+            bottom: 5px;
+            left: 80px;
+            &:hover {
+                color: @red;
+            }
+        }
+    }/* end of user-logo */
+    .info-list {
+        .item {
+            .clear();
+            border-bottom: 1px dashed #eeeeee;
+            display: block;
+            padding: 5px 0;
+            margin: 5px 0;
+            .key {
+                border-right: 1px solid #eeeeee;
+                display: block;
+                float: left;
+                font-size: 12px;
+                padding: 10px 10px 10px 0;
+                height: 60px;
+                width: 45px;
+                text-align: right;
+                span {
+                    color: #999999;
+                    padding-right: 5px;
+                    font-size: 12px;
+                }
+            }
+            .value-wrap {
+                float: left;
+                padding: 10px;
+                position: relative;
+                width: 160px;
+                min-height: 60px;
+                overflow: hidden;
+                .value {
+                    .transition(all);
+                    color: #999999;
+                    font-size: 12px;
+                    word-break: break-all;
+                    .update-wrap {
+                        label {
+                            display: block;
+                            margin-bottom: 5px;
+                        }
+                        input {
+                            border: 1px solid #eeeeee;
+                            padding: 2px;
+                            font-size: 12px;
+                            width: 145px;
+                        }
+                        a {
+                            background-color: @green;
+                            border: 1px solid darken(@green, 10%);
+                            border-radius: 5px;
+                            color: #ffffff;
+                            display: block; 
+                            cursor: pointer;
+                            font-size: 12px;
+                            line-height: 20px;
+                            height: 20px;
+                            width: 40px;
+                            text-align: center;
+                            text-decoration: none;
+                            &:hover {
+                                opacity: 0.9;
+                            }
+                        }
+                    }
+                    .error {
+                        color: @red;
+                        padding: 2px 0;
+                    }
+                }
+                .update {
+                    .transition(all);
+                    color: #999999;
+                    display: block;
+                    position: absolute;
+                    right: -30px; 
+                    bottom: 10px;
+                    font-size: 12px;
+                    z-index: 100;
+                }
+                &:hover {
+                    background-color: #fffff0;
+                    .value {
+                        color: #454545;
+                    }
+                    .update {
+                        right: 10px;
+                        &:hover {
+                            color: @red;
+                        }
+                    }
+                }
+            }/* end of value-wrap */
+            &:hover {
+
+            }
+        }
+        .item-name {
+            display: none;
+        }
+        .item-array {
+            display: none;
+        }
+    }
+
+}/* end of user-info */
+
+#meeting-info {
+    float: right;
+}/* end of meeting-info */
+
 
 
 /* footer */

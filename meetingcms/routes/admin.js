@@ -5,10 +5,10 @@
 
 exports.index = function(req, res){
 
-	if ( !req.session.user ) {
-		res.redirect('/adminlogin');
-	} else {
+	if ( req.session.user && (req.session.user.power == 0) ) {
 	 	res.render('admin/index', { title: '后台管理页面', layout: 'admin/layout', items:[1], admin:req.session.user });
+	} else {
+		res.redirect('/adminlogin');
 	}
 };
 

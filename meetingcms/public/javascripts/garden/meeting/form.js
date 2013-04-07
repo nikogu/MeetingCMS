@@ -16,10 +16,11 @@ define(function(require, exports, module) {
             _btnLogin = conf.btnLogin || _form.find('.btn-login'),
             _btnReg = conf.btnReg || _form.find('.btn-reg'),
             _url = _form.attr("action"),
-            _filed = _form.find('input[name], textarea[name]'),
+            _field = _form.find('input[name], textarea[name]'),
             _formData = {},
             that = this,
-            _verifyFiled = _form.find('input[data-verify], textarea[data-verify]');
+            _verifyFiled = _form.find('input[data-verify], textarea[data-verify]'),
+            _callback = conf.sendSuccess || undefined;
 
 
         //验证展示
@@ -31,15 +32,12 @@ define(function(require, exports, module) {
 
             if ( v ) {
 
-                if ( !parent ) {
-                    $(that).data('_parent', $(that).parent());
-                    parent = $(that).data('_parent');
-                    parent.append('<span class="verify-error icon-notification" title="'+v.msg+'"></span>');
-                }
-                parent.find('.verify-error').attr('title', v.msg).show();
+                buildVerify(that, v.msg);
+                $(that).addClass('has-error');
 
             } else if ( parent ) {
 
+                $(that).removeClass('has-error');
                 parent.find('.verify-error').hide();               
 
             } else {
@@ -48,18 +46,34 @@ define(function(require, exports, module) {
 
         }
 
+        //建立验证需要的DOM元素
+        function buildVerify( that, msg ) {
+            var parent = $(that).data('_parent');
+            if ( !parent ) {
+                $(that).data('_parent', $(that).parent());
+                parent = $(that).data('_parent');
+                parent.append('<span class="verify-error icon-notification" title="'+msg+'"></span>');
+            }
+            parent.find('.verify-error').attr('title', msg).show();
+        }
+
         //失焦验证
         _verifyFiled.on('change', function() {
             verifyAction(this);
         });
 
+        //验证逻辑
         function verify( node ) {
             var type = node.attr('data-verify').split(' ');
             var isOk = undefined;
             var temp = {};
 
             for ( var i = 0, len = type.length; i < len; i++ ) {
-                temp = Verify(type[i], node.val());
+                if ( type[i] == 'twice') {
+                    temp = Verify( type[i], node.val(), $(node.attr('data-twice')).val() );
+                } else {
+                    temp = Verify(type[i], node.val());
+                }
                 isOk = temp.ok ? undefined : temp; 
             }
 
@@ -74,13 +88,14 @@ define(function(require, exports, module) {
         }
 
         function getData() {
-            _filed.each(function(index, item) {
+            _field.each(function(index, item) {
                 _formData[$(item).attr('name')] = $(item).val();
             });
         }
 
-        function send() {
+        function send(_callback) {
 
+            console.log('send...');
             getData();
 
             $.ajax({
@@ -89,7 +104,15 @@ define(function(require, exports, module) {
                 data: _formData,
                 dataType: 'json',
                 success: function(data) {
-                    console.log(data);
+                    if ( !data.success ) {
+                        var target = _form.find('*[name="'+data.data.field+'"]');
+                        
+                        buildVerify(target, data.info);
+                    } else {
+                        if ( _callback ) {
+                            _callback.call(that, data);
+                        }
+                    }
                 }
             })
 
@@ -104,8 +127,8 @@ define(function(require, exports, module) {
 
             verifyAll();
 
-            if ( _form.find('.verify-error').length < 1 ) {
-                send();
+            if ( _form.find('.has-error').length < 1 ) {
+                send(_callback);
             }
 
             return false;

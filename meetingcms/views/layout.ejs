@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/stylesheets/style.css" />
-    <script type="text/javascript" scr="/javascripts/garden/lib/html5.js"></script>
-  </head>
-  <body>
-    <%- body %>
+    <head>
+        <title><%= title %></title>
+        <link rel="stylesheet" href="/stylesheets/style.css" />
+        <script type="text/javascript" scr="/javascripts/garden/lib/html5.js"></script>
+    </head>
+    <body>
 
-    <footer id="footer" class="wrapper"> <p class="copyright">MeetingAPP &copy; Power By Niko -2013 <span class="icon-html5-2"></span><span class="icon-css3"></span></p> </footer>
+        <header id="header" class="wrapper">
+            <a href="#"><img id="logo" src="/images/logo.png" alt="会议通"></a>
+            <p class="info">——带给您方便快捷的会议管理解决方案<span class="icon-checkmark"></span></p>
+        </header><!-- end of header -->
 
-    <script src="/javascripts/garden/seajs/sea.js" data-config="meeting/config.js" data-main="meeting/main.js"></script>
-  </script>
-  </body>
+        <%- body %>
+
+        <footer id="footer" class="wrapper">
+            <p class="copyright">MeetingAPP &copy; Power By Niko -2013 <span class="icon-html5-2"></span><span class="icon-css3"></span></p>
+        </footer>
+
+        <script src="/javascripts/garden/seajs/sea.js" data-config="meeting/config.js" data-main="meeting/main.js"></script>
+    </body>
 </html>

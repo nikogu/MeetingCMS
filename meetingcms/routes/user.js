@@ -27,7 +27,8 @@ exports.reg = function(req, res) {
 };
 
 exports.logout = function(req, res) {
-	res.send("user logout");
+	req.session.user = null;	
+	res.redirect('/');
 };
 
 /* post login */
@@ -35,6 +36,7 @@ exports.doLogin = function(req, res) {
 
 	var crypto = require('crypto');
 	var User = require('../models/user');
+	var verify = require('../models/verify');
 
 	var md5 = crypto.createHash('md5');
 	var password = md5.update(req.body.password).digest('base64');
@@ -43,14 +45,31 @@ exports.doLogin = function(req, res) {
 		email: req.body.email,
 		password: password
 	});
+	var result = {
+		'success': false,
+		'info': '',
+		'data': {}
+	};
+
+	//验证
+	if ( !verify('email', req.body.email) ) {
+		result.success = false;
+		result.info = '邮箱不正确';
+		result.data.field = 'email';
+		res.send(result);
+		return;
+	}
+
+	if ( !verify('length', req.body.password) ) {
+		result.success = false;
+		result.info = '密码不正确';
+		result.data.field = 'password';
+		res.send(result);
+		return;
+	}
 
 	User.get(newUser.email, function(err, user) {
 
-		var result = {
-			'success': false,
-			'info': '',
-			'data': {}
-		};
 
 		if ( err ) {
 			result.success = false;
@@ -61,11 +80,13 @@ exports.doLogin = function(req, res) {
 
 			result.success = false;
 			result.info = '没有此用户';
+			result.data.field = 'email';
 
 		} else if ( newUser.password !== user.password ) {
 
 			result.success = false;
 			result.info = '密码错误';
+			result.data.field = 'password';
 
 		} else {
 
@@ -81,6 +102,84 @@ exports.doLogin = function(req, res) {
 	});
 
 }
+
+/* do Reg */
+exports.doReg = function(req, res) {
+	var crypto = require('crypto');
+	var User = require('../models/user');
+	var verify = require('../models/verify');
+
+	var md5 = crypto.createHash('md5');
+	var password = md5.update(req.body.password).digest('base64');
+
+	var newUser = new User({
+		email: req.body.email,
+		name: req.body.username,
+		password: password
+	});
+
+	var result = {
+		'success': false,
+		'info': '',
+		'data': {}
+	};
+
+	//验证
+	if ( !verify('email', req.body.email) ) {
+		result.success = false;
+		result.info = '邮箱不正确';
+		result.data.field = 'email';
+		res.send(result);
+		return;
+	}
+
+	if ( !verify('length', req.body.password) ) {
+		result.success = false;
+		result.info = '密码不正确';
+		result.data.field = 'password';
+		res.send(result);
+		return;
+	}
+
+	if ( !verify('null', req.body.username) ) {
+		result.success = false;
+		result.info = '用户名不正确';
+		result.data.field = 'username';
+		res.send(result);
+		return;
+	}
+
+	User.get(newUser.email, function(err, user) {
+
+		if ( user ) {
+			err = '邮箱已存在';
+		}
+
+		if ( err ) {
+			result.success = false;
+			result.info = err;
+			result.data.field = 'email';
+			res.send(result);
+			return;
+		}
+
+		newUser.save(function(err, user) {
+
+			if ( err ) {
+				result.success = false;
+				result.info = err;
+			}
+
+			result.success = true;
+			result.info = '注册用户成功';
+			result.data = user;
+			req.session.user = user[0];
+
+			res.send(result);
+
+		});
+	});
+};
 
 /* get user */
 exports.getUserBy = function(req, res) {
@@ -127,6 +226,7 @@ exports.getUsersBy = function(req, res) {
 exports.addUser = function(req, res) {
 	var crypto = require('crypto');
 	var User = require('../models/user');
+	var verify = require('../models/verify');
 
 	var md5 = crypto.createHash('md5');
 	var password = md5.update(req.body.password).digest('base64');
@@ -137,13 +237,38 @@ exports.addUser = function(req, res) {
 		password: password
 	});
 
-	User.get(newUser.email, function(err, user) {
+	var result = {
+		'success': false,
+		'info': '',
+		'data': {}
+	};
 
-		var result = {
-			'success': false,
-			'info': '',
-			'data': {}
-		};
+	//验证
+	if ( !verify('email', req.body.email) ) {
+		result.success = false;
+		result.info = '邮箱不正确';
+		result.data.field = 'email';
+		res.send(result);
+		return;
+	}
+
+	if ( !verify('length', req.body.password) ) {
+		result.success = false;
+		result.info = '密码不正确';
+		result.data.field = 'password';
+		res.send(result);
+		return;
+	}
+
+	if ( !verify('null', req.body.username) ) {
+		result.success = false;
+		result.info = '用户名不正确';
+		result.data.field = 'username';
+		res.send(result);
+		return;
+	}
+
+	User.get(newUser.email, function(err, user) {
 
 		if ( user ) {
 			err = '邮箱已存在';
@@ -152,6 +277,7 @@ exports.addUser = function(req, res) {
 		if ( err ) {
 			result.success = false;
 			result.info = err;
+			result.data.field = 'email';
 			res.send(result);
 			return;
 		}
