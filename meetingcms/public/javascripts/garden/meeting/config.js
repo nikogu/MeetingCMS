@@ -11,6 +11,19 @@ seajs.config({
     'jquery.tmpl': {
     	src: 'lib/jquery.tmpl.min.js',
     	deps: ['jquery']
+    },
+    'underscrore': {
+      src: 'lib/underscore.js',
+      exports: '_'
+    },
+    'backbone': {
+      src: 'lib/backbone.js',
+      exports: 'Backbone',
+      deps: ['underscrore']
+    },
+    'socket.io': {
+      src: 'lib/socket.io.min.js',
+      exports: 'io'
     }
   }
 });

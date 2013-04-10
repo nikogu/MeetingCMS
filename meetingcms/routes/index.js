@@ -27,7 +27,6 @@ exports.index = function(req, res) {
 				layout: 'layout',
 				user: myUser
 			};
-			console.log(myUser);
 
 			res.render('person', data);
 

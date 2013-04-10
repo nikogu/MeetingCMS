@@ -235,6 +235,7 @@ table {
 }
 /* global */
 body {
+  background: url(../images/bg-white-tt.png) repeat;
   color: #454545;
 }
 .wrapper {
@@ -252,9 +253,19 @@ body {
   height: 100%;
   z-index: 900;
 }
+.first-title {
+  background-color: #4488dd;
+  color: #ffffff;
+  display: block;
+  font-size: 14px;
+  padding: 5px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 /* hearder */
 #header {
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #dddddd;
   padding-top: 20px;
   padding-bottom: 20px;
   position: relative;
@@ -305,7 +316,7 @@ body {
   *zoon: 1;
 }
 #login-content .sidebar {
-  border-right: 1px dashed #eeeeee;
+  border-right: 1px dashed #dddddd;
   display: block;
   padding: 20px 0 0 0;
   float: left;
@@ -336,7 +347,7 @@ body {
   *zoon: 1;
 }
 #login-content .login-about .meta .meta-item {
-  border-right: 1px dashed #eeeeee;
+  border-right: 1px dashed #dddddd;
   float: left;
   padding: 0 16px;
   width: 220px;
@@ -478,7 +489,9 @@ body {
   *zoon: 1;
 }
 #user-info {
-  border: 1px dashed #eeeeee;
+  background-color: #f8f8f8;
+  border: 1px dashed #dddddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
   padding: 40px 10px 10px 10px;
   position: relative;
   margin: 10px 0;
@@ -487,22 +500,12 @@ body {
   /* end of user-logo */
 
 }
-#user-info .title {
-  background-color: #4488dd;
-  color: #ffffff;
-  display: block;
-  font-size: 14px;
-  padding: 5px 15px;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 #user-info .user-logo {
   position: relative;
 }
 #user-info .user-logo .img {
   background-color: #ffffff;
-  border: 1px solid #eeeeee;
+  border: 1px solid #dddddd;
   padding: 4px;
   width: 60px;
 }
@@ -522,7 +525,7 @@ body {
   color: #e32332;
 }
 #user-info .info-list .item {
-  border-bottom: 1px dashed #eeeeee;
+  border-bottom: 1px dashed #dddddd;
   display: block;
   padding: 5px 0;
   margin: 5px 0;
@@ -539,7 +542,7 @@ body {
   *zoon: 1;
 }
 #user-info .info-list .item .key {
-  border-right: 1px solid #eeeeee;
+  border-right: 1px solid #dddddd;
   display: block;
   float: left;
   font-size: 12px;
@@ -561,6 +564,9 @@ body {
   min-height: 60px;
   overflow: hidden;
 }
+#user-info .info-list .item .value-wrap .correct {
+  color: #8dc03d;
+}
 #user-info .info-list .item .value-wrap .value {
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
@@ -576,7 +582,7 @@ body {
   margin-bottom: 5px;
 }
 #user-info .info-list .item .value-wrap .value .update-wrap input {
-  border: 1px solid #eeeeee;
+  border: 1px solid #dddddd;
   padding: 2px;
   font-size: 12px;
   width: 145px;
@@ -636,7 +642,203 @@ body {
 }
 /* end of user-info */
 #meeting-info {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+  padding: 40px 10px 10px 10px;
+  position: relative;
+  margin: 10px 0;
   float: right;
+  width: 780px;
+}
+#meeting-info .meeting-list .title {
+  font-size: 16px;
+  line-height: 30px;
+  font-weight: normal;
+}
+#meeting-info .meeting-list .title span {
+  color: #999999;
+  padding-right: 5px;
+}
+#meeting-info .meeting-list .list {
+  /* end of list */
+
+  /* end of item-info */
+
+}
+#meeting-info .meeting-list .list .item {
+  display: block;
+  /* end of flag */
+
+}
+#meeting-info .meeting-list .list .item .flag {
+  background-image: -moz-linear-gradient(bottom, #eeeeee, #fbfbfb);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#eeeeee));
+  background-image: -ms-linear-gradient(to bottom, #fbfbfb, #eeeeee);
+  background-image: linear-gradient(to bottom, #fbfbfb, #eeeeee);
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  color: #454545;
+  cursor: pointer;
+  display: block;
+  padding: 9px 14px;
+  position: relative;
+  margin-top: 10px;
+  font-size: 14px;
+  text-shadow: 1px 1px 0 #dddddd;
+}
+#meeting-info .meeting-list .list .item .flag:hover {
+  background-image: -moz-linear-gradient(bottom, #e0e0e0, #ffffff);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e0e0e0));
+  background-image: -ms-linear-gradient(to bottom, #ffffff, #e0e0e0);
+  background-image: linear-gradient(to bottom, #ffffff, #e0e0e0);
+}
+#meeting-info .meeting-list .list .item .flag:active,
+#meeting-info .meeting-list .list .item .flag:focus {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+  padding: 10px 14px 8px 14px;
+}
+#meeting-info .meeting-list .list .item .flag span {
+  color: #8dc03d;
+  padding-right: 5px;
+}
+#meeting-info .meeting-list .list .item .flag .loading {
+  background: url(../images/icon-loading.gif) no-repeat center center;
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+}
+#meeting-info .meeting-list .list .meeting-info {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  display: none;
+  overflow: hidden;
+  position: relative;
+  /* meta-list */
+
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta {
+  padding: 10px;
+  float: left;
+  width: 260px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item {
+  border-bottom: 1px dashed #dddddd;
+  display: block;
+  padding: 10px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item:hover {
+  background-color: #fffff0;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key {
+  color: #999999;
+  font-size: 13px;
+  line-height: 25px;
+  position: relative;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key span {
+  color: #999999;
+  padding-right: 5px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update {
+  background-color: #8dc03d;
+  border: 1px solid #719931;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 5px;
+  position: absolute;
+  top: 4px;
+  right: 0;
+  width: 30px;
+  height: 16px;
+  line-height: 16px;
+  text-decoration: none;
+  text-align: center;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update:hover {
+  background-color: #a4cd63;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .cancel {
+  background-color: #e32332;
+  border: 1px solid #bb1825;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .cancel:hover {
+  background-color: #e9505c;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .value {
+  color: #454545;
+  font-size: 13px;
+  line-height: 20px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .value .update-box .value-input {
+  border: 1px solid #dddddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+  color: #999999;
+  padding: 2px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .value .update-box .value-input:focus {
+  background-color: #fffff0;
+  color: #454545;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .value .update-box .sure {
+  background-color: #8dc03d;
+  border: 1px solid #719931;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  margin-left: 5px;
+  width: 30px;
+  height: 16px;
+  line-height: 16px;
+  text-decoration: none;
+  text-align: center;
+}
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .value .update-box .sure:hover {
+  background-color: #a4cd63;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user {
+  padding: 10px;
+  float: right;
+  width: 470px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .list-wrap {
+  border: 1px solid #dfdfdf;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .list-wrap .title {
+  font-size: 13px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .list-wrap .title span {
+  padding-right: 5px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .user-list .item {
+  font-size: 12px;
+  line-height: 20px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .user-list .no-item {
+  color: #999999;
+  font-size: 12px;
+}
+#meeting-info .meeting-leader {
+  border-bottom: 1px dashed #dddddd;
+  padding-bottom: 30px;
+}
+#meeting-info .meeting-user {
+  padding: 30px 0;
 }
 /* end of meeting-info */
 /* footer */

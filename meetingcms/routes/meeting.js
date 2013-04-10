@@ -18,6 +18,87 @@ exports.list = function(req, res) {
 	});	
 };
 
+//获取会议详细信息-封装用户信息！
+exports.getDep = function(req, res) {
+
+	var Meeting = require('../models/meeting');
+	var User = require('../models/user');
+	var id = req.body.id;
+
+	Meeting.get(id, function(err, meeting) {
+		var result = {
+			'success': false,
+			'info': '',
+			'data': {}
+		};
+
+		result.data.meetingid = id;
+
+		result.success = true;
+		result.info = '查找会议成功';
+
+		if ( err ) {
+			result.success = false;
+			result.info = err;
+		}
+
+		//搜索leaders
+		if ( meeting.leaders.length > 0 ) {
+			User.getUsersBy(meeting.leaders, function(err, users) {
+
+				meeting.leaders = users;
+
+				//搜索users
+				if ( meeting.users.length > 0 ) {
+					User.getUsersBy(meeting.users, function(err, users) {
+
+						meeting.users = users;
+
+						if ( err ) {
+							result.success = false;
+							result.info = err;
+						}
+
+						result.data = meeting;
+						result.data.meetingid = id;
+
+						res.send(result);
+
+					});
+				}
+
+			});
+		} else {
+			//搜索users
+			if ( meeting.users.length > 0 ) {
+				User.getUsersBy(meeting.users, function(err, users) {
+
+					meeting.users = users;
+
+					if ( err ) {
+						result.success = false;
+						result.info = err;
+					}
+
+					result.data = meeting;
+					result.data.meetingid = id;
+
+					res.send(result);
+
+				});
+			} else {
+				result.data = meeting;
+				result.data.meetingid = id;
+
+				res.send(result);
+			}
+		}
+
+	});
+
+}
+
+
 /* getbyname */
 exports.getByName = function(req, res) {
 	var name = req.body.name;
@@ -128,7 +209,7 @@ exports.add = function(req, res) {
 };
 
 /* post update meeting */
-exports.updateMeeting = function(req, res) {
+exports.updateMeeting = function(req, res, io) {
 	var Meeting = require('../models/meeting');
 
 	var updateKey = req.body.updatekey || "",
@@ -164,7 +245,13 @@ exports.updateMeeting = function(req, res) {
 
 			result.success = true;
 			result.info = '更新会议成功';
-			result.data = {"flag" : updateValue};
+			result.data = { "flag" : updateValue };
+
+			/*
+			io.sockets.on('connection', function (socket) {
+  				socket.emit('updateMeeting', { data: {msg: '会议有更新'} });
+			});
+			*/
 
 			res.send(result);
 		});

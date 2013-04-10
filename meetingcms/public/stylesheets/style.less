@@ -221,6 +221,7 @@ table {
 
 /* global */
 body {
+    background: url(../images/bg-white-tt.png) repeat;
     color: #454545;
 }
 .wrapper {
@@ -238,12 +239,22 @@ body {
     height: 100%;
     z-index: 900;
 }
+.first-title {
+    background-color: @blue;
+    color: #ffffff;
+    display: block;
+    font-size: 14px;
+    padding: 5px 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
 /* hearder */
 #header {
     .clear();
 
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid #dddddd;
     padding-top: 20px;
     padding-bottom: 20px;
     position: relative;
@@ -274,7 +285,7 @@ body {
     .clear();
 
     .sidebar {
-        border-right: 1px dashed #eeeeee;
+        border-right: 1px dashed #dddddd;
         display: block;
         padding: 20px 0 0 0;
         float: left;
@@ -297,7 +308,7 @@ body {
             .clear();
 
             .meta-item {
-                border-right: 1px dashed #eeeeee;
+                border-right: 1px dashed #dddddd;
                 float: left;
                 padding: 0 16px;
                 width: 220px;
@@ -441,28 +452,20 @@ body {
     .clear();
 }
 #user-info {
-    border: 1px dashed #eeeeee;
+    background-color: #f8f8f8;
+    border: 1px dashed #dddddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
     padding: 40px 10px 10px 10px;
     position: relative;
     margin: 10px 0;
     float: left;
     width: 240px;
 
-    .title {
-        background-color: @blue;
-        color: #ffffff;
-        display: block;
-        font-size: 14px;
-        padding: 5px 15px;
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
     .user-logo {
         position: relative;
         .img {
             background-color: #ffffff;
-            border: 1px solid #eeeeee;
+            border: 1px solid #dddddd;
             padding: 4px;
             width: 60px;
         }
@@ -485,12 +488,12 @@ body {
     .info-list {
         .item {
             .clear();
-            border-bottom: 1px dashed #eeeeee;
+            border-bottom: 1px dashed #dddddd;
             display: block;
             padding: 5px 0;
             margin: 5px 0;
             .key {
-                border-right: 1px solid #eeeeee;
+                border-right: 1px solid #dddddd;
                 display: block;
                 float: left;
                 font-size: 12px;
@@ -511,6 +514,9 @@ body {
                 width: 160px;
                 min-height: 60px;
                 overflow: hidden;
+                .correct {
+                    color: @green;
+                }
                 .value {
                     .transition(all);
                     color: #999999;
@@ -522,7 +528,7 @@ body {
                             margin-bottom: 5px;
                         }
                         input {
-                            border: 1px solid #eeeeee;
+                            border: 1px solid #dddddd;
                             padding: 2px;
                             font-size: 12px;
                             width: 145px;
@@ -588,10 +594,204 @@ body {
 }/* end of user-info */
 
 #meeting-info {
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+    padding: 40px 10px 10px 10px;
+    position: relative;
+    margin: 10px 0;
     float: right;
+    width: 780px;
+
+    .meeting-list {
+        .title {
+            font-size: 16px;
+            line-height: 30px;
+            font-weight: normal;
+            span {
+                color: #999999;
+                padding-right: 5px;
+            }
+        }
+        .list {
+            .item {
+                display: block;
+
+                .flag {
+                    .line-gradual(#fbfbfb, #eeeeee);
+                    border: 1px solid #cccccc;
+                    border-radius: 5px;
+                    color: #454545;
+                    cursor: pointer;
+                    display: block;
+                    padding: 9px 14px;
+                    position: relative;
+                    margin-top: 10px;
+                    font-size: 14px;
+                    text-shadow: 1px 1px 0 #dddddd;
+                    &:hover {
+                        .line-gradual(#ffffff, #e0e0e0);
+                    }
+                    &:active, &:focus {
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+                        padding: 10px 14px 8px 14px;
+                    }
+                    span {
+                        color: @green;
+                        padding-right: 5px;
+                    }
+                    .loading {
+                        background: url(../images/icon-loading.gif) no-repeat center center;
+                        display: none;
+                        position: absolute;
+                        top: 8px;
+                        right: 5px;
+                        width: 20px;
+                        height: 20px;
+                    }
+                }/* end of flag */
+            }/* end of list */
+            .meeting-info {
+                .transition(all);
+                border-left: 1px solid #dddddd;
+                border-right: 1px solid #dddddd;
+                border-bottom: 1px solid #dddddd;
+                display: none;
+                overflow: hidden;
+                position: relative;
+                
+                .info-meta {
+                    padding: 10px;
+                    float: left;
+                    width: 260px;
+
+                    .meta-list {
+                        .item {
+                            border-bottom: 1px dashed #dddddd;
+                            display: block;
+                            padding: 10px;
+                            &:hover {
+                                background-color: #fffff0;
+                            }
+                            .key {
+                                color: #999999;
+                                font-size: 13px;    
+                                line-height: 25px;
+                                position: relative;
+                                span {
+                                    color: #999999;
+                                    padding-right: 5px;
+                                }
+                                .update {
+                                    background-color: @green;
+                                    border: 1px solid darken(@green, 10%);
+                                    border-radius: 5px;
+                                    color: #ffffff;
+                                    cursor: pointer;
+                                    display: inline-block;
+                                    font-size: 12px;
+                                    margin-left: 5px;
+                                    position: absolute;
+                                    top: 4px;
+                                    right: 0;
+                                    width: 30px;
+                                    height: 16px;
+                                    line-height: 16px;
+                                    text-decoration: none;
+                                    text-align: center;
+                                    &:hover {
+                                        background-color: lighten(@green, 10%);
+                                    }
+                                }
+                                .cancel {
+                                    background-color: @red;
+                                    border: 1px solid darken(@red, 10%);
+                                    &:hover {
+                                        background-color: lighten(@red, 10%);
+                                    }
+                                }
+                            }
+                            .value {
+                                color: #454545;
+                                font-size: 13px;         
+                                line-height: 20px;
+                                .update-box {
+                                    .value-input {
+                                        border: 1px solid #dddddd;
+                                        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+                                        color: #999999;
+                                        padding: 2px;
+                                        &:focus {
+                                            background-color: #fffff0;
+                                            color: #454545;
+                                        }
+                                    }
+                                    .sure {
+                                        background-color: @green;
+                                        border: 1px solid darken(@green, 10%);
+                                        border-radius: 5px;
+                                        color: #ffffff;
+                                        cursor: pointer;
+                                        display: inline-block;
+                                        font-size: 12px;
+                                        margin-left: 5px;
+                                        width: 30px;
+                                        height: 16px;
+                                        line-height: 16px;
+                                        text-decoration: none;
+                                        text-align: center;
+                                        &:hover {
+                                            background-color: lighten(@green, 10%);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }/* meta-list */
+                .info-user {
+                    padding: 10px;
+                    float: right;
+                    width: 470px;
+                    .list-wrap {
+                        border: 1px solid #dfdfdf;
+                        padding: 10px;
+                        margin-bottom: 20px;
+
+                        .title {
+                            font-size: 13px;
+                            span {
+                                padding-right: 5px;
+                            }
+                        }
+                    }
+                    .user-list {
+                        .item {
+                            font-size: 12px;
+                            line-height: 20px;
+                        }
+                        .no-item {
+                            color: #999999;
+                            font-size: 12px;
+                        }
+                    }
+                    .role-leader {
+
+                    }
+                    .role-user {
+                    }
+                }
+
+            }/* end of item-info */
+        }
+    }
+    .meeting-leader {
+        border-bottom: 1px dashed #dddddd;
+        padding-bottom: 30px;
+    }
+    .meeting-user {
+        padding: 30px 0;
+    }
 }/* end of meeting-info */
-
-
 
 /* footer */
 #footer {

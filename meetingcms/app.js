@@ -19,6 +19,9 @@ var settings   = require('./settings');
 
 //express实例
 var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+server.listen(8080);
 
 //配置
 app.configure(function(){
@@ -105,7 +108,9 @@ app.get('/meetinglist', meeting.list);
 app.post('/meetingadd', meeting.add);
 app.post('/meetingdelete', meeting.deleteMeeting);
 app.post('/meetingdeleteall', meeting.deleteAllMeetings);
-app.post('/meetingupdate', meeting.updateMeeting);
+app.post('/meetingupdate', function(req, res){
+    meeting.updateMeeting(req, res, io);
+});
 app.post('/meetingaddusers', meeting.addMeetingUsers);
 app.post('/meetingdelusers', meeting.delMeetingUsers);
 app.post('/meetinggetbyuser', meeting.getByUser);
@@ -119,6 +124,7 @@ app.get('/', routes.index);
 app.post('/reg', user.doReg);
 app.post('/login', user.doLogin);
 app.get('/logout', user.logout);
+app.post('/getmeeting', meeting.getDep);
 
 //启动服务
 http.createServer(app).listen(app.get('port'), function(){

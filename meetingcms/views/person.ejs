@@ -1,6 +1,6 @@
 <section id="person-page" class="wrapper">
 	<section id="user-info">
-		<h3 class="title">用户信息</h3>
+		<h3 class="first-title">用户信息</h3>
 		<section class="user-logo">
 			<img class="img" alt="用户头像" src="./images/user-logo.png">
 			<span class="name"><%= user.name %></span>
@@ -77,14 +77,107 @@
 					<p class="value"><%= user.power %></p>
 				</div>
 			</li>
-
-
 		</ul>
 	</section>
 	<section id="meeting-info">
+		<h3 class="first-title">会议信息</h3>
+		<% 
+			var meetingUser = [];
+			var meetingLeader = [];
+			if ( user.meetings ) {
 
+				for ( var i=0; i<user.meetings.length; i++ ) { 
+					if ( user.meetings[i].role == 'users' ) {
+						meetingUser.push( user.meetings[i] );
+					} else {
+						meetingLeader.push( user.meetings[i] );
+					}
+				}
+			}
+		%>
+		<section class="meeting-list meeting-leader">
+			<h4 class="title"><span class="icon-evil"></span>作为申请者</h4>
+			<ul class="list">
 
+			<%	var lenLeader = meetingLeader.length;
+				if ( lenLeader > 0 ) {
 
+					for ( var i=0; i<lenLeader; i++ ) { %>
+						<li class="item" data-id="<%= meetingLeader[i].id %>">
+							<p class="flag" data-id="<%= meetingLeader[i].id %>"><span class="icon-flag"></span><%= meetingLeader[i].name %><b class="loading"></b></p>
+							<div class="meeting-info"></div>
+						</li>
 
+			<% 	} } %>
+
+			</ul>
+		</section>
+		<section class="meeting-list meeting-user">
+			<h4 class="title"><span class="icon-cool"></span>作为被邀者</h4>
+			<ul class="list">
+			<%	var lenUser = meetingUser.length;
+				if ( lenUser > 0 ) {
+
+					for ( var i=0; i<lenUser; i++ ) { %>
+						<li class="item" data-id="<%= meetingUser[i].id %>">
+							<p class="flag" data-id="<%= meetingUser[i].id %>"><span class="icon-flag"></span><%= meetingUser[i].name %><b class="loading"></b></p>
+							<div class="meeting-info"></div>
+						</li>
+
+			<% 	} } %>
+			</ul>
+		</section>
 	</section>
 </section>
+<script id="meeting-info-template" type="text/template">
+	<section class="info-meta">
+		<ul class="meta-list">
+			<li class="item item-name" data-id="${meetingid}" data-key="name">
+				<p class="key"><span class="icon-stats"></span>会议名称<a href="#update" class="update">修改</a></p>
+				<p class="value">${name}</p>
+			</li>	
+			<li class="item item-address" data-id="${meetingid}" data-key="address">
+				<p class="key"><span class="icon-office"></span>会议地点<a href="#update" class="update">修改</a></p>
+				<p class="value">${address}</p>
+			</li>	
+			<li class="item item-date-begin" data-id="${meetingid}" data-key="date_b">
+				<p class="key"><span class="icon-calendar"></span>会议开始时间<a href="#update" class="update">修改</a></p>
+				<p class="value">${date_b}</p>
+			</li>
+			<li class="item item-date-end" data-id="${meetingid}" data-key="date_e">
+				<p class="key"><span class="icon-calendar"></span>会议结束时间<a href="#update" class="update">修改</a></p>
+				<p class="value">${date_e}</p>
+			</li>	
+			<li class="item item-info" data-id="${meetingid}" data-key="info">
+				<p class="key"><span class="icon-file-3"></span>会议概要<a href="#update" class="update">修改</a></p>
+				<p class="value">${info}</p>
+			</li>	
+		</ul>
+	</section>	
+	<section class="info-user">
+		<div class="list-wrap">
+			<h3 class="title"><span class="icon-point-right"></span>申请人</h3>
+			<ul class="user-list role-leader">
+			{{if leaders.length > 0 }}
+				{{each leaders}}
+				<li class="item">${$value.name}-${$value.email}</li>
+				{{/each}}
+			{{else}}
+				<li class="no-item">还没有人呢</li>
+			{{/if}}
+			</ul>
+		</div>
+		<div class="list-wrap">
+			<h3 class="title"><span class="icon-point-right"></span>参与者</h3>
+			<ul class="user-list role-user">
+			{{if users.length > 0 }}
+				{{each users}}
+				<li class="item">${$value.name}-${$value.email}</li>
+				{{/each}}
+			{{else}}
+				<li class="no-item">还没有人呢</li>
+			{{/if}}
+			</ul>
+		</div>
+	</section>	
+</script>
