@@ -156,11 +156,17 @@
 	</section>	
 	<section class="info-user">
 		<div class="list-wrap">
-			<h3 class="title"><span class="icon-point-right"></span>申请人</h3>
+			<h3 class="title"><span class="icon-point-right"></span>申请人
+				<span data-role="leaders" data-id="${meetingid}" data-name="${name}" title="添加申请人" class="add icon-plus"></span>
+			</h3>
 			<ul class="user-list role-leader">
 			{{if leaders.length > 0 }}
 				{{each leaders}}
-				<li class="item">${$value.name}-${$value.email}</li>
+				<li class="item">
+					<p class="value"><span class="icon-user-4"></span>${$value.name}</p>
+					<p class="value"><span class="icon-mail"></span>${$value.email}</p>
+					<span class="remove icon-cancel-circle" title="删除用户"></span>
+				</li>
 				{{/each}}
 			{{else}}
 				<li class="no-item">还没有人呢</li>
@@ -168,11 +174,17 @@
 			</ul>
 		</div>
 		<div class="list-wrap">
-			<h3 class="title"><span class="icon-point-right"></span>参与者</h3>
+			<h3 class="title"><span class="icon-point-right"></span>参与者
+				<span data-role="users" data-id="${meetingid}" title="添加参与者"class="add icon-plus"></span>
+			</h3>
 			<ul class="user-list role-user">
 			{{if users.length > 0 }}
 				{{each users}}
-				<li class="item">${$value.name}-${$value.email}</li>
+				<li class="item">
+					<p class="value"><span class="icon-user-4"></span>${$value.name}</p>
+					<p class="value"><span class="icon-mail"></span>${$value.email}</p>
+					<span class="remove icon-cancel-circle" title="删除用户"></span>
+				</li>
 				{{/each}}
 			{{else}}
 				<li class="no-item">还没有人呢</li>
@@ -180,4 +192,27 @@
 			</ul>
 		</div>
 	</section>	
+</script>
+<script id="add-user-template" type="text/template">
+	<section id="add-user-box">
+		<h3 class="title">添加用户</h3>
+		<span class="close icon-close"></span>
+		<section class="box-title">
+			<input class="search-input" type="text" name="username">
+			<span class="icon-search search"></span>
+		</section>
+		<section class="box-content">
+		</section>
+	</section>
+</script>
+<script id="add-user-item-template" type="text/template">
+	<ul class="user-list">
+	{{each data}}
+		<li class="item">
+			<p class="value"><span class="icon-user-4"></span>${$value.name}</p>
+			<p class="value"><span class="icon-mail"></span>${$value.email}</p>
+			<span class="add icon-plus" title="添加用户" data-email="${$value.email}" data-username="${$value.name}"></span>
+		</li>
+	{{/each}}
+	</ul>
 </script>

@@ -756,6 +756,9 @@ body {
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 12px;
   margin-left: 5px;
   position: absolute;
   top: 4px;
@@ -763,8 +766,6 @@ body {
   width: 30px;
   height: 16px;
   line-height: 16px;
-  text-decoration: none;
-  text-align: center;
 }
 #meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update:hover {
   background-color: #a4cd63;
@@ -799,12 +800,12 @@ body {
   cursor: pointer;
   display: inline-block;
   font-size: 12px;
+  text-decoration: none;
+  text-align: center;
   margin-left: 5px;
   width: 30px;
   height: 16px;
   line-height: 16px;
-  text-decoration: none;
-  text-align: center;
 }
 #meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .value .update-box .sure:hover {
   background-color: #a4cd63;
@@ -825,9 +826,42 @@ body {
 #meeting-info .meeting-list .list .meeting-info .info-user .list-wrap .title span {
   padding-right: 5px;
 }
+#meeting-info .meeting-list .list .meeting-info .info-user .list-wrap .title .add {
+  color: #8dc03d;
+  cursor: pointer;
+  padding-left: 5px;
+}
 #meeting-info .meeting-list .list .meeting-info .info-user .user-list .item {
+  background-color: #f8f8f8;
+  border: 1px solid #dddddd;
+  border-radius: 5px;
   font-size: 12px;
-  line-height: 20px;
+  padding: 5px;
+  margin-bottom: 5px;
+  position: relative;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .user-list .item .value span {
+  color: #999999;
+  padding-right: 5px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .user-list .item .remove {
+  color: #ef7d86;
+  cursor: pointer;
+  display: none;
+  font-size: 16px;
+  padding-left: 10px;
+  margin-top: -15px;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  height: 30px;
+  line-height: 30px;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .user-list .item .remove:hover {
+  color: #e32332;
+}
+#meeting-info .meeting-list .list .meeting-info .info-user .user-list .item:hover .remove {
+  display: block;
 }
 #meeting-info .meeting-list .list .meeting-info .info-user .user-list .no-item {
   color: #999999;
@@ -841,6 +875,99 @@ body {
   padding: 30px 0;
 }
 /* end of meeting-info */
+/* add user box */
+#add-user-box {
+  background-color: #ffffff;
+  border: 3px solid #dddddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+  display: none;
+  padding: 40px 10px 10px 10px;
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  width: 405px;
+  margin-left: -200px;
+  z-index: 500;
+}
+#add-user-box .title {
+  background-color: #4488dd;
+  color: #ffffff;
+  padding: 4px 9px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#add-user-box .close {
+  color: #e9505c;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 14px;
+}
+#add-user-box .close:hover {
+  color: #e32332;
+}
+#add-user-box .box-title .search-input {
+  border: 1px solid #dddddd;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+  font-size: 14px;
+  padding: 5px 10px;
+  width: 340px;
+  line-height: 30px;
+}
+#add-user-box .box-title .search-input:focus {
+  background-color: #fffff0;
+}
+#add-user-box .box-title .search {
+  background-color: #f8f8f8;
+  border: 1px solid #cccccc;
+  border-radius: 30px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  cursor: pointer;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+}
+#add-user-box .box-title .search:active,
+#add-user-box .box-title .search:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+}
+#add-user-box .box-content .user-list .item {
+  background-color: #f8f8f8;
+  border: 1px dashed #dddddd;
+  padding: 5px;
+  margin-top: 10px;
+  position: relative;
+}
+#add-user-box .box-content .user-list .item:hover {
+  background-color: #fffff0;
+}
+#add-user-box .box-content .user-list .item .value {
+  font-size: 13px;
+  line-height: 20px;
+}
+#add-user-box .box-content .user-list .item .value span {
+  color: #999999;
+  padding-right: 5px;
+}
+#add-user-box .box-content .user-list .item .add {
+  color: #a4cd63;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  margin-top: -10px;
+  font-size: 14px;
+  height: 20px;
+  line-height: 20px;
+}
+#add-user-box .box-content .user-list .item .add:hover {
+  color: #8dc03d;
+}
 /* footer */
 #footer {
   margin: 40px auto;

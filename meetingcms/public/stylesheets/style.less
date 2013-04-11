@@ -249,6 +249,20 @@ body {
     top: 0;
     left: 0;
 }
+.tag(@color) {
+    background-color: @color;
+    border: 1px solid darken(@color, 10%);
+    border-radius: 5px;
+    color: #ffffff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 12px;
+    text-decoration: none;
+    text-align: center;
+    &:hover {
+        background-color: lighten(@color, 10%);
+    }   
+}
 
 /* hearder */
 #header {
@@ -682,12 +696,7 @@ body {
                                     padding-right: 5px;
                                 }
                                 .update {
-                                    background-color: @green;
-                                    border: 1px solid darken(@green, 10%);
-                                    border-radius: 5px;
-                                    color: #ffffff;
-                                    cursor: pointer;
-                                    display: inline-block;
+                                    .tag(@green);
                                     font-size: 12px;
                                     margin-left: 5px;
                                     position: absolute;
@@ -696,11 +705,6 @@ body {
                                     width: 30px;
                                     height: 16px;
                                     line-height: 16px;
-                                    text-decoration: none;
-                                    text-align: center;
-                                    &:hover {
-                                        background-color: lighten(@green, 10%);
-                                    }
                                 }
                                 .cancel {
                                     background-color: @red;
@@ -726,22 +730,11 @@ body {
                                         }
                                     }
                                     .sure {
-                                        background-color: @green;
-                                        border: 1px solid darken(@green, 10%);
-                                        border-radius: 5px;
-                                        color: #ffffff;
-                                        cursor: pointer;
-                                        display: inline-block;
-                                        font-size: 12px;
+                                        .tag(@green);
                                         margin-left: 5px;
                                         width: 30px;
                                         height: 16px;
                                         line-height: 16px;
-                                        text-decoration: none;
-                                        text-align: center;
-                                        &:hover {
-                                            background-color: lighten(@green, 10%);
-                                        }
                                     }
                                 }
                             }
@@ -762,12 +755,50 @@ body {
                             span {
                                 padding-right: 5px;
                             }
+                            .add {
+                                color: @green;
+                                cursor: pointer;
+                                padding-left: 5px;
+                            }
                         }
                     }
                     .user-list {
                         .item {
+                            background-color: #f8f8f8;
+                            border: 1px solid #dddddd;
+                            border-radius: 5px;
                             font-size: 12px;
-                            line-height: 20px;
+                            padding: 5px;
+                            margin-bottom: 5px;
+                            position: relative;
+
+                            .value {
+                                span {
+                                    color: #999999;
+                                    padding-right: 5px;
+                                }
+                            }
+                            .remove {
+                                color: lighten(@red, 20%);
+                                cursor: pointer;
+                                display: none;
+                                font-size: 16px;
+                                padding-left: 10px;
+                                margin-top: -15px;
+                                position: absolute;
+                                top: 50%;
+                                right: 10px;
+                                height: 30px;
+                                line-height: 30px;
+                                &:hover {
+                                    color: @red;
+                                }
+                            }
+                            &:hover {
+                                .remove {
+                                    display: block;
+                                }
+                            }
                         }
                         .no-item {
                             color: #999999;
@@ -792,6 +823,107 @@ body {
         padding: 30px 0;
     }
 }/* end of meeting-info */
+
+/* add user box */
+#add-user-box {
+    background-color: #ffffff;
+    border: 3px solid #dddddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+    display: none;
+    padding: 40px 10px 10px 10px;
+    position: absolute;
+    top: 200px;
+    left: 50%;
+    width: 405px;
+    margin-left: -200px;
+    z-index: 500;
+    .title {
+        background-color: @blue;
+        color: #ffffff;
+        padding: 4px 9px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    .close {
+        color: lighten(@red, 10%);
+        cursor: pointer;
+        position: absolute; 
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        &:hover {
+            color: @red;
+        }
+    }
+    .box-title {
+        .search-input {
+            border: 1px solid #dddddd;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+            font-size: 14px;
+            padding: 5px 10px;
+            width: 340px;
+            line-height: 30px;
+            &:focus {
+                background-color: #fffff0;
+            }
+        }
+        .search {
+            background-color: #f8f8f8;
+            border: 1px solid #cccccc;
+            border-radius: 30px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+            display: inline-block;
+            cursor: pointer;
+            font-size: 16px;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            &:active, &:focus {
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset; 
+            }
+        }
+    }
+    .box-content {
+        .user-list {
+            .item {
+                background-color: #f8f8f8;
+                border: 1px dashed #dddddd;
+                padding: 5px;
+                margin-top: 10px;
+                position: relative;
+
+                &:hover {
+                    background-color: #fffff0;
+                }
+                .value {
+                    font-size: 13px;
+                    line-height: 20px;
+                    span {
+                        color: #999999;
+                        padding-right: 5px;
+                    }
+                }
+                .add {
+                    color: lighten(@green, 10%);
+                    cursor: pointer;
+                    position: absolute;
+                    top: 50%;
+                    right: 10px;
+                    margin-top: -10px;
+                    font-size: 14px;
+                    height: 20px;
+                    line-height: 20px;
+                    &:hover {
+                        color: @green;
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 /* footer */
 #footer {

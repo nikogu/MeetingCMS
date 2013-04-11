@@ -8,18 +8,23 @@
 define(function(require, exports, module) {
 
     var $ = require('jquery');
+    require('jquery.tmpl');
 
     var Backbone = require('backbone');
 
     var io = require('socket.io');
 
-	//模型	
+	/*
+	* 会议信息修改模型	
+	*/
 	var Info = Backbone.Model.extend({
 		isUpdate: false,
 		isSend: false
 	});
 
-	//控制视图
+	/* 
+	* 会议信息修改控制视图
+	*/
 	var InfoView = Backbone.View.extend({
 		events: {
       		"click .update" : "toggleChange",
@@ -97,16 +102,137 @@ define(function(require, exports, module) {
     	}
 	});
 
-	//控制集合视图
-	var InfoListView = Backbone.View.extend({
+	//对话框
+	var Dialog = require('./dialog');
+
+	/*
+	* 添加用户对话框
+	*/
+	var UserBox = Backbone.Model.extend({
+		role : '',
+		meetingid : '',
+		name: ''
+	});
+
+	var AddUserBox = Backbone.View.extend({
+		events: {
+			"click .search" : "search",
+			"click .add" : "addUser"
+    	},
     	initialize: function() {
-    		this.$el.find('.info-meta .item').each(function(index, item) {
-    			var infoView = new InfoView( {model: new Info, el: $(item)} );
+    		this.input = this.$el.find('.search-input');
+    		this.searchBtn = this.$el.find('.search');
+    		this.listWrap = this.$el.find('.box-content');
+    	},
+    	search: function() {
+    		$.ajax({
+    			url: '/usergetby',
+    			type: 'post',
+    			data: {key: 'name', value: this.input.val()},
+    			dataType: 'json',
+    			success: $.proxy(function(data) {
+    				if ( data.success ) {
+    					if ( data.data ) {
+    						this.listWrap.html( $.tmpl( $('#add-user-item-template').html(), data ) );
+    					} else {
+    						this.listWrap.html('<p class="no-item">没有找到你需要的东西...</p>');
+    					}
+    				} else {
+    					alert(data.info);
+    				}
+    			}, this)
     		});
+    	},
+    	addUser: function(e) {
+
+    		var target = $(e.target);
+
+    		var send = {};
+    		send.id = this.model.meetingid;
+			send.email = target.attr('data-email');
+			send.role = this.model.role;
+			send.name = this.model.name;
+			send.username = target.attr('data-username');
+
+			console.log(send);
+
+    		$.ajax({
+    			url: '/meetingaddusers',
+    			type: 'post',
+    			data: send,
+    			dataType: 'json',
+    			success: $.proxy(function(data) {
+    				if ( data.success ) {
+    					target.closest('.item').remove();
+    				} else {
+    					alert(data.info);
+    				}
+    			}, this)
+    		})
     	}
 	});
 
-	module.exports = InfoListView;
+	/*
+	* 会议用户编辑修改模型
+	*/
+	var User = Backbone.Model.extend({
+		initialize: function( addUserBox ) {
+			this.set({addUserBox: addUserBox});
+		}
+	});
+
+	/*
+	* 会议用户编辑修改视图
+	*/
+	var UserView = Backbone.View.extend({
+		events: {
+			"click .add" : "addUser"
+    	},
+    	initialize: function() {
+    		this.addBtn = this.$el.find('.add');
+    		this.meetingid = this.addBtn.attr('data-id');
+    		this.role = this.addBtn.attr('data-role');
+    		this.name = this.addBtn.attr('data-name');
+    		this.addUserBox = this.model.get('addUserBox');
+    		Dialog.set(this.addBtn, $(this.addUserBox.el));
+    	},
+    	addUser: function(e) {	
+    		//赋值给添加user box
+    		this.addUserBox.model.role = this.role;
+    		this.addUserBox.model.meetingid = this.meetingid;
+    		this.addUserBox.model.name = this.name;
+    	}
+	});
+
+	/* 
+	* 会议修改模型
+	*/
+	var MeetingModify = Backbone.View.extend({
+    	initialize: function() {
+
+    		//添加用户box
+    		var addUserBox = $('#add-user-box');
+
+    		if ( !window._NIKO._addUserBox ) {
+				$.tmpl( $('#add-user-template').html() ).appendTo( $('body') );
+	    		window._NIKO._addUserBox = new AddUserBox({model: new UserBox, el: $('#add-user-box') });
+    		}
+    		var user = new User(window._NIKO._addUserBox);
+
+    		//会议基本信息修改
+    		this.$el.find('.info-meta .item').each(function(index, item) {
+    			var infoView = new InfoView( {model: new Info, el: $(item)} );
+    		});
+
+    		//会议用户信息修改
+    		this.$el.find('.list-wrap').each(function(index, item) {
+    			var userView = new UserView( {model: user, el: $(item)} );
+    		}); 
+    		
+    	}
+	});
+
+	module.exports = MeetingModify;
 
 
 });

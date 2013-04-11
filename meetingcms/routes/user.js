@@ -184,6 +184,13 @@ exports.doReg = function(req, res) {
 /* get user */
 exports.getUserBy = function(req, res) {
 	var User = require('../models/user');
+	var Verify =require('../models/verify');
+
+	var result = {
+		'success': false,
+		'info': '',
+		'data': {}
+	};
 
 	var data = {},
 		key = '',
@@ -194,12 +201,25 @@ exports.getUserBy = function(req, res) {
 	} else {
 		key = req.body.key;
 		value = req.body.value;
+
+		if ( Verify('illegal', key) || Verify('illegal', value) ) {
+
+			result.success = false;
+			result.info = '非法字符';
+			res.send(result);
+			return;
+
+		}
+
 		data = JSON.parse('{"'+key+'":"1"}');
 		data[key] = new RegExp('.*'+value+'.*', 'i');
 	}
 
 	User.getBy(data, function(err, users) {
-		res.send(users);
+		result.success = true;
+		result.info = '查找成功';
+		result.data = users;
+		res.send(result);
 	});
 
 }

@@ -5,6 +5,10 @@ function verify(type, value, value2) {
                 return !!(/[\w\d_\-\.]+@[\w\d_\-\.]+\.[\w]+/ig.test(value));
             break;
 
+            case 'illegal':
+                return !!/[\s%^&#$\/\\]+/ig.test(value);
+            break;
+
             case 'null':
                 return !!(value.replace(/\s*/ig, '').length > 0);
             break;

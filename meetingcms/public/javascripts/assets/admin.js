@@ -888,7 +888,7 @@ KISSY.ready(function(S) {
 			searchUsers( o, undefined, function(data) {
 
 				var _data = {};
-				_data.data = data;
+				_data.data = data.data;
 				
 				var tplTo = Node.one('#edit-meeting-users').one('.search-list');
 
