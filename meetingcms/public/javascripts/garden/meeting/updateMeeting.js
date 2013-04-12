@@ -164,6 +164,17 @@ define(function(require, exports, module) {
     			success: $.proxy(function(data) {
     				if ( data.success ) {
     					target.closest('.item').remove();
+
+                        var listWrap = $(this.model.userView.el);
+
+                        var tpl = '<li class="item">';
+                        tpl += '<p class="value"><span class="icon-user-4"></span>${name}</p>';
+                        tpl += '<p class="value"><span class="icon-mail"></span>${email}</p>';
+                        tpl += '<span data-email="${email}" class="remove icon-cancel-circle" title="删除用户"></span>';
+                        tpl += '</li>';
+
+                        listWrap.find('.user-list').append($.tmpl(tpl, data.data));
+
     				} else {
     					alert(data.info);
     				}
@@ -186,7 +197,8 @@ define(function(require, exports, module) {
 	*/
 	var UserView = Backbone.View.extend({
 		events: {
-			"click .add" : "addUser"
+			"click .add" : "addUser",
+            "click .remove" : "removeUser"
     	},
     	initialize: function() {
     		this.addBtn = this.$el.find('.add');
@@ -201,14 +213,48 @@ define(function(require, exports, module) {
     		this.addUserBox.model.role = this.role;
     		this.addUserBox.model.meetingid = this.meetingid;
     		this.addUserBox.model.name = this.name;
-    	}
+            this.addUserBox.model.userView = this;
+    	},
+        removeUser: function(e) {
+            var target = $(e.target);
+
+            var send = {};
+            send.id = this.meetingid;
+            send.role = this.role;
+            send.name = this.name;
+            send.email = target.attr('data-email');
+
+            $.ajax({
+                url: '/meetingdelusers',
+                type: 'post',
+                dataType: 'json',
+                data: send, 
+                success: $.proxy(function(data) {
+                    if ( data.success ) {
+                        target.closest('.item').remove();
+                    } else {
+                        alert(data.info);
+                    }
+                }, this)
+            })
+         
+        }
 	});
 
 	/* 
 	* 会议修改模型
 	*/
 	var MeetingModify = Backbone.View.extend({
+        events: {
+            "click .exit-meeting" : "exitMeeting"
+        },
     	initialize: function() {
+            //会议属性
+            this.wrap = this.$el.closest('.item');
+            this.meetingId = this.wrap.attr('data-id');
+            this.role = this.wrap.attr('data-role');
+            this.name = this.wrap.attr('data-name');
+            this.email = $('#user-info').find('.item-email').find('.value').text();
 
     		//添加用户box
     		var addUserBox = $('#add-user-box');
@@ -229,7 +275,31 @@ define(function(require, exports, module) {
     			var userView = new UserView( {model: user, el: $(item)} );
     		}); 
     		
-    	}
+    	},
+        exitMeeting: function(e) {
+            console.log(1);
+
+            var send = {};
+            send.id = this.meetingId;
+            send.role = this.role;
+            send.name = this.name;
+            send.email = this.email;
+
+            $.ajax({
+                url: '/meetingdelusers',
+                type: 'post',
+                dataType: 'json',
+                data: send, 
+                success: $.proxy(function(data) {
+                    if ( data.success ) {
+                        this.wrap.remove();
+                    } else {
+                        alert(data.info);
+                    }
+                }, this)
+            })
+        },
+
 	});
 
 	module.exports = MeetingModify;

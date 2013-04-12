@@ -871,8 +871,44 @@ body {
   border-bottom: 1px dashed #dddddd;
   padding-bottom: 30px;
 }
+#meeting-info .meeting-leader .exit-meeting {
+  color: #e9505c;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 10px;
+}
+#meeting-info .meeting-leader .exit-meeting span {
+  padding-right: 5px;
+}
+#meeting-info .meeting-leader .exit-meeting:hover {
+  color: #e32332;
+}
 #meeting-info .meeting-user {
   padding: 30px 0;
+}
+#meeting-info .meeting-user .update {
+  display: none;
+  visibility: hidden;
+  position: absolute;
+}
+#meeting-info .meeting-user .add {
+  display: none;
+}
+#meeting-info .meeting-user .remove {
+  visibility: hidden;
+  position: absolute;
+}
+#meeting-info .meeting-user .exit-meeting {
+  color: #e9505c;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 10px;
+}
+#meeting-info .meeting-user .exit-meeting span {
+  padding-right: 5px;
+}
+#meeting-info .meeting-user .exit-meeting:hover {
+  color: #e32332;
 }
 /* end of meeting-info */
 /* add user box */

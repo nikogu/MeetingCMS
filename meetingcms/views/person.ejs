@@ -103,7 +103,7 @@
 				if ( lenLeader > 0 ) {
 
 					for ( var i=0; i<lenLeader; i++ ) { %>
-						<li class="item" data-id="<%= meetingLeader[i].id %>">
+						<li class="item" data-id="<%= meetingLeader[i].id %>" data-role="<%= meetingLeader[i].role %>" data-name="<%= meetingLeader[i].name %>">
 							<p class="flag" data-id="<%= meetingLeader[i].id %>"><span class="icon-flag"></span><%= meetingLeader[i].name %><b class="loading"></b></p>
 							<div class="meeting-info"></div>
 						</li>
@@ -119,7 +119,7 @@
 				if ( lenUser > 0 ) {
 
 					for ( var i=0; i<lenUser; i++ ) { %>
-						<li class="item" data-id="<%= meetingUser[i].id %>">
+						<li class="item" data-id="<%= meetingUser[i].id %>" data-role="<%= meetingUser[i].role %>" data-name="<%= meetingUser[i].name %>">
 							<p class="flag" data-id="<%= meetingUser[i].id %>"><span class="icon-flag"></span><%= meetingUser[i].name %><b class="loading"></b></p>
 							<div class="meeting-info"></div>
 						</li>
@@ -153,6 +153,7 @@
 				<p class="value">${info}</p>
 			</li>	
 		</ul>
+		<p class="exit-meeting"><span class="icon-exit"></span>退出会议</p>
 	</section>	
 	<section class="info-user">
 		<div class="list-wrap">
@@ -165,7 +166,7 @@
 				<li class="item">
 					<p class="value"><span class="icon-user-4"></span>${$value.name}</p>
 					<p class="value"><span class="icon-mail"></span>${$value.email}</p>
-					<span class="remove icon-cancel-circle" title="删除用户"></span>
+					<span data-email="${$value.email}" class="remove icon-cancel-circle" title="删除用户"></span>
 				</li>
 				{{/each}}
 			{{else}}
@@ -175,7 +176,7 @@
 		</div>
 		<div class="list-wrap">
 			<h3 class="title"><span class="icon-point-right"></span>参与者
-				<span data-role="users" data-id="${meetingid}" title="添加参与者"class="add icon-plus"></span>
+				<span data-role="users" data-id="${meetingid}" data-name="${name}" title="添加参与者" class="add icon-plus"></span>
 			</h3>
 			<ul class="user-list role-user">
 			{{if users.length > 0 }}
@@ -183,7 +184,7 @@
 				<li class="item">
 					<p class="value"><span class="icon-user-4"></span>${$value.name}</p>
 					<p class="value"><span class="icon-mail"></span>${$value.email}</p>
-					<span class="remove icon-cancel-circle" title="删除用户"></span>
+					<span data-email="${$value.email}" class="remove icon-cancel-circle" title="删除用户"></span>
 				</li>
 				{{/each}}
 			{{else}}
