@@ -2,6 +2,20 @@
 *    Meeting App Style
 */
 
+@import "./ui-lightness/jquery-ui-1.10.2.custom.min.css";
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; }
+.ui-timepicker-rtl dl dd { margin: 0 65px 10px 10px; }
+
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -223,6 +237,7 @@ table {
 body {
     background: url(../images/bg-white-tt.png) repeat;
     color: #454545;
+    font-size: 12px;
 }
 .wrapper {
     margin: 0 auto;
@@ -616,6 +631,45 @@ body {
     float: right;
     width: 780px;
 
+    #add-meeting {
+        position: absolute;
+        top: 40px;
+        right: 10px;
+
+        .btn-add {
+            .line-gradual(lighten(@green, 10%), @green);
+            border: 1px solid darken(@green, 10%);
+            border-radius: 5px;
+            color: #ffffff;
+            display: inline-block;
+            padding: 4px 9px;
+            text-decoration: none;
+            &:hover {
+                .line-gradual(lighten(@green, 20%), @green);
+            }
+            &:active, &:focus {
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+                top: 41px;
+            }
+        }
+        .input-wrap {
+            display: none;
+
+            #add-meeting-input {
+                border: 1px solid #dddddd;
+                display: inline-block;
+                font-size: 12px;
+                padding: 4px 9px;
+            }
+            .btn-cancel {
+                color: lighten(@red, 10%);
+                cursor: pointer;
+                &:hover {
+                    color: @red; 
+                }
+            }
+        }
+    }
     .meeting-list {
         .title {
             font-size: 16px;
@@ -685,6 +739,9 @@ body {
                             padding: 10px;
                             &:hover {
                                 background-color: #fffff0;
+                                .key {
+                                    color: #454545;
+                                }
                             }
                             .key {
                                 color: #999999;
@@ -695,7 +752,7 @@ body {
                                     color: #999999;
                                     padding-right: 5px;
                                 }
-                                .update {
+                                .update, .update-date {
                                     .tag(@green);
                                     font-size: 12px;
                                     margin-left: 5px;

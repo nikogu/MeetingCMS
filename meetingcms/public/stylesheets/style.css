@@ -1,7 +1,41 @@
+@import "./ui-lightness/jquery-ui-1.10.2.custom.min.css";
+
 @import "./font-frontpage.css";
 /*
 *    Meeting App Style
 */
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header {
+  margin-bottom: 8px;
+}
+.ui-timepicker-div dl {
+  text-align: left;
+}
+.ui-timepicker-div dl dt {
+  height: 25px;
+  margin-bottom: -25px;
+}
+.ui-timepicker-div dl dd {
+  margin: 0 10px 10px 65px;
+}
+.ui-timepicker-div td {
+  font-size: 90%;
+}
+.ui-tpicker-grid-label {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+.ui-timepicker-rtl {
+  direction: rtl;
+}
+.ui-timepicker-rtl dl {
+  text-align: right;
+}
+.ui-timepicker-rtl dl dd {
+  margin: 0 65px 10px 10px;
+}
 html,
 body,
 div,
@@ -237,6 +271,7 @@ table {
 body {
   background: url(../images/bg-white-tt.png) repeat;
   color: #454545;
+  font-size: 12px;
 }
 .wrapper {
   margin: 0 auto;
@@ -650,6 +685,50 @@ body {
   float: right;
   width: 780px;
 }
+#meeting-info #add-meeting {
+  position: absolute;
+  top: 40px;
+  right: 10px;
+}
+#meeting-info #add-meeting .btn-add {
+  background-image: -moz-linear-gradient(bottom, #8dc03d, #a4cd63);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#a4cd63), to(#8dc03d));
+  background-image: -ms-linear-gradient(to bottom, #a4cd63, #8dc03d);
+  background-image: linear-gradient(to bottom, #a4cd63, #8dc03d);
+  border: 1px solid #719931;
+  border-radius: 5px;
+  color: #ffffff;
+  display: inline-block;
+  padding: 4px 9px;
+  text-decoration: none;
+}
+#meeting-info #add-meeting .btn-add:hover {
+  background-image: -moz-linear-gradient(bottom, #8dc03d, #bada89);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#bada89), to(#8dc03d));
+  background-image: -ms-linear-gradient(to bottom, #bada89, #8dc03d);
+  background-image: linear-gradient(to bottom, #bada89, #8dc03d);
+}
+#meeting-info #add-meeting .btn-add:active,
+#meeting-info #add-meeting .btn-add:focus {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2) inset;
+  top: 41px;
+}
+#meeting-info #add-meeting .input-wrap {
+  display: none;
+}
+#meeting-info #add-meeting .input-wrap #add-meeting-input {
+  border: 1px solid #dddddd;
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 9px;
+}
+#meeting-info #add-meeting .input-wrap .btn-cancel {
+  color: #e9505c;
+  cursor: pointer;
+}
+#meeting-info #add-meeting .input-wrap .btn-cancel:hover {
+  color: #e32332;
+}
 #meeting-info .meeting-list .title {
   font-size: 16px;
   line-height: 30px;
@@ -738,6 +817,9 @@ body {
 #meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item:hover {
   background-color: #fffff0;
 }
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item:hover .key {
+  color: #454545;
+}
 #meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key {
   color: #999999;
   font-size: 13px;
@@ -748,7 +830,8 @@ body {
   color: #999999;
   padding-right: 5px;
 }
-#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update {
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update,
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update-date {
   background-color: #8dc03d;
   border: 1px solid #719931;
   border-radius: 5px;
@@ -767,7 +850,8 @@ body {
   height: 16px;
   line-height: 16px;
 }
-#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update:hover {
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update:hover,
+#meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .update-date:hover {
   background-color: #a4cd63;
 }
 #meeting-info .meeting-list .list .meeting-info .info-meta .meta-list .item .key .cancel {

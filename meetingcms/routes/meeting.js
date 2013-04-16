@@ -23,6 +23,7 @@ exports.getDep = function(req, res) {
 
 	var Meeting = require('../models/meeting');
 	var User = require('../models/user');
+
 	var id = req.body.id;
 
 	Meeting.get(id, function(err, meeting) {
@@ -43,13 +44,14 @@ exports.getDep = function(req, res) {
 		}
 
 		//搜索leaders
-		if ( meeting.leaders.length > 0 ) {
+		if ( meeting.leaders && meeting.leaders.length > 0 ) {
+
 			User.getUsersBy(meeting.leaders, function(err, users) {
 
-				meeting.leaders = users;
+				meeting.leaders  = users;
 
 				//搜索users
-				if ( meeting.users.length > 0 ) {
+				if ( meeting.users && meeting.users.length > 0 ) {
 					User.getUsersBy(meeting.users, function(err, users) {
 
 						meeting.users = users;
@@ -65,12 +67,17 @@ exports.getDep = function(req, res) {
 						res.send(result);
 
 					});
+				} else {
+					result.data = meeting;
+					result.data.meetingid = id;
+
+					res.send(result);
 				}
 
 			});
 		} else {
 			//搜索users
-			if ( meeting.users.length > 0 ) {
+			if ( meeting.users && meeting.users.length > 0 ) {
 				User.getUsersBy(meeting.users, function(err, users) {
 
 					meeting.users = users;
@@ -175,7 +182,7 @@ exports.getByUser = function(req, res) {
 /* post add */
 exports.add = function(req, res) {
 	var Meeting = require('../models/meeting');
-
+	
 	var meeting = new Meeting({
 		name : req.body.name,
 		date_b : req.body.date_b,

@@ -52,7 +52,7 @@ exports.doLogin = function(req, res) {
 	};
 
 	//验证
-	if ( !verify('email', req.body.email) ) {
+	if ( !verify('isEmail', req.body.email) ) {
 		result.success = false;
 		result.info = '邮箱不正确';
 		result.data.field = 'email';
@@ -60,7 +60,7 @@ exports.doLogin = function(req, res) {
 		return;
 	}
 
-	if ( !verify('length', req.body.password) ) {
+	if ( !verify('isLengthOk', req.body.password) ) {
 		result.success = false;
 		result.info = '密码不正确';
 		result.data.field = 'password';
@@ -125,7 +125,7 @@ exports.doReg = function(req, res) {
 	};
 
 	//验证
-	if ( !verify('email', req.body.email) ) {
+	if ( !verify('isEmail', req.body.email) ) {
 		result.success = false;
 		result.info = '邮箱不正确';
 		result.data.field = 'email';
@@ -133,7 +133,7 @@ exports.doReg = function(req, res) {
 		return;
 	}
 
-	if ( !verify('length', req.body.password) ) {
+	if ( !verify('isLengthOk', req.body.password) ) {
 		result.success = false;
 		result.info = '密码不正确';
 		result.data.field = 'password';
@@ -141,7 +141,7 @@ exports.doReg = function(req, res) {
 		return;
 	}
 
-	if ( !verify('null', req.body.username) ) {
+	if ( !verify('isNull', req.body.username) ) {
 		result.success = false;
 		result.info = '用户名不正确';
 		result.data.field = 'username';
@@ -202,7 +202,7 @@ exports.getUserBy = function(req, res) {
 		key = req.body.key;
 		value = req.body.value;
 
-		if ( Verify('illegal', key) || Verify('illegal', value) ) {
+		if ( Verify('isIllegal', key) || Verify('isIllegal', value) ) {
 
 			result.success = false;
 			result.info = '非法字符';
@@ -264,7 +264,7 @@ exports.addUser = function(req, res) {
 	};
 
 	//验证
-	if ( !verify('email', req.body.email) ) {
+	if ( !verify('isEmail', req.body.email) ) {
 		result.success = false;
 		result.info = '邮箱不正确';
 		result.data.field = 'email';
@@ -272,7 +272,7 @@ exports.addUser = function(req, res) {
 		return;
 	}
 
-	if ( !verify('length', req.body.password) ) {
+	if ( !verify('isLengthOk', req.body.password) ) {
 		result.success = false;
 		result.info = '密码不正确';
 		result.data.field = 'password';
@@ -280,7 +280,7 @@ exports.addUser = function(req, res) {
 		return;
 	}
 
-	if ( !verify('null', req.body.username) ) {
+	if ( !verify('isNull', req.body.username) ) {
 		result.success = false;
 		result.info = '用户名不正确';
 		result.data.field = 'username';
@@ -318,6 +318,75 @@ exports.addUser = function(req, res) {
 		});
 	});
 };
+
+/* add new meeting */
+exports.addNewMeeting = function(req, res) {
+	var User = require('../models/user');
+	var Meeting = require('../models/meeting');
+	var Verify = require('../models/verify');
+	
+	var email = req.body.email;	
+	var mName = req.body.name;
+
+	var result = {
+		'success': true,
+		'info': '',
+		'data': {}
+	};
+
+	if ( Verify('isIllegal', mName) || Verify('isNull', mName) ) {
+		result.success = false;
+		result.info = '会议名称非法';
+		result.data = {email: email, name: mName};
+		res.send(result);
+		return;
+	}
+
+	var meeting = new Meeting({
+		name : mName || '未命名',
+		date_b : '',
+		date_e : '',
+		address : '',
+		leaders : [],
+		users : [],
+		info : ''
+	});
+
+	meeting.save(function(err, meeting) {
+
+		var newMt = {};
+		newMt['role'] = 'leaders';
+		newMt['id'] = meeting[0]._id.toString();
+		newMt['name'] = meeting[0].name || mName;
+		newMt['email'] = email;
+
+		User.addMeeting(email, newMt, function(err) {
+
+			var data = {};
+			data.id = newMt.id;
+			data.email = email;
+			data.role = newMt.role;
+
+			Meeting.addUsers(data, function(err) {
+
+				if ( err ) {
+					result.success = false;
+					result.info = err;
+				} else {
+					result.info = '添加会议成功';
+					meeting.email = email;
+					result.data = meeting;
+				}
+
+				res.send(result);
+			
+			});
+
+		});
+
+	});
+
+}
 
 /* add meeting */
 exports.addMeeting = function(req, res) {

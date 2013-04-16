@@ -81,6 +81,13 @@
 	</section>
 	<section id="meeting-info">
 		<h3 class="first-title">会议信息</h3>
+		<div id="add-meeting">
+			<p class="input-wrap">
+				<input id="add-meeting-input" type="text" placeholder="请输入会议姓名">
+				<span class="btn-cancel icon-cancel-circle"></span>
+			</p>
+			<a class="btn-add" href="#add-mt" data-email="<%= user.email %>">申请新会议</a>
+		</div>
 		<% 
 			var meetingUser = [];
 			var meetingLeader = [];
@@ -102,7 +109,7 @@
 			<%	var lenLeader = meetingLeader.length;
 				if ( lenLeader > 0 ) {
 
-					for ( var i=0; i<lenLeader; i++ ) { %>
+					for ( var i=lenLeader; i--; ) { %>
 						<li class="item" data-id="<%= meetingLeader[i].id %>" data-role="<%= meetingLeader[i].role %>" data-name="<%= meetingLeader[i].name %>">
 							<p class="flag" data-id="<%= meetingLeader[i].id %>"><span class="icon-flag"></span><%= meetingLeader[i].name %><b class="loading"></b></p>
 							<div class="meeting-info"></div>
@@ -118,7 +125,7 @@
 			<%	var lenUser = meetingUser.length;
 				if ( lenUser > 0 ) {
 
-					for ( var i=0; i<lenUser; i++ ) { %>
+					for ( var i=lenUser; i--; ) { %>
 						<li class="item" data-id="<%= meetingUser[i].id %>" data-role="<%= meetingUser[i].role %>" data-name="<%= meetingUser[i].name %>">
 							<p class="flag" data-id="<%= meetingUser[i].id %>"><span class="icon-flag"></span><%= meetingUser[i].name %><b class="loading"></b></p>
 							<div class="meeting-info"></div>
@@ -133,7 +140,7 @@
 	<section class="info-meta">
 		<ul class="meta-list">
 			<li class="item item-name" data-id="${meetingid}" data-key="name">
-				<p class="key"><span class="icon-stats"></span>会议名称<a href="#update" class="update">修改</a></p>
+				<p class="key"><span class="icon-stats"></span>会议名称</p>
 				<p class="value">${name}</p>
 			</li>	
 			<li class="item item-address" data-id="${meetingid}" data-key="address">
@@ -141,11 +148,11 @@
 				<p class="value">${address}</p>
 			</li>	
 			<li class="item item-date-begin" data-id="${meetingid}" data-key="date_b">
-				<p class="key"><span class="icon-calendar"></span>会议开始时间<a href="#update" class="update">修改</a></p>
+				<p class="key"><span class="icon-calendar"></span>会议开始时间<a href="#update" class="update-date">修改</a></p>
 				<p class="value">${date_b}</p>
 			</li>
 			<li class="item item-date-end" data-id="${meetingid}" data-key="date_e">
-				<p class="key"><span class="icon-calendar"></span>会议结束时间<a href="#update" class="update">修改</a></p>
+				<p class="key"><span class="icon-calendar"></span>会议结束时间<a href="#update" class="update-date">修改</a></p>
 				<p class="value">${date_e}</p>
 			</li>	
 			<li class="item item-info" data-id="${meetingid}" data-key="info">

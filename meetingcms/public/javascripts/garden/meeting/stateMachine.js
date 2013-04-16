@@ -35,6 +35,16 @@ define(function(require, exports, module) {
         var handler = this._controller[name];
         this._exec.push(handler);
     }
+    //trigger state
+    StateMachine.prototype.goto = function(name) {
+        if ( !( name in this._controller ) ) {
+            throw new Error('Controller does not has this state');
+        }
+
+        var handler = this._controller[name];
+        this.empty();
+        handler.call(this, arguments);
+    }
     //exec exec queue
     StateMachine.prototype.exec = function() {
         if ( this._exec.length > 0 ) {

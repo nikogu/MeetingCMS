@@ -578,10 +578,11 @@ KISSY.ready(function(S) {
 
 			showMeeting(function(data) {
 
-				var meetings = data[0].meetings;
+				var meetings = data.data[0].meetings;
 
 				//显示已有会议
 				if ( meetings ) {
+
 
 					var tplTo = Node.one('#edit-user-meetings').one('.meeting-list'),
 						tpl = Node.one('#meeting-list-tpl').html(),

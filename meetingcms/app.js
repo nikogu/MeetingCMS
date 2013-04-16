@@ -125,6 +125,7 @@ app.post('/reg', user.doReg);
 app.post('/login', user.doLogin);
 app.get('/logout', user.logout);
 app.post('/getmeeting', meeting.getDep);
+app.post('/addnewmeeting', user.addNewMeeting);
 
 //启动服务
 http.createServer(app).listen(app.get('port'), function(){

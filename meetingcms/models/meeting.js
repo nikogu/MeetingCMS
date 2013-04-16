@@ -100,9 +100,6 @@ Meeting.addUsers = function( data, callback ) {
 
 			var o = JSON.parse('{"'+role+'":"'+email+'"}');
 
-			console.log(id);
-			console.log(o);
-
 			collection.update({ _id: new ObjectID(id)}, {"$addToSet": o}, function(err) {
 
 				mongodb.close();

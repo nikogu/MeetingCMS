@@ -9,6 +9,8 @@ define(function(require, exports, module) {
 
     var $ = require('jquery');
     require('jquery.tmpl');
+    require('jquery.ui');
+    require('jquery.timepick');
 
     var Backbone = require('backbone');
 
@@ -28,11 +30,12 @@ define(function(require, exports, module) {
 	var InfoView = Backbone.View.extend({
 		events: {
       		"click .update" : "toggleChange",
-      		"click .sure" : "send"
+      		"click .sure" : "send",
+            "click .update-date" : "updateDate"
     	},
     	initialize: function() {
 
-			this.updateBtn = this.$el.find('.update');
+			this.updateBtn = this.$el.find('.update, .update-date');
 			this.valueNode = this.$el.find('.value');
 			this.oldValue = '';
 			this.meetingId = this.$el.attr('data-id');
@@ -90,16 +93,38 @@ define(function(require, exports, module) {
 				this.valueNode.html(html);
 				this.updateBtn.addClass('cancel').text('取消');
 
-				//异步更新事件
-				var input = this.valueNode.find('.value-input');
-				var sureBtn = this.valueNode.find('.sure');
-
     		} else {
 
     			this.reset( this.oldValue );
 
     		}
-    	}
+    	},
+        updateDate: function() {
+
+            if ( !this.model.isUpdate ) {
+
+                this.model.isUpdate = true;
+                this.oldValue = this.valueNode.text();
+
+                var html = '<div class="update-box">';
+                html += '<input class="value-input date-input" type="text" name="value" value="'+this.oldValue+'" >';
+                html += '<span class="sure">确认</span>';
+                html += '</div>';
+
+                //添加节点
+                this.valueNode.html(html);
+                this.updateBtn.addClass('cancel').text('取消');
+
+                $('.date-input').datetimepicker({ dateFormat: "yy-mm-dd" });
+
+            } else {
+
+                $( ".date-input" ).datepicker( "destroy" );
+                this.reset( this.oldValue );
+
+            }
+
+        }
 	});
 
 	//对话框

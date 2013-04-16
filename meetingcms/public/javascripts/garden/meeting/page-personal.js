@@ -10,6 +10,7 @@ define(function(require, exports, module) {
 
     //个人信息修改
     var Modify = require('./modify');
+    var Dialog = require('./dialog');
 
     var person = new Modify($('#user-info'));
 
@@ -123,7 +124,6 @@ define(function(require, exports, module) {
                 that.loading.hide();
 
                 if ( data.success ) {
-                    console.log(data);
 
                     if ( data.data ) {
 
@@ -191,6 +191,123 @@ define(function(require, exports, module) {
 
     });
 
+    //添加新会议
+    (function(){
+        var wrap = $('#add-meeting'),
+            inputWrap = wrap.find('.input-wrap'),
+            input = wrap.find('#add-meeting-input'),
+            cancelBtn = wrap.find('.btn-cancel'),
+            addBtn = wrap.find('.btn-add'),
+            email = addBtn.attr('data-email'),
+            tplTo = $('#meeting-info .meeting-leader .list');
+
+        var tpl = '<li class="item" data-id="${_id}" data-role="leaders" data-name="${name}">';
+        tpl += '<p class="flag" data-id="${_id}"><span class="icon-flag"></span>${name}<b class="loading"></b></p>';
+        tpl += '<div class="meeting-info"></div>';
+        tpl += '</li>';
+
+        var addStream = new StateMachie({
+            inputWrap: inputWrap,
+            trigger: addBtn,
+            input: input,
+            email: email,
+            tplTo: tplTo 
+        });
+
+        function send() {
+            var send = {
+                email: this.email,
+                name: this.input.val()
+            }
+            $.ajax({
+                url: '/addnewmeeting',
+                type: 'post',
+                data: send,
+                dataType: 'json',
+                success: $.proxy(function(data) {
+
+                    if ( data.success && data.data[0]) {
+
+                        var wrap = tplTo.prepend($.tmpl(tpl, data.data[0]));
+
+                        //新建状态机
+                        var target = wrap.find('.flag').eq(0),
+                            parent = target.parent(),
+                            info = parent.find('.meeting-info'),
+                            id = target.attr('data-id'),
+                            loading = target.find('.loading');
+
+                        //用户会议状态模型
+                        var userMeeting = new StateMachie({
+                            trigger: target,
+                            parent: parent,
+                            info: info,
+                            id: id,
+                            loading: loading
+                        });
+
+                        //获得信息状态
+                        userMeeting.add('get-info', getInfo);
+
+                        //显示信息状态
+                        userMeeting.add('show-info', showInfo);
+
+                        //隐藏信息状态
+                        userMeeting.add('hide-info', hideInfo);
+
+                        //设置初始状态
+                        userMeeting.active('get-info');
+
+                        //触发状态
+                        userMeeting.trigger.on('click', $.proxy(function(){
+                            this.exec();
+                        }, userMeeting));
+
+
+                    } else {
+                        alert(data.info);
+                    }
+
+                    this.goto('hide-input');
+
+                }, this)
+            })
+
+        }
+
+        function showInput() {
+            this.inputWrap.css('display','inline-block');
+            this.trigger.text('确定');
+            addStream.active('send');
+        }
+
+        function hideInput() {
+            this.inputWrap.hide();
+            this.trigger.text('申请新会议');
+            addStream.active('show-input');
+        }
+
+        addStream.add('send', send);
+        addStream.add('show-input', showInput);
+        addStream.add('hide-input', hideInput);
+
+        addStream.active('show-input');
+
+        addStream.trigger.on('click', $.proxy(function() {
+            addStream.exec();
+        }, this) );
+
+        cancelBtn.on('click', function(){
+            addStream.goto('hide-input');
+        });
+
+        input.on('keypress', function(e){
+            if ( e.keyCode === 13 ) {
+                addStream.goto('send');
+            }
+        });
+
+    })();
 
 
 });

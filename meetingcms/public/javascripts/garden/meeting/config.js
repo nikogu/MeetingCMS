@@ -24,6 +24,15 @@ seajs.config({
     'socket.io': {
       src: 'lib/socket.io.min.js',
       exports: 'io'
+    },
+    'jquery.ui': {
+      src: 'lib/jquery-ui-1.10.2.custom.min.js',
+      deps: ['jquery']
+    },
+    'jquery.timepick': {
+      src: 'lib/jquery.timepick.js',
+      deps: ['jquery', 'jquery.ui']
     }
+
   }
 });
