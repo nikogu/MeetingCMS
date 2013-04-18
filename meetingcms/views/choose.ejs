@@ -1,0 +1,34 @@
+<section id="page-choose" class="wrapper">
+
+	<a id="public-mt" class="btn-choose" href="#public">发布会议</a>
+	<a id="join-mt" class="btn-choose" href="/square">参加会议</a>
+	<span id="or-mt">OR</span>
+
+	<section id="public-meeting-box">
+		<h3 class="title">发布会议</h3>
+		<span class="close icon-close"></span>
+		<form id="public-meeting-form" action="/addnewmeeting" method="post">
+			<p class="input-filed">
+				<label class="icon-newspaper"></label><input data-verify="null illegal" placeholder="会议名称" type="text" name="name" />
+			</p>
+			<p class="input-filed">
+				<label class="icon-office"></label><input data-verify="null" placeholder="会议地点" type="text" name="address" />
+			</p>
+			<p class="input-filed">
+				<label class="icon-calendar"></label>
+				<input id="public-meeting-dateb" data-verify="null" placeholder="会议开始时间" type="text" name="dateb" />
+			</p>
+			<p class="input-filed">
+				<label class="icon-calendar"></label>
+				<input id="public-meeting-datee" data-verify="null" placeholder="会议结束时间" type="text" name="datee" />
+			</p>
+			<p class="textarea-filed">
+				<label class="icon-quill"></label><textarea data-verify="null" placeholder="会议信息" type="text" name="info" ></textarea>
+			</p>
+			<p class="submit-filed">
+				<a class="btn-submit btn-login" href="#public">发布</a>
+			</p>
+		</form>
+	</section>
+
+</section>

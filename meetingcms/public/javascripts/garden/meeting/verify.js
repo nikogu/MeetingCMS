@@ -19,6 +19,12 @@ define(function(require, exports, module) {
                 };
             break;
 
+            case 'illegal':
+                return {
+                    ok: !(/[\s%^&#$\/\\]+/ig.test(value)),
+                    msg: '字符非法'
+                };
+
             case 'null':
                 return {
                     ok: !!(value.replace(/\s*/ig, '').length > 0),

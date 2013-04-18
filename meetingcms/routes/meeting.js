@@ -15,8 +15,30 @@ exports.list = function(req, res) {
 			list: list
 		}
 		res.send(data);
-	});	
+	});
 };
+
+//广场
+exports.square = function(req, res) {
+
+	var Meeting = require('../models/meeting');
+
+	var begin = req.query.begin || 0;
+	var num = req.query.num || 10;
+
+	var user = req.session.user;
+
+	var Meeting = require('../models/meeting');
+	var meetinglist = Meeting.list(begin, num, function(err, list, sum) {
+		var data = {
+			sum: sum,
+			list: list
+		}
+		res.render('square', { title:"会议通", isLogin: true, meetings: data, user: user});
+		//res.send(data);
+	});
+
+}
 
 //获取会议详细信息-封装用户信息！
 exports.getDep = function(req, res) {

@@ -74,7 +74,10 @@ define(function(require, exports, module) {
                 } else {
                     temp = Verify(type[i], node.val());
                 }
-                isOk = temp.ok ? undefined : temp; 
+                if ( !temp.ok ) {
+                    isOk = temp; 
+                    break;
+                }
             }
 
             return isOk;

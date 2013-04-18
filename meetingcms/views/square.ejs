@@ -1,0 +1,86 @@
+<section id="page-square" class="wrapper">
+
+	<% var list = meetings.list; %>
+	<% if ( list.length > 0 ) { %>
+	<ul class="meetings-list">
+		<% for ( var i=0; i<list.length; i++) { %>	
+		<li class="meetings-item" data-id="<%= list[i]._id %>" data-name="<%= list[i].name %>">
+			<div class="meta">
+				<p class="name"><%= list[i].name %></p>		
+				<ul class="meta-list">
+					<li class="meta-item">
+						<p class="key"><span class="icon-office"></span>会议地点</p>
+						<p class="value"><%= list[i].address %></p>
+					</li>
+					<li class="meta-item">
+						<p class="key"><span class="icon-calendar"></span>起始日期</p>
+						<p class="value"><%= list[i].date_b %></p>
+					</li>
+					<li class="meta-item">
+						<p class="key"><span class="icon-calendar"></span>结束日期</p>
+						<p class="value"><%= list[i].date_e %></p>
+					</li>
+				</ul>
+			</div>
+			<div class="info">
+				<p class="key"><span class="icon-bubble-2"></span>会议信息</p>
+				<p class="value"><%= list[i].info %></p>
+			</div>
+			<a class="show-user" href="#look">看看谁参加了</a>
+			<% var inMeeting = false %>
+			<% 
+				for ( var j=0; j<list[i].leaders.length; j++ ) { 
+					if ( list[j].leaders[j] == user.email ) {
+						inMeeting = true;
+						break;
+					} 
+				}
+				for ( var j=0; j<list[i].users.length; j++ ) {
+					if ( list[j].users[j] == user.email ) {
+						inMeeting = true;
+						break;
+					}
+				}
+			%>
+			<% if (inMeeting) { %>
+			<a class="in-meeting" href="#join">已参加</a>
+			<% } else { %>
+			<a class="join-meeting" href="#al-join">参加</a>
+			<% } %>
+		</li>
+		<% } %>
+	</ul>
+	<% } %>	
+</section>
+<script id="meeting-user-tpl" type="text/template">
+	<div class="meeting-user">
+		<div class="leaders-wrap">
+			<h3 class="title">申请者</h3>
+			<ul class="user-list role-leader">
+			{{if leaders.length>0 }}
+				{{each leaders}}
+				<li class="user-item">
+					<p class="value"><span class="icon-confused"></span>${$value.name} - ${$value.email}</p>
+				</li>
+				{{/each}}
+			{{else}}
+				<li class="no-user-item">还没有人</li>
+			{{/if}}
+			</ul>
+		</div>
+		<div class="users-wrap">
+			<h3 class="title">参与者</h3>
+			<ul class="user-list role-user">
+			{{if users.length>0 }}
+				{{each users}}
+				<li class="user-item">
+					<p class="value"><span class="icon-confused"></span>${$value.name} - ${$value.email}</p>
+				</li>
+				{{/each}}
+			{{else}}
+				<li class="no-user-item">还没有人</li>
+			{{/if}}
+			</ul>
+		</div>
+	</div>
+</script>

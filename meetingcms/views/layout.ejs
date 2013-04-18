@@ -12,6 +12,24 @@
             <p class="info">——带给您方便快捷的会议管理解决方案<span class="icon-checkmark"></span></p>
         </header><!-- end of header -->
 
+        <% if ( isLogin ) { %>
+        <nav id="menu">
+            <ul class="list">
+                <li class="item">
+                    <a class="public" href="/"><span class="icon-bullhorn"></span>去发布</a>
+                </li>
+                <li class="item">
+                    <a class="square" href="/square"><span class="icon-binoculars"></span>去广场</a>
+                </li>
+                <li class="item">
+                    <a class="person" href="/person"><span class="icon-user-3"></span>个人主页</a>
+                </li>
+            </ul>
+        </nav>
+
+
+        <% } %>
+
         <%- body %>
 
         <footer id="footer" class="wrapper">

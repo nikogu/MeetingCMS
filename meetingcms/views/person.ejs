@@ -81,6 +81,7 @@
 	</section>
 	<section id="meeting-info">
 		<h3 class="first-title">会议信息</h3>
+		<!--
 		<div id="add-meeting">
 			<p class="input-wrap">
 				<input id="add-meeting-input" type="text" placeholder="请输入会议姓名">
@@ -88,6 +89,7 @@
 			</p>
 			<a class="btn-add" href="#add-mt" data-email="<%= user.email %>">申请新会议</a>
 		</div>
+		-->
 		<% 
 			var meetingUser = [];
 			var meetingLeader = [];
@@ -96,7 +98,7 @@
 				for ( var i=0; i<user.meetings.length; i++ ) { 
 					if ( user.meetings[i].role == 'users' ) {
 						meetingUser.push( user.meetings[i] );
-					} else {
+					} else if ( user.meetings[i].role == 'leaders' ) {
 						meetingLeader.push( user.meetings[i] );
 					}
 				}

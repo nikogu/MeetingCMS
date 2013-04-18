@@ -121,9 +121,12 @@ app.post('/meetinggetbyname', meeting.getByName);
 * 路由状态转换 前台 
 */
 app.get('/', routes.index);
+app.get('/logout', user.logout);
+app.get('/person', user.person);
+app.get('/square', meeting.square);
+
 app.post('/reg', user.doReg);
 app.post('/login', user.doLogin);
-app.get('/logout', user.logout);
 app.post('/getmeeting', meeting.getDep);
 app.post('/addnewmeeting', user.addNewMeeting);
 

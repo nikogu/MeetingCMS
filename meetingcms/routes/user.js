@@ -31,6 +31,41 @@ exports.logout = function(req, res) {
 	res.redirect('/');
 };
 
+/* ger person */
+exports.person = function(req, res) {
+	var User = require('../models/user');
+
+	if ( req.session.user ) {
+
+		var user = req.session.user;
+		var email = req.session.user.email;
+		var myUser = {};
+
+		if ( !email ) {
+			res.redirect('/login');
+			return;
+		}
+
+		User.get(email, function(err, user) {
+
+			myUser = user;
+
+			var data = {
+				title: '会议通',
+				layout: 'layout',
+				user: myUser,
+				isLogin: true
+			};
+
+			res.render('person', data);
+
+		});
+
+	} else {
+		res.redirect('/login');
+	}
+}
+
 /* post login */
 exports.doLogin = function(req, res) {
 
@@ -325,8 +360,12 @@ exports.addNewMeeting = function(req, res) {
 	var Meeting = require('../models/meeting');
 	var Verify = require('../models/verify');
 	
-	var email = req.body.email;	
+	var email = req.body.email || req.session.user.email;	
 	var mName = req.body.name;
+	var date_b = req.body.dateb;
+	var date_e = req.body.datee;
+	var address = req.body.address;
+	var info = req.body.info;
 
 	var result = {
 		'success': true,
@@ -344,12 +383,12 @@ exports.addNewMeeting = function(req, res) {
 
 	var meeting = new Meeting({
 		name : mName || '未命名',
-		date_b : '',
-		date_e : '',
-		address : '',
+		date_b : date_b || '',
+		date_e : date_e || '',
+		address : address || '',
 		leaders : [],
 		users : [],
-		info : ''
+		info : info || ''
 	});
 
 	meeting.save(function(err, meeting) {
@@ -393,7 +432,7 @@ exports.addMeeting = function(req, res) {
 	var User = require('../models/user');
 	var Meeting = require('../models/meeting');
 
-	var email = req.body.email,
+	var email = req.body.email || req.session.user.email,
 		id = req.body.meetingid,
 		name = req.body.meetingname,
 		role = req.body.meetingrole;
@@ -403,6 +442,8 @@ exports.addMeeting = function(req, res) {
 	meeting['id'] = id;
 	meeting['name'] = name;
 	meeting['email'] = email;
+
+	console.log(meeting);
 
 	User.addMeeting(email, meeting, function(err) {
 

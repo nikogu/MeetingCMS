@@ -24,4 +24,14 @@ define(function(require) {
 	*/
 	require('./page-personal');
 
+	/*
+	* 选择页面(入口页面)
+	*/
+	require('./page-choose');
+
+	/*
+	* 广场页面
+	*/
+	require('./page-square');
+
 });

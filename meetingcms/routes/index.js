@@ -14,7 +14,7 @@ exports.index = function(req, res) {
 		var myUser = {};
 
 		if ( !email ) {
-			res.render('login', { title: '会议通', layout: 'layout' });
+			res.render('login', { title: '会议通', layout: 'layout', isLogin: true });
 			return;
 		}
 
@@ -25,14 +25,15 @@ exports.index = function(req, res) {
 			var data = {
 				title: '会议通',
 				layout: 'layout',
-				user: myUser
+				user: myUser,
+				isLogin: true
 			};
 
-			res.render('person', data);
+			res.render('choose', data);
 
 		});
 
 	} else {
-		res.render('login', { title: '会议通', layout: 'layout' });
+		res.render('login', { title: '会议通', layout: 'layout', isLogin: false });
 	}
 };
