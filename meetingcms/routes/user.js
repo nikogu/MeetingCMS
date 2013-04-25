@@ -54,7 +54,8 @@ exports.person = function(req, res) {
 				title: '会议通',
 				layout: 'layout',
 				user: myUser,
-				isLogin: true
+				isLogin: true,
+				email: email
 			};
 
 			res.render('person', data);
@@ -176,7 +177,7 @@ exports.doReg = function(req, res) {
 		return;
 	}
 
-	if ( !verify('isNull', req.body.username) ) {
+	if ( verify('isNull', req.body.username) ) {
 		result.success = false;
 		result.info = '用户名不正确';
 		result.data.field = 'username';
@@ -315,7 +316,7 @@ exports.addUser = function(req, res) {
 		return;
 	}
 
-	if ( !verify('isNull', req.body.username) ) {
+	if ( verify('isNull', req.body.username) ) {
 		result.success = false;
 		result.info = '用户名不正确';
 		result.data.field = 'username';
@@ -355,10 +356,11 @@ exports.addUser = function(req, res) {
 };
 
 /* add new meeting */
-exports.addNewMeeting = function(req, res) {
+exports.addNewMeeting = function(req, res, io) {
 	var User = require('../models/user');
 	var Meeting = require('../models/meeting');
 	var Verify = require('../models/verify');
+
 	
 	var email = req.body.email || req.session.user.email;	
 	var mName = req.body.name;
@@ -417,6 +419,20 @@ exports.addNewMeeting = function(req, res) {
 					result.data = meeting;
 				}
 
+				(function(ws){
+
+
+					if ( !ws._e ) {
+						ws._e = {};
+					}
+					ws._e['addNewMeeting'] = function(socket) {
+						console.log('trigger add-new-meeting');	
+	  					socket.broadcast.emit('addNewMeeting', {msg: '有新会议', data: meeting} );
+					}
+					ws.emit('addNewMeeting');
+
+				})(global._ws);
+
 				res.send(result);
 			
 			});
@@ -442,8 +458,6 @@ exports.addMeeting = function(req, res) {
 	meeting['id'] = id;
 	meeting['name'] = name;
 	meeting['email'] = email;
-
-	console.log(meeting);
 
 	User.addMeeting(email, meeting, function(err) {
 
@@ -547,6 +561,7 @@ exports.updateUser = function(req, res) {
 			result.success = false;
 			result.info = err;
 			res.send(result);
+
 			return;
 		}
 

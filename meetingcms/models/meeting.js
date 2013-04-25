@@ -9,6 +9,7 @@ function Meeting( meeting ) {
 	this.name = meeting.name;
 	this.date_b = meeting.date_b;
 	this.date_e = meeting.date_e;
+	this.date = meeting.date;
 	this.address = meeting.address;
 	this.leaders = meeting.leaders;
 	this.users = meeting.users;

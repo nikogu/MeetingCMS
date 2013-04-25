@@ -6,7 +6,6 @@
 exports.index = function(req, res) {
 	var User = require('../models/user');
 
-
 	if ( req.session.user ) {
 
 		var user = req.session.user;
@@ -14,7 +13,7 @@ exports.index = function(req, res) {
 		var myUser = {};
 
 		if ( !email ) {
-			res.render('login', { title: '会议通', layout: 'layout', isLogin: true });
+			res.render('login', { title: '会议通', layout: 'layout', isLogin: true, email: email });
 			return;
 		}
 
@@ -26,7 +25,8 @@ exports.index = function(req, res) {
 				title: '会议通',
 				layout: 'layout',
 				user: myUser,
-				isLogin: true
+				isLogin: true,
+				email: email
 			};
 
 			res.render('choose', data);

@@ -13,7 +13,7 @@
         </header><!-- end of header -->
 
         <% if ( isLogin ) { %>
-        <nav id="menu">
+        <nav id="menu" data-email="<%= email %>">
             <ul class="list">
                 <li class="item">
                     <a class="public" href="/"><span class="icon-bullhorn"></span>去发布</a>
@@ -27,7 +27,6 @@
             </ul>
         </nav>
 
-
         <% } %>
 
         <%- body %>
@@ -35,6 +34,10 @@
         <footer id="footer" class="wrapper">
             <p class="copyright">MeetingAPP &copy; Power By Niko -2013 <span class="icon-html5-2"></span><span class="icon-css3"></span></p>
         </footer>
+
+        <div id="info-box">
+            <a class="btn-cancel" href="#cancel">取消</a>
+        </div>
 
         <script src="/javascripts/garden/seajs/sea.js" data-config="meeting/config.js" data-main="meeting/main.js"></script>
     </body>

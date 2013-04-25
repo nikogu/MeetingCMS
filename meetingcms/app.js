@@ -11,8 +11,9 @@
         admin     = require('./routes/admin'),
         http      = require('http'),
         path      = require('path'),
-        util      = require('util');
-
+        util      = require('util'),
+        events    = require('events')
+        EventEmitter = events.EventEmitter;
 
 var MongoStore = require('connect-mongo')(express);
 var settings   = require('./settings');
@@ -75,6 +76,61 @@ app.configure('development', function(){
     app.use(express.errorHandler());
 });
 
+/* web socket */
+var MyEvent = function(){
+    events.EventEmitter.call(this);
+};
+util.inherits(MyEvent, EventEmitter);
+
+global._ws = new MyEvent();
+global._ws._e = {};
+
+var _once = false;
+
+io.sockets.on('connection', function (socket) {
+
+    if ( !_once ) {
+        _once = true;
+
+        (function(ws, socket){
+
+            //会议添加用户
+            ws.on('meetingAddUser', function() {
+                console.log('meeting-add-user');
+                if ( ws._e['meetingAddUser'] ) {
+                    ws._e['meetingAddUser'](socket);
+                } 
+            });
+
+            //会议删除用户
+            ws.on('meetingDelUser', function() {
+                console.log('meeting-del-user');
+                if ( ws._e['meetingDelUser'] ) {
+                    ws._e['meetingDelUser'](socket);
+                } 
+            });
+
+            //会议更新
+            ws.on('updateMeeting', function() {
+                console.log('update-meeting');
+                if ( ws._e['updateMeeting'] ) {
+                    ws._e['updateMeeting'](socket);
+                } 
+            });
+
+            //新建会议
+            ws.on('addNewMeeting', function() {
+                if ( ws._e['addNewMeeting'] ) {
+                    ws._e['addNewMeeting'](socket);
+                } 
+            });
+
+        })(global._ws, socket);
+    }
+
+});
+
+
 /* 
 * 路由状态转换 后台
 */
@@ -111,8 +167,12 @@ app.post('/meetingdeleteall', meeting.deleteAllMeetings);
 app.post('/meetingupdate', function(req, res){
     meeting.updateMeeting(req, res, io);
 });
-app.post('/meetingaddusers', meeting.addMeetingUsers);
-app.post('/meetingdelusers', meeting.delMeetingUsers);
+app.post('/meetingaddusers', function(req, res) {
+    meeting.addMeetingUsers(req, res); 
+});
+app.post('/meetingdelusers', function(req, res) {
+    meeting.delMeetingUsers(req, res, io);
+});
 app.post('/meetinggetbyuser', meeting.getByUser);
 app.post('/meetinggetbyname', meeting.getByName);
 
@@ -128,7 +188,9 @@ app.get('/square', meeting.square);
 app.post('/reg', user.doReg);
 app.post('/login', user.doLogin);
 app.post('/getmeeting', meeting.getDep);
-app.post('/addnewmeeting', user.addNewMeeting);
+app.post('/addnewmeeting', function(req, res){
+    user.addNewMeeting(req, res, io);    
+});
 
 //启动服务
 http.createServer(app).listen(app.get('port'), function(){

@@ -24,18 +24,22 @@ exports.square = function(req, res) {
 	var Meeting = require('../models/meeting');
 
 	var begin = req.query.begin || 0;
-	var num = req.query.num || 10;
+	var num = 20;
 
 	var user = req.session.user;
 
-	var Meeting = require('../models/meeting');
+	if ( !user ) {
+		res.redirect('/login');
+	}
+
 	var meetinglist = Meeting.list(begin, num, function(err, list, sum) {
 		var data = {
 			sum: sum,
 			list: list
 		}
-		res.render('square', { title:"会议通", isLogin: true, meetings: data, user: user});
-		//res.send(data);
+
+		console.log(data.list);
+		res.render('square', { title:"会议通", isLogin: true, email: user.email, meetings: data, user: user, sum: sum, beginNum: begin});
 	});
 
 }
@@ -63,6 +67,19 @@ exports.getDep = function(req, res) {
 		if ( err ) {
 			result.success = false;
 			result.info = err;
+		}
+		if ( !meeting ) {
+			result.success = false;
+			result.info = '此会议已被管理员删除';
+			var mt = {
+				id: id,
+				role: 'users'
+			}
+			User.delMeeting(req.session.user.email, mt, function(){	
+				res.send(result);
+			});
+
+			return;
 		}
 
 		//搜索leaders
@@ -276,11 +293,17 @@ exports.updateMeeting = function(req, res, io) {
 			result.info = '更新会议成功';
 			result.data = { "flag" : updateValue };
 
-			/*
-			io.sockets.on('connection', function (socket) {
-  				socket.emit('updateMeeting', { data: {msg: '会议有更新'} });
-			});
-			*/
+			(function(ws){
+
+				if ( !ws._e ) {
+					ws._e = {};
+				}
+				ws._e['updateMeeting'] = function(socket) {
+	  				socket.broadcast.emit('updateMeeting', {msg: '会议有更新', data: meeting } );
+				}
+				ws.emit('updateMeeting');
+
+			})(global._ws);
 
 			res.send(result);
 		});
@@ -331,6 +354,19 @@ exports.addMeetingUsers = function(req, res) {
 			result.info = '添加人员成功';
 			result.data = {"name" : username, "email": email, "id": id, "role": role, 'meeting': name};
 
+			(function(ws){
+
+				if ( !ws._e ) {
+					ws._e = {};
+				}
+				ws._e['meetingAddUser'] = function(socket) {
+	  				socket.broadcast.emit('meetingAddUser', {msg: '有邀请', data: { meeting: meeting, email: email } } );
+				}
+				ws.emit('meetingAddUser');
+
+			})(global._ws);
+			
+
 			res.send(result);
 
 		}); 
@@ -377,6 +413,20 @@ exports.delMeetingUsers = function(req, res) {
 			result.success = true;
 			result.info = '删除会议成功';
 			result.data = {"name" : name, "email": email, "id": id, "role": role};
+
+			/*
+			(function(ws){
+
+				if ( !ws._e ) {
+					ws._e = {};
+				}
+				ws._e['meetingDelUser'] = function(socket) {
+	  				socket.broadcast.emit('meetingDelUser', {msg: '申请者请您退出会议', data: { meeting: meeting, email: email } } );
+				}
+				ws.emit('meetingDelUser');
+
+			})(global._ws);
+			*/
 
 			res.send(result);
 

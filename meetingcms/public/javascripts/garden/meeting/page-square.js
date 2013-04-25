@@ -12,6 +12,35 @@ define(function(require, exports, module) {
 
     var StateMachine = require('./stateMachine');
 
+    //显示会议类别
+    $('.show-all').on('click', function() {
+        $('.op-active').removeClass('op-active');
+        $(this).addClass('op-active');
+
+        $('.meetings-item').show();
+    });
+    $('.show-joined').on('click', function() {
+        $('.op-active').removeClass('op-active');
+        $(this).addClass('op-active');
+
+        $('.meetings-item').hide();
+        $('.join-meeting').closest('.meetings-item').show();
+    });
+    $('.show-unjoin').on('click', function() {
+        $('.op-active').removeClass('op-active');
+        $(this).addClass('op-active');
+
+        $('.meetings-item').hide();
+        $('.in-meeting').closest('.meetings-item').show();
+    });
+    $('.show-unexpire').on('click', function() {
+        $('.op-active').removeClass('op-active');
+        $(this).addClass('op-active');
+
+        $('.meetings-item').show();
+        $('.expire-meeting').closest('.meetings-item').hide();
+    });
+
     //会议元素模型
     var MeetingItem = Backbone.Model.extend({
     });
@@ -27,6 +56,14 @@ define(function(require, exports, module) {
             this.model.name = this.$el.attr('data-name');
             this.model.role = this.$el.attr('data-role');
             this.model.tpl = $('#meeting-user-tpl');
+
+            //判断是否过期
+            var dateEnd = this.$el.find('.meta-date-end').find('.value').text();
+            if ( (new Date(dateEnd)).getTime() - (new Date()).getTime() <= 0) {
+                this.$el.addClass('expire');
+                this.$el.find('.join-meeting, .in-meeting').addClass('expire-meeting').removeClass('join-meeting').text('已过期');
+
+            }
 
             //用户控制状态机
             this.model.userState = new StateMachine({
@@ -112,10 +149,35 @@ define(function(require, exports, module) {
             this.$el.find('.meetings-item').each(function(index, item) {
                 var item = new MeetingView({el: item, model: new MeetingItem()});
             });
+        },
+        addNew: function( data ) {
+
+            var view = $.tmpl($('#meeting-item-tpl').html(), data);
+
+            var item = new MeetingView({el: view, model: new MeetingItem()});
+            this.$el.prepend(item.el);
+            item.$el.addClass('new-meeting');
+
         }
     });
 
     var meetingListView = new MeetingListView();
+
+    //webscocket
+    window._iInfo.socket.on('addNewMeeting', function (data) {
+        console.log('add-new-meeting-client');
+
+        window._iInfo.add('有新会议哦', function(){
+            if ( /square/ig.test(location.href) ) {
+                meetingListView.addNew(data.data[0]);
+            } else {
+                location.href = '/square';
+            }
+        });
+        window._iInfo.show();
+
+    });
+
 
 });
 

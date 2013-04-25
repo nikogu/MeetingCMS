@@ -193,6 +193,10 @@ table {
 /* background */
 /* border */
 /* animate */
+/*
+-webkit-animation: markBlink .5s infinite ease-in;
+animation: markBlink .5s infinite ease-in; 
+*/
 @-webkit-keyframes markBlink {
   0% {
     color: #e95e3f;
@@ -207,6 +211,28 @@ table {
   }
   100% {
     color: #e32332;
+  }
+}
+@-webkit-keyframes borderBlink {
+  0% {
+    border: 1px solid #dddddd;
+  }
+  50% {
+    border: 1px solid #e95e3f;
+  }
+  100% {
+    border: 1px solid #e32332;
+  }
+}
+@keyframes borderBlink {
+  0% {
+    border: 1px solid #dddddd;
+  }
+  50% {
+    border: 1px solid #e95e3f;
+  }
+  100% {
+    border: 1px solid #e32332;
   }
 }
 /* font */
@@ -300,6 +326,60 @@ a {
   position: absolute;
   top: 0;
   left: 0;
+}
+/* info */
+#info-box {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: #ffffff;
+  border-bottom: 1px dashed #ffd62c;
+  border-left: 1px dashed #ffd62c;
+  border-right: 1px dashed #ffd62c;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  padding: 10px 10px 40px 10px;
+  position: fixed;
+  top: -445px;
+  left: 50%;
+  margin-left: -100px;
+  max-height: 400px;
+  width: 200px;
+}
+#info-box .info-item {
+  background-color: #fffff0;
+  border: 1px dashed #ffd62c;
+  display: block;
+  position: relative;
+  padding: 5px 55px 5px 5px;
+  margin-bottom: 5px;
+}
+#info-box .info-item .value {
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+}
+#info-box .info-item .btn-ok {
+  background-color: #60b044;
+  border-radius: 3px;
+  color: #ffffff;
+  cursor: pointer;
+  position: absolute;
+  padding: 1px 5px;
+  right: 5px;
+  bottom: 5px;
+}
+#info-box .info-item .btn-ok:hover {
+  opacity: 0.9;
+}
+#info-box .btn-cancel {
+  color: #e95e3f;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  text-decoration: underline;
 }
 /* hearder */
 #header {
@@ -1019,7 +1099,8 @@ a {
 #meeting-info .meeting-user {
   padding: 30px 0;
 }
-#meeting-info .meeting-user .update {
+#meeting-info .meeting-user .update,
+#meeting-info .meeting-user .update-date {
   display: none;
   visibility: hidden;
   position: absolute;
@@ -1296,8 +1377,8 @@ a {
   display: inline-block;
   font-size: 13px;
   padding: 9px 4px;
-  min-height: 100px;
-  width: 200px;
+  min-height: 150px;
+  width: 300px;
 }
 #public-meeting-form .textarea-filed textarea:focus {
   background-color: #fffff0;
@@ -1331,8 +1412,47 @@ a {
   top: 1px;
 }
 /* page-square */
+#op-square {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 250px;
+}
+#op-square .op-item {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  background-color: #ffffff;
+  border: 1px dashed #dddddd;
+  color: #999999;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 9px;
+  margin-bottom: 5px;
+}
+#op-square .op-item:hover {
+  color: #454545;
+}
+#op-square .op-active {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4) inset;
+  cursor: default;
+}
+#op-square .op-active:hover {
+  color: #999999;
+}
+#page-square {
+  position: relative;
+  /* end of meeting list */
+
+  /* navigator */
+
+}
 #page-square .meetings-list {
   text-align: center;
+  min-height: 400px;
   /* end of item */
 
 }
@@ -1385,7 +1505,8 @@ a {
 #page-square .meetings-list .meetings-item .join-meeting:hover {
   opacity: 0.9;
 }
-#page-square .meetings-list .meetings-item .in-meeting {
+#page-square .meetings-list .meetings-item .in-meeting,
+#page-square .meetings-list .meetings-item .expire-meeting {
   background-image: -moz-linear-gradient(bottom, #cccccc, #dddddd);
   background-image: -webkit-gradient(linear, left top, left bottom, from(#dddddd), to(#cccccc));
   background-image: -ms-linear-gradient(to bottom, #dddddd, #cccccc);
@@ -1500,4 +1621,36 @@ a {
 }
 #page-square .meetings-list .meetings-item .show-meeting-user {
   width: 250px;
+}
+#page-square .meetings-list .expire {
+  background-color: #eeeeee;
+  box-shadow: none;
+}
+#page-square .meetings-list .new-meeting {
+  -webkit-animation: borderBlink 5s 1 ease-in;
+  animation: borderBlink 5s 1 ease-in;
+}
+#page-square .navigator {
+  display: block;
+  margin: 0 auto;
+  width: 560px;
+  text-align: center;
+}
+#page-square .navigator .item {
+  display: inline-block;
+}
+#page-square .navigator .item a {
+  background-color: #f8f8f8;
+  border: 1px dashed #dddddd;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 4px 9px;
+  font-size: #999999;
+}
+#page-square .navigator .item a:hover {
+  background-color: #ffffff;
+}
+#page-square .navigator .current a {
+  border: 1px solid #dddddd;
+  background-color: #ffffff;
 }

@@ -179,8 +179,6 @@ define(function(require, exports, module) {
 			send.name = this.model.name;
 			send.username = target.attr('data-username');
 
-			console.log(send);
-
     		$.ajax({
     			url: '/meetingaddusers',
     			type: 'post',
@@ -197,7 +195,8 @@ define(function(require, exports, module) {
                         tpl += '<p class="value"><span class="icon-mail"></span>${email}</p>';
                         tpl += '<span data-email="${email}" class="remove icon-cancel-circle" title="删除用户"></span>';
                         tpl += '</li>';
-
+                         
+                        listWrap.find('.no-item').remove();
                         listWrap.find('.user-list').append($.tmpl(tpl, data.data));
 
     				} else {

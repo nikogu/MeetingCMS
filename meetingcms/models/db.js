@@ -1,6 +1,7 @@
 var settings   = require('../settings');
-var Db         = require('mongodb').Db;
-var Connection = require('mongodb').Connection;
-var Server     = require('mongodb').Server;
+var mongodb    = require('mongodb');
+var Db         = mongodb.Db;
+var Connection = mongodb.Connection;
+var Server     = mongodb.Server;
 
-module.exports = new Db(settings.db, new Server(settings.host, Connection.DEFAULT_PORT, {} ));
+module.exports = new Db(settings.db, new Server(settings.host, Connection.DEFAULT_PORT, {} ), {w: 1});

@@ -1,5 +1,12 @@
 <section id="page-square" class="wrapper">
 
+	<section id="op-square">
+		<a class="op-item show-all op-active">显示全部</a>
+		<a class="op-item show-joined">显示未参加</a>
+		<a class="op-item show-unjoin">显示已参加</a>
+		<a class="op-item show-unexpire">除去已过期</a>
+	</section>
+
 	<% var list = meetings.list; %>
 	<% if ( list.length > 0 ) { %>
 	<ul class="meetings-list">
@@ -16,7 +23,7 @@
 						<p class="key"><span class="icon-calendar"></span>起始日期</p>
 						<p class="value"><%= list[i].date_b %></p>
 					</li>
-					<li class="meta-item">
+					<li class="meta-item meta-date-end">
 						<p class="key"><span class="icon-calendar"></span>结束日期</p>
 						<p class="value"><%= list[i].date_e %></p>
 					</li>
@@ -30,13 +37,13 @@
 			<% var inMeeting = false %>
 			<% 
 				for ( var j=0; j<list[i].leaders.length; j++ ) { 
-					if ( list[j].leaders[j] == user.email ) {
+					if ( list[i] && (list[i].leaders[j] == user.email) ) {
 						inMeeting = true;
 						break;
 					} 
 				}
 				for ( var j=0; j<list[i].users.length; j++ ) {
-					if ( list[j].users[j] == user.email ) {
+					if ( list[i] && (list[i].users[j] == user.email) ) {
 						inMeeting = true;
 						break;
 					}
@@ -51,6 +58,19 @@
 		<% } %>
 	</ul>
 	<% } %>	
+
+	<ul class="navigator">
+		<% var pageNum = Math.ceil(sum/20) %>
+		<% var beginNum = beginNum %>
+		<% for (var i=0; i<pageNum; i++) { %>
+			<% if ( beginNum == i%20 ) { %>
+			<li class="item current"><a href="/square?begin=<%= i*10 %>"><%= i+1 %></a></li>
+			<% } else { %>
+			<li class="item"><a href="/square?begin=<%= i*10 %>"><%= i+1 %></a></li>
+			<% } %>
+		<% } %>
+	</ul>
+
 </section>
 <script id="meeting-user-tpl" type="text/template">
 	<div class="meeting-user">
@@ -83,4 +103,32 @@
 			</ul>
 		</div>
 	</div>
+</script>
+
+<script id="meeting-item-tpl" type="text/template">
+	<li class="meetings-item" data-id="${_id}" data-name="${name}">
+		<div class="meta">
+			<p class="name">${name}</p>		
+			<ul class="meta-list">
+				<li class="meta-item">
+					<p class="key"><span class="icon-office"></span>会议地点</p>
+					<p class="value">${address}</p>
+				</li>
+				<li class="meta-item">
+					<p class="key"><span class="icon-calendar"></span>起始日期</p>
+					<p class="value">${date_b}</p>
+				</li>
+				<li class="meta-item">
+					<p class="key"><span class="icon-calendar"></span>结束日期</p>
+					<p class="value">${date_e}</p>
+				</li>
+			</ul>
+		</div>
+		<div class="info">
+			<p class="key"><span class="icon-bubble-2"></span>会议信息</p>
+			<p class="value">${info}</p>
+		</div>
+		<a class="show-user" href="#look">看看谁参加了</a>
+		<a class="join-meeting" href="#al-join">参加</a>
+		</li>	
 </script>

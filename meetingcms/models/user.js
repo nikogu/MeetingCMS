@@ -25,6 +25,7 @@ User.prototype.save = function( callback ) {
 	}
 
 	mongodb.open(function(err, db) {
+		
 		if ( err ) {
 			return callback(err);
 		}
@@ -37,7 +38,7 @@ User.prototype.save = function( callback ) {
 			}
 
 			//为 name 属性添加索引
-			collection.ensureIndex({'email': 1}, { uniqure: true });
+			collection.ensureIndex({'email': 1}, { uniqure: true }, {w: 0});
 
 			//写入 user 文档
 			collection.insert(user, {safe: true}, function(err, user) {
@@ -119,6 +120,7 @@ User.delMeeting = function( email, meeting, callback) {
 				return callback(err);
 			}
 
+			console.log(meeting);
 			collection.update({ email: email }, { "$pull": {"meetings": {"id": meeting['id'], "role": meeting['role']} }}, function(err) {
 
 				mongodb.close();

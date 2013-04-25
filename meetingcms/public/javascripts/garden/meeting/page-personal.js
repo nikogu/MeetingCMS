@@ -138,6 +138,8 @@ define(function(require, exports, module) {
 
                 } else {
 
+                    alert( data.info || '出错了');
+
                 }//end if
 
             }

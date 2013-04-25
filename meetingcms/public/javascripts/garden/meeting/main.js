@@ -11,8 +11,14 @@ define(function(require) {
 	//全局变量存储空间
 	window._NIKO = {};
 
+
 	var $ = require('jquery');
 	require('jquery.tmpl');
+
+	/*
+	* 消息系统
+	*/
+	require('./info');
 
 	/*
     *注册登陆
